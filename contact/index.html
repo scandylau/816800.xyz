@@ -67,8 +67,8 @@
           <textarea id="cMsg" name="message" data-zh-ph="想说的都写在这里…" data-en-ph="Write whatever you'd like to say…" placeholder="想说的都写在这里…" required></textarea>
         </div>
         <button class="btn btn-primary" type="submit" data-zh="发送邮件" data-en="Send Email">发送邮件</button>
-        <p class="form-note" data-zh="提交后将打开你的默认邮件客户端，收件人为 hi@816800.xyz。若未自动打开，请手动发信至该地址。"
-           data-en="Submitting opens your default mail client, addressed to hi@816800.xyz. If it doesn't open automatically, please email that address manually.">提交后将打开你的默认邮件客户端，收件人为 hi@816800.xyz。若未自动打开，请手动发信至该地址。</p>
+        <p class="form-note" data-zh="提交后将打开你的默认邮件客户端，收件人为 admin@816800.xyz。若未自动打开，请手动发信至该地址。"
+           data-en="Submitting opens your default mail client, addressed to admin@816800.xyz. If it doesn't open automatically, please email that address manually.">提交后将打开你的默认邮件客户端，收件人为 admin@816800.xyz。若未自动打开，请手动发信至该地址。</p>
       </form>
     </div>
   </main>
@@ -104,7 +104,7 @@
             ? "Name: " + name + "\nEmail: " + email + "\n\n" + msg + "\n\n(From the 816800.xyz contact page)"
             : "称呼：" + name + "\n邮箱：" + email + "\n\n" + msg + "\n\n（来自 816800.xyz 联系页）"
         );
-        window.location.href = "mailto:hi@816800.xyz?subject=" + subject + "&body=" + body;
+        window.location.href = "mailto:admin@816800.xyz?subject=" + subject + "&body=" + body;
       });
     })();
   </script>
