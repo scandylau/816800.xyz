@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>什么是 HLS？为什么浏览器不能直接播 m3u8 · 816800 博客</title>
+  <meta name="description" content="HLS 是 Apple 的自适应流媒体协议。讲清 m3u8 清单、.ts 分片与播放器如何用 hls.js 把索引“翻译”成可播放流，以及它和 DASH 的关系。" />
+  <meta name="keywords" content="什么是 HLS, HLS 协议, m3u8 原理, 浏览器不能播 m3u8, hls.js, 自适应流媒体" />
+  <meta name="author" content="816800.xyz" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/blog/what-is-hls/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="什么是 HLS？为什么浏览器不能直接播 m3u8" />
+  <meta property="og:description" content="HLS 是 Apple 的自适应流媒体协议。讲清 m3u8 清单、.ts 分片与播放器的“翻译”过程。" />
+  <meta property="og:url" content="https://816800.xyz/blog/what-is-hls/" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="什么是 HLS？为什么浏览器不能直接播 m3u8" />
+  <meta name="twitter:description" content="HLS 是 Apple 的自适应流媒体协议。讲清 m3u8 清单、.ts 分片与播放器的“翻译”过程。" />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "什么是 HLS？为什么浏览器不能直接播 m3u8",
+        "description": "HLS 是 Apple 的自适应流媒体协议。讲清 m3u8 清单、.ts 分片与播放器如何用 hls.js 把索引“翻译”成可播放流。",
+        "datePublished": "2026-08-19",
+        "dateModified": "2026-08-19",
+        "inLanguage": "zh-CN",
+        "author": { "@type": "Organization", "name": "816800.xyz", "url": "https://816800.xyz/" },
+        "publisher": { "@type": "Organization", "name": "816800.xyz", "logo": { "@type": "ImageObject", "url": "https://816800.xyz/assets/img/og-image.png" } },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://816800.xyz/blog/what-is-hls/" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://816800.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://816800.xyz/blog/" },
+          { "@type": "ListItem", "position": 3, "name": "什么是 HLS", "item": "https://816800.xyz/blog/what-is-hls/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 首页">
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="/" data-zh="首页" data-en="Home">首页</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+          <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+          <a href="/blog/" class="active" data-zh="博客" data-en="Blog">博客</a>
+          <a href="/about/" data-zh="关于" data-en="About">关于</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="page-title">
+        <h1 class="i18n-block">
+          <span class="zh">什么是 HLS？为什么浏览器不能直接播 m3u8</span>
+          <span class="en">What Is HLS? Why Browsers Can't Play M3U8 Directly</span>
+        </h1>
+        <p data-zh="2026-08-19 · 约 5 分钟阅读" data-en="2026-08-19 · 5 min read">2026-08-19 · 约 5 分钟阅读</p>
+      </div>
+
+      <article class="prose i18n-block">
+        <div class="zh">
+          <h2>一、HLS 是什么</h2>
+          <p><strong>HLS（HTTP Live Streaming）</strong>是 Apple 在 2009 年推出的自适应流媒体协议。它的核心思想是用普通的 HTTP 把视频切成很多小片段来传输，从而天然享受 CDN、缓存和防火墙的友好性。今天 iPhone、Mac 上的视频几乎都走 HLS。</p>
+
+          <h2>二、m3u8 与 .ts 的关系</h2>
+          <ul>
+            <li><code>.m3u8</code>：播放清单（Playlist），纯文本，列出各档位（清晰度）的子清单或分片地址。</li>
+            <li><code>.ts</code>（Transport Stream）：实际音视频分片，通常 2~10 秒一段。</li>
+          </ul>
+          <p>播放器先下载 <code>.m3u8</code>，解析出分片列表，再按顺序拉取 <code>.ts</code> 拼成连续视频。</p>
+
+          <h2>三、为什么浏览器不能直接播 m3u8</h2>
+          <p>浏览器内核只认 MP4 / WebM 这类「封装好的媒体文件」，并不理解 HLS 的清单+分片模型。直接把 <code>.m3u8</code> 丢给 <code>&lt;video&gt;</code> 标签，浏览器会一脸茫然。必须由<strong>播放器</strong>在中间做「翻译」：用 MSE（Media Source Extensions）把分片喂给视频元素。</p>
+
+          <h2>四、hls.js 做了什么</h2>
+          <p><a href="/m3u8-player/">本站播放器</a>内置的 hls.js 就是干这个的：它下载并解析 m3u8，按网络状况选档位，把 <code>.ts</code> 转封装后通过 MSE 推给 <code>&lt;video&gt;</code>。所以你粘贴地址就能播，全程在浏览器端完成，不上传任何数据。</p>
+
+          <h2>五、HLS 与 DASH</h2>
+          <p>两者理念一致（清单 + 分片 + 自适应），阵营不同：<strong>HLS 由 Apple 主推</strong>，清单用 .m3u8 / 分片用 .ts；<strong>DASH（MPEG-DASH）是国际标准</strong>，清单用 .mpd、分片多用 .m4s。本站同时内置 dash.js，粘贴 .mpd 也能直接播。</p>
+
+          <h2>相关工具</h2>
+          <p>想立即体验？打开 <a href="/m3u8-player/">M3U8 / HLS 在线播放测试</a>，粘贴任意 .m3u8 或 .mpd 地址即时播放；需要分享长链接走 <a href="/short-link/">短网址</a>。</p>
+        </div>
+
+        <div class="en">
+          <h2>1. What HLS is</h2>
+          <p><strong>HLS (HTTP Live Streaming)</strong> is Apple's adaptive streaming protocol, introduced in 2009. Its core idea is to ship video over plain HTTP by cutting it into many small segments, which naturally plays well with CDNs, caching and firewalls. Almost all video on iPhone and Mac uses HLS today.</p>
+
+          <h2>2. The relationship between m3u8 and .ts</h2>
+          <ul>
+            <li><code>.m3u8</code>: the playlist — plain text listing the sub-playlists (bitrates) or segment URLs.</li>
+            <li><code>.ts</code> (Transport Stream): the actual audio/video segments, usually 2–10 seconds each.</li>
+          </ul>
+          <p>The player downloads the <code>.m3u8</code>, parses the segment list, then fetches the <code>.ts</code> files in order to assemble continuous video.</p>
+
+          <h2>3. Why browsers can't play m3u8 directly</h2>
+          <p>Browser engines only understand "packaged" media like MP4 / WebM; they don't understand the HLS playlist-plus-segments model. Hand a <code>.m3u8</code> straight to a <code>&lt;video&gt;</code> tag and the browser is lost. A <strong>player</strong> must sit in the middle as a "translator", feeding segments to the video element via MSE (Media Source Extensions).</p>
+
+          <h2>4. What hls.js does</h2>
+          <p>The <a href="/m3u8-player/">player on this site</a> bundles hls.js for exactly this: it downloads and parses the m3u8, picks a bitrate by network condition, transmuxes the <code>.ts</code> and pushes it to <code>&lt;video&gt;</code> via MSE. So you paste a URL and it plays — entirely in the browser, uploading nothing.</p>
+
+          <h2>5. HLS vs DASH</h2>
+          <p>They share the idea (playlist + segments + adaptation) but differ in camp: <strong>HLS is pushed by Apple</strong> (.m3u8 / .ts), while <strong>DASH (MPEG-DASH) is the open standard</strong> (.mpd / .m4s). This site also bundles dash.js, so pasting a .mpd plays directly too.</p>
+
+          <h2>Related tools</h2>
+          <p>Want to try it now? Open the <a href="/m3u8-player/">M3U8 / HLS online player</a> and paste any .m3u8 or .mpd URL to play instantly; for sharing long links use the <a href="/short-link/">short link</a> tool.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/" data-zh="首页" data-en="Home">首页</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
+        <a href="/about/" data-zh="关于" data-en="About">关于</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>

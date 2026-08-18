@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M3U8 和 MP4 到底有什么区别？· 816800 博客</title>
+  <meta name="description" content="M3U8 与 MP4 的核心差异：一个是索引分片的清单，一个是完整视频文件。从原理、直播、自适应清晰度到兼容性一次讲清，并附在线测试工具。" />
+  <meta name="keywords" content="M3U8 和 MP4 区别, m3u8 是什么格式, mp4 与 m3u8, 自适应码流, 在线播放 m3u8" />
+  <meta name="author" content="816800.xyz" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/blog/m3u8-vs-mp4/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="M3U8 和 MP4 到底有什么区别？" />
+  <meta property="og:description" content="一个是指引分片的索引，一个是完整文件。从原理、直播、自适应清晰度到兼容性一次讲清。" />
+  <meta property="og:url" content="https://816800.xyz/blog/m3u8-vs-mp4/" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="M3U8 和 MP4 到底有什么区别？" />
+  <meta name="twitter:description" content="一个是指引分片的索引，一个是完整文件。从原理、直播、自适应清晰度到兼容性一次讲清。" />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "M3U8 和 MP4 到底有什么区别？",
+        "description": "M3U8 与 MP4 的核心差异：一个是索引分片的清单，一个是完整视频文件。从原理、直播、自适应清晰度到兼容性一次讲清。",
+        "datePublished": "2026-08-19",
+        "dateModified": "2026-08-19",
+        "inLanguage": "zh-CN",
+        "author": { "@type": "Organization", "name": "816800.xyz", "url": "https://816800.xyz/" },
+        "publisher": { "@type": "Organization", "name": "816800.xyz", "logo": { "@type": "ImageObject", "url": "https://816800.xyz/assets/img/og-image.png" } },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://816800.xyz/blog/m3u8-vs-mp4/" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://816800.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://816800.xyz/blog/" },
+          { "@type": "ListItem", "position": 3, "name": "M3U8 与 MP4 区别", "item": "https://816800.xyz/blog/m3u8-vs-mp4/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 首页">
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="/" data-zh="首页" data-en="Home">首页</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+          <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+          <a href="/blog/" class="active" data-zh="博客" data-en="Blog">博客</a>
+          <a href="/about/" data-zh="关于" data-en="About">关于</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="page-title">
+        <h1 class="i18n-block">
+          <span class="zh">M3U8 和 MP4 到底有什么区别？</span>
+          <span class="en">M3U8 vs MP4: What's the Difference?</span>
+        </h1>
+        <p data-zh="2026-08-19 · 约 5 分钟阅读" data-en="2026-08-19 · 5 min read">2026-08-19 · 约 5 分钟阅读</p>
+      </div>
+
+      <article class="prose i18n-block">
+        <div class="zh">
+          <h2>一句话结论</h2>
+          <p><strong>MP4 是完整视频文件，M3U8 是指引分片的索引清单。</strong>前者一次下载就能播，后者要先解析清单、再逐段加载分片。这就是它们所有使用场景差异的根源。</p>
+
+          <h2>一、结构差异</h2>
+          <ul>
+            <li><strong>MP4</strong>：一个 <code>.mp4</code> 文件封装了视频、音频与索引，点播时整体下载（可边下边播）。</li>
+            <li><strong>M3U8</strong>：一个 <code>.m3u8</code> 文本文件，里面按行列出不同清晰度（码率）的子清单，子清单再指向一堆小的 <code>.ts</code>（或 fMP4）分片。</li>
+          </ul>
+
+          <h2>二、为什么要有 M3U8（自适应码流）</h2>
+          <p>M3U8 属于 HLS 协议。它的杀手锏是<strong>自适应码率</strong>：播放器会根据网速，在清单里列出的多档清晰度之间实时切换。网络差就降清晰度保流畅，网络好就上高清。直播也靠它——源源不断生成新分片，客户端按顺序追。</p>
+
+          <h2>三、直播 vs 点播</h2>
+          <ul>
+            <li><strong>直播</strong>：几乎只能走 M3U8 / MPD 这类「清单 + 分片」方案，MP4 是死文件，没法「直播」。</li>
+            <li><strong>点播</strong>：MP4 足够，但若想要多清晰度自适应、节省带宽，M3U8 更优。</li>
+          </ul>
+
+          <h2>四、兼容性</h2>
+          <p>现代浏览器<strong>原生不支持</strong>直接播放 M3U8，必须借助 hls.js 这类库把清单「翻译」成 Media Source Extensions 可播放的流；而 MP4（H.264/AAC）浏览器原生就能播。这也是为什么你需要一个 M3U8 在线测试工具。</p>
+
+          <h2>五、怎么选</h2>
+          <ul>
+            <li>做短视频点播、追求简单 → <strong>MP4</strong>。</li>
+            <li>做直播、或要自适应清晰度 / 省带宽 → <strong>M3U8（HLS）</strong>。</li>
+            <li>想在网页里快速验证一个 M3U8 地址能否播放、是否跨域 → 直接用本站的 <a href="/m3u8-player/">M3U8 / HLS 在线播放测试</a>。</li>
+          </ul>
+
+          <h2>相关工具</h2>
+          <p>需要把长链接分享给别人？走 <a href="/short-link/">短网址</a> 生成带本站域名的跳转链接；验证流地址用 <a href="/m3u8-player/">M3U8 / HLS 在线播放测试</a>。</p>
+        </div>
+
+        <div class="en">
+          <h2>One-line answer</h2>
+          <p><strong>MP4 is a complete video file; M3U8 is an index playlist that points to segments.</strong> The former plays after a single download, the latter must be parsed first and then loaded segment by segment. That single difference explains every usage difference below.</p>
+
+          <h2>1. Structural difference</h2>
+          <ul>
+            <li><strong>MP4</strong>: one <code>.mp4</code> file packages video, audio and the index; you download it (often progressively) and play.</li>
+            <li><strong>M3U8</strong>: a text <code>.m3u8</code> file that lists, line by line, sub-playlists for different bitrates, which in turn point to many small <code>.ts</code> (or fMP4) segments.</li>
+          </ul>
+
+          <h2>2. Why M3U8 exists (adaptive bitrate)</h2>
+          <p>M3U8 belongs to the HLS protocol. Its killer feature is <strong>adaptive bitrate</strong>: the player switches in real time between the bitrates listed in the playlist based on network speed — drop quality to stay smooth, ramp up when the network is good. Live streaming relies on it too, continuously generating new segments for the client to follow.</p>
+
+          <h2>3. Live vs VOD</h2>
+          <ul>
+            <li><strong>Live</strong>: almost always needs a "playlist + segments" scheme like M3U8 / MPD; an MP4 is a dead file and can't "stream live".</li>
+            <li><strong>VOD</strong>: MP4 is enough, but M3U8 wins if you want multi-quality adaptation and bandwidth savings.</li>
+          </ul>
+
+          <h2>4. Compatibility</h2>
+          <p>Modern browsers <strong>do not natively play</strong> M3U8; a library like hls.js must "translate" the playlist into a Media Source Extensions stream, whereas MP4 (H.264/AAC) plays natively. That's exactly why you need an M3U8 online test tool.</p>
+
+          <h2>5. How to choose</h2>
+          <ul>
+            <li>Short VOD clips, keep it simple → <strong>MP4</strong>.</li>
+            <li>Live streaming, or adaptive quality / bandwidth savings → <strong>M3U8 (HLS)</strong>.</li>
+            <li>Want to quickly check whether an M3U8 URL plays and is CORS-friendly → use this site's <a href="/m3u8-player/">M3U8 / HLS online player</a>.</li>
+          </ul>
+
+          <h2>Related tools</h2>
+          <p>Need to share a long link? Use the <a href="/short-link/">short link</a> tool for a branded redirect; verify streams with the <a href="/m3u8-player/">M3U8 / HLS online player</a>.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/" data-zh="首页" data-en="Home">首页</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
+        <a href="/about/" data-zh="关于" data-en="About">关于</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>
