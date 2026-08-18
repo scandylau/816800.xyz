@@ -1,6 +1,6 @@
 (function () {
   // 替换为你在 Google Analytics 4 后台拿到的 Measurement ID（以 G- 开头）
-  var GA_ID = 'G-XXXXXXXXXX';
+  var GA_ID = 'G-JEMKSVKD32';
   if (!GA_ID || GA_ID.indexOf('XXXX') !== -1) return;
 
   var s = document.createElement('script');
