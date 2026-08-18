@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于 816800.xyz — 极简暗黑风技术工具箱</title>
+  <meta name="description" content="816800.xyz 是一个纯前端、零广告的极简暗黑风技术工具箱。了解我们的定位、技术栈与工具上线路线。" />
+  <meta name="description" lang="en" content="816800.xyz is a pure front-end, ad-free minimal dark tech toolkit. Learn about our mission, stack and roadmap." />
+  <meta name="keywords" content="816800, 开发者工具箱, 纯前端工具, 暗黑风网站" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/about/" />
+  <link rel="stylesheet" href="/assets/vendor/plyr.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 首页">
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="/" data-zh="首页" data-en="Home">首页</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+          <a href="/about/" class="active" data-zh="关于" data-en="About">关于</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container legal">
+      <h1 data-zh="关于 816800.xyz" data-en="About 816800.xyz">关于 816800.xyz</h1>
+      <p class="updated" data-zh="最后更新：2026 年" data-en="Last updated: 2026">最后更新：2026 年</p>
+
+      <article class="i18n-block">
+        <div class="zh">
+          <p>816800.xyz 是一个<strong>纯前端、零广告</strong>的极简技术工具箱。我们专注于把开发者日常会用到的零散小工具，以统一、克制、高质感的暗黑界面聚合在一起，做到「打开即用、用完即走」。</p>
+
+          <h2>我们为什么存在</h2>
+          <p>开发者在调试流媒体、处理 JSON、压缩图片时，往往要在一堆布满弹窗和追踪脚本的网站上反复横跳。我们相信工具应当像瑞士军刀一样——锋利、可靠、不打扰。本站不投放自动广告、不注入追踪像素，所有核心功能均在你的浏览器本地完成。</p>
+
+          <h2>技术栈</h2>
+          <ul>
+            <li><strong>静态托管</strong>：Cloudflare Pages 全球 CDN，零服务器成本、高并发、天然抗挂马。</li>
+            <li><strong>前端框架</strong>：纯静态 HTML5 + 自研暗黑主题 CSS，打包零冗余，Core Web Vitals 与生俱来。</li>
+            <li><strong>播放内核</strong>：hls.js 解码 M3U8/HLS，dash.js 解码 MPD/DASH，Plyr 提供扁平化播放 UI。</li>
+          </ul>
+
+          <h2>工具上线路线</h2>
+          <p>我们采用「大框架一步到位，功能分批解锁」的策略。已上线 <a class="link" href="/m3u8-player/">M3U8 / HLS 在线播放测试</a>；后续每 1~2 个月解锁一个占位卡片中的新工具（如纯本地 WebP 图片压缩、JSON 转换、二维码生成等），保持站点常新。</p>
+
+          <h2>联系我们</h2>
+          <p>有任何建议或想申请某个工具优先级，欢迎通过 <a class="link" href="/contact/">联系页</a> 与我们沟通。</p>
+        </div>
+
+        <div class="en">
+          <p>816800.xyz is a <strong>pure front-end, ad-free</strong> minimal tech toolkit. We gather the scattered small tools developers use daily into one unified, restrained, high-quality dark interface — "open, use, done."</p>
+
+          <h2>Why we exist</h2>
+          <p>When debugging streams, parsing JSON or compressing images, developers often jump between sites full of popups and tracking scripts. We believe a tool should be like a Swiss Army knife — sharp, reliable, unobtrusive. This site runs no auto-ads and injects no tracking pixels; every core feature runs locally in your browser.</p>
+
+          <h2>Tech stack</h2>
+          <ul>
+            <li><strong>Static hosting</strong>: Cloudflare Pages global CDN — zero server cost, high concurrency, and naturally resistant to defacement.</li>
+            <li><strong>Front-end</strong>: pure static HTML5 + a hand-crafted dark-theme CSS, zero redundant bundling, Core Web Vitals by default.</li>
+            <li><strong>Player core</strong>: hls.js decodes M3U8/HLS, dash.js decodes MPD/DASH, and Plyr provides a flat playback UI.</li>
+          </ul>
+
+          <h2>Tool roadmap</h2>
+          <p>We follow a "framework first, features unlocked in batches" strategy. The <a class="link" href="/m3u8-player/">M3U8 / HLS online player</a> is already live; a new tool from the placeholder cards (e.g. local WebP compression, JSON conversion, QR generation) unlocks every 1–2 months to keep the site fresh.</p>
+
+          <h2>Contact us</h2>
+          <p>Any suggestions or want to request priority for a tool? Reach us via the <a class="link" href="/contact/">contact page</a>.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/" data-zh="首页" data-en="Home">首页</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+        <a href="/about/" data-zh="关于" data-en="About">关于</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>短网址 / 链接中转 — 816800 工具箱</title>
+  <meta name="description" content="零后端的品牌链接中转工具：粘贴长链接，生成带 816800.xyz 域名的分享跳转链接，任何人可点击跳转，数据不上传服务器。" />
+  <meta name="description" lang="en" content="A zero-backend branded link redirector: paste a long URL to get a shareable 816800.xyz jump link that anyone can open. Nothing is uploaded to any server." />
+  <meta name="keywords" content="短网址, 短链接, 链接中转, 跳转, 分享链接, URL redirect" />
+  <meta name="author" content="816800.xyz" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/short-link/" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <meta property="og:title" content="短网址 / 链接中转" />
+  <meta property="og:description" content="零后端、零上传的品牌链接中转工具。" />
+  <meta property="og:type" content="website" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 首页">
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="/" data-zh="首页" data-en="Home">首页</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+          <a href="/short-link/" class="active" data-zh="短网址" data-en="Short Link">短网址</a>
+          <a href="/about/" data-zh="关于" data-en="About">关于</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container player-page">
+      <div class="page-title">
+        <h1 data-zh="短网址 / 链接中转" data-en="Short Link / Redirect">短网址 / 链接中转</h1>
+        <p data-zh="粘贴长链接，生成带本站域名的分享跳转链接 · 零后端 · 零上传"
+           data-en="Paste a long URL to get a branded share link · No backend · No upload">粘贴长链接，生成带本站域名的分享跳转链接 · 零后端 · 零上传</p>
+      </div>
+
+      <!-- 创建区 -->
+      <div class="controls">
+        <div class="input-row">
+          <input id="srcInput" class="url-input" type="text" spellcheck="false"
+            data-zh-ph="粘贴要分享的长链接，例如 https://example.com/very/long/path?x=1"
+            data-en-ph="Paste the long URL to share, e.g. https://example.com/very/long/path?x=1"
+            placeholder="粘贴要分享的长链接，例如 https://example.com/very/long/path?x=1"
+            aria-label="长链接输入框" />
+          <button id="genBtn" class="btn btn-primary" type="button" data-zh="生成" data-en="Generate">生成</button>
+        </div>
+        <div id="result" class="result" style="display:none;">
+          <label class="result-label" data-zh="你的分享链接" data-en="Your share link">你的分享链接</label>
+          <div class="result-row">
+            <input id="outInput" class="url-input" type="text" readonly aria-label="生成的链接" />
+            <button id="copyBtn" class="btn btn-ghost" type="button" data-zh="复制" data-en="Copy">复制</button>
+          </div>
+          <div id="copyHint" class="copy-hint" data-zh="已复制到剪贴板" data-en="Copied to clipboard" style="display:none;"></div>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- 诚实说明（中英双版） -->
+      <article class="prose i18n-block">
+        <div class="zh">
+          <h2>这是什么、它不是什么</h2>
+          <p class="lead">这是一个<strong>零后端</strong>的链接中转工具：它不会把你的链接存进任何数据库，而是把长链接编码进地址栏的 <code>#u=</code> 片段里，生成一个形如 <code>816800.xyz/short-link/go.html#u=…</code> 的分享链接。任何人点开都会在你的浏览器里解码并跳转。</p>
+
+          <h3>为什么链接「并不短」？</h3>
+          <p>真正的「字节级超短码」（如 <code>bit.ly/abc</code>）需要在服务器上保存「短码 ↔ 长链接」的映射表。本站是纯静态站点，没有数据库，因此无法提供这种短码。本工具的价值在于<strong>品牌化、零上传、永久可用</strong>——链接随站点常驻，且长链接不会经过任何第三方服务器。</p>
+
+          <h3>安全说明</h3>
+          <ul>
+            <li>跳转页只接受 <code>http://</code> 与 <code>https://</code> 协议，自动拦截 <code>javascript:</code>、<code>data:</code> 等危险协议，避免被用作开放重定向。</li>
+            <li>编码后的内容仅存在于你分享的链接本身，<strong>不会被本站服务器接收或存储</strong>。</li>
+            <li>若你想要可对外分发的真·超短码，需要为站点加上 Cloudflare Pages Functions + KV（方案 B），届时可另行部署。</li>
+          </ul>
+        </div>
+
+        <div class="en">
+          <h2>What this is — and what it is not</h2>
+          <p class="lead">This is a <strong>backend-free</strong> link redirector: it stores nothing in any database. Instead it encodes the long URL into the <code>#u=</code> fragment of the address bar, producing a share link like <code>816800.xyz/short-link/go.html#u=…</code>. Anyone who opens it decodes and redirects entirely in their own browser.</p>
+
+          <h3>Why the link is "not actually short"</h3>
+          <p>A true "byte-level short code" (e.g. <code>bit.ly/abc</code>) requires a server-side table mapping short codes to long URLs. This site is fully static with no database, so it cannot offer such codes. The value here is <strong>branding, zero upload, and permanent availability</strong> — the link lives with the site, and the long URL never touches any third-party server.</p>
+
+          <h3>Safety notes</h3>
+          <ul>
+            <li>The redirect page only accepts <code>http://</code> and <code>https://</code> schemes, blocking dangerous ones like <code>javascript:</code> or <code>data:</code> to prevent open-redirect abuse.</li>
+            <li>The encoded content lives only inside the link you share — it is <strong>never received or stored by our server</strong>.</li>
+            <li>If you want a real, shareable short code, the site would need Cloudflare Pages Functions + KV (Approach B), which can be deployed separately.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/" data-zh="首页" data-en="Home">首页</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/shortlink.js"></script>
+  <script src="/assets/js/i18n.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var src = document.getElementById("srcInput");
+    var gen = document.getElementById("genBtn");
+    var result = document.getElementById("result");
+    var out = document.getElementById("outInput");
+    var copy = document.getElementById("copyBtn");
+    var copyHint = document.getElementById("copyHint");
+    var statusEl = document.getElementById("status");
+
+    function t(zh, en) {
+      return document.documentElement.lang === "en" ? en : zh;
+    }
+    function setStatus(type, msg) {
+      if (!statusEl) return;
+      statusEl.className = "status show " + (type || "info");
+      statusEl.textContent = msg || "";
+    }
+    function clearStatus() {
+      if (statusEl) statusEl.className = "status";
+    }
+
+    function generate() {
+      var url = (src.value || "").trim();
+      if (!url) {
+        setStatus("error", t("请输入要分享的长链接。", "Please enter the long URL to share."));
+        return;
+      }
+      // 先用校验确认是合法 http/https，再编码
+      var check = window.ShortLink.safeRedirect(url);
+      if (!check.ok) {
+        var map = {
+          empty: t("请输入要分享的长链接。", "Please enter the long URL to share."),
+          too_long: t("链接过长（上限 8192 字符）。", "The URL is too long (max 8192 chars)."),
+          invalid: t("链接格式不合法，请检查。", "The URL format is invalid, please check."),
+          scheme: t("仅支持 http:// 与 https:// 链接。", "Only http:// and https:// links are supported.")
+        };
+        setStatus("error", map[check.reason] || t("链接不合法。", "Invalid URL."));
+        return;
+      }
+      clearStatus();
+      var code = window.ShortLink.encodeUrl(url);
+      var link = location.origin + "/short-link/go.html#u=" + code;
+      out.value = link;
+      result.style.display = "";
+      copyHint.style.display = "none";
+    }
+
+    function doCopy() {
+      var text = out.value;
+      if (!text) return;
+      var done = function () {
+        copyHint.style.display = "";
+        setTimeout(function () { copyHint.style.display = "none"; }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+      function fallbackCopy() {
+        try {
+          out.removeAttribute("readonly");
+          out.select();
+          document.execCommand("copy");
+          out.setAttribute("readonly", "");
+          done();
+        } catch (e) {}
+      }
+    }
+
+    if (gen) gen.addEventListener("click", generate);
+    if (src) src.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); generate(); }
+    });
+    if (copy) copy.addEventListener("click", doCopy);
+  })();
+  </script>
+</body>
+</html>

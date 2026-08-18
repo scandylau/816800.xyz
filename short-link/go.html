@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>正在跳转 — 816800.xyz</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+  <main class="site-main">
+    <div class="container" style="min-height:60vh; display:flex; align-items:center; justify-content:center;">
+      <div id="box" class="redirect-box">
+        <div id="loading" class="redirect-loading">
+          <div class="spinner" aria-hidden="true"></div>
+          <p id="loadingText" data-zh="正在跳转…" data-en="Redirecting…">正在跳转…</p>
+        </div>
+        <div id="error" class="redirect-error" style="display:none;">
+          <h1 data-zh="无法跳转" data-en="Cannot redirect">无法跳转</h1>
+          <p id="errMsg"></p>
+          <a class="btn btn-primary" href="/short-link/" data-zh="返回短网址工具" data-en="Back to Short Link">返回短网址工具</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/assets/js/shortlink.js"></script>
+  <script src="/assets/js/i18n.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    function t(zh, en) {
+      return (document.documentElement.lang || "zh-CN").indexOf("en") === 0 ? en : zh;
+    }
+    var errBox = document.getElementById("error");
+    var loadBox = document.getElementById("loading");
+    var errMsg = document.getElementById("errMsg");
+
+    function fail(reason) {
+      var map = {
+        empty:    [t("链接缺失或为空。", "The link is missing or empty.")],
+        too_long: [t("目标链接过长，已拒绝跳转。", "The target link is too long and was rejected.")],
+        invalid:  [t("链接已损坏或格式不合法。", "The link is corrupted or has an invalid format.")],
+        scheme:   [t("目标协议不被允许（仅支持 http/https）。", "The target scheme is not allowed (only http/https).")]
+      };
+      var msg = (map[reason] || [t("发生未知错误。", "An unknown error occurred.")])[0];
+      loadBox.style.display = "none";
+      errMsg.textContent = msg;
+      errBox.style.display = "";
+    }
+
+    function run() {
+      var hash = location.hash || "";
+      var m = hash.match(/[#&]u=([^&]+)/);
+      if (!m) { fail("empty"); return; }
+      var raw;
+      try {
+        raw = window.ShortLink.decodeUrl(decodeURIComponent(m[1]));
+      } catch (e) {
+        fail("invalid");
+        return;
+      }
+      var r = window.ShortLink.safeRedirect(raw);
+      if (!r.ok) { fail(r.reason); return; }
+      // 短暂展示后跳转，给用户一个可见的过渡
+      setTimeout(function () { location.replace(r.url); }, 500);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", run);
+    } else {
+      run();
+    }
+  })();
+  </script>
+</body>
+</html>

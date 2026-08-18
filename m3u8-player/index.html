@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M3U8 / HLS 在线播放测试 — 816800 工具箱</title>
+  <meta name="description" content="免费在线 M3U8 / HLS 流媒体测试工具。粘贴 .m3u8 或 .mpd 地址即时解析播放，自动诊断 CORS 跨域报错，本地记录最近 5 条测试历史。HLS Stream Tester。" />
+  <meta name="description" lang="en" content="Free online M3U8 / HLS streaming tester. Paste a .m3u8 or .mpd URL to play instantly, auto-diagnose CORS errors, and keep your last 5 tests locally. HLS Stream Tester." />
+  <meta name="keywords" content="M3U8 在线测试, HLS Stream Tester, 在线播放 m3u8 报错, m3u8 跨域 CORS, 流媒体测试工具" />
+  <meta name="author" content="816800.xyz" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/m3u8-player/" />
+  <link rel="stylesheet" href="/assets/vendor/plyr.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <meta property="og:title" content="M3U8 / HLS 在线播放测试" />
+  <meta property="og:description" content="粘贴 .m3u8 或 .mpd 地址即时播放，自动诊断 CORS 跨域报错。" />
+  <meta property="og:type" content="website" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 首页">
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="/" data-zh="首页" data-en="Home">首页</a>
+          <a href="/m3u8-player/" class="active" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+          <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+          <a href="/about/" data-zh="关于" data-en="About">关于</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container player-page">
+      <div class="page-title">
+        <h1 data-zh="M3U8 / HLS 在线播放测试" data-en="M3U8 / HLS Online Player">M3U8 / HLS 在线播放测试</h1>
+        <p data-zh="粘贴流媒体地址，即时解析播放 · 纯前端 · 零上传 · 自动诊断报错"
+           data-en="Paste a stream URL to play instantly · Pure front-end · No upload · Auto error diagnosis">粘贴流媒体地址，即时解析播放 · 纯前端 · 零上传 · 自动诊断报错</p>
+      </div>
+
+      <!-- 播放器 -->
+      <div class="player-shell">
+        <video id="player" playsinline controls crossorigin></video>
+      </div>
+
+      <!-- 控制区 -->
+      <div class="controls">
+        <div class="input-row">
+          <input id="urlInput" class="url-input" type="text" spellcheck="false"
+            data-zh-ph="粘贴 .m3u8 或 .mpd 流地址，例如 https://.../master.m3u8"
+            data-en-ph="Paste a .m3u8 or .mpd URL, e.g. https://.../master.m3u8"
+            placeholder="粘贴 .m3u8 或 .mpd 流地址，例如 https://.../master.m3u8"
+            aria-label="流媒体地址输入框" />
+          <button id="playBtn" class="btn btn-primary" type="button" data-zh="播放" data-en="Play">播放</button>
+        </div>
+
+        <div class="tags" id="tags" aria-label="快捷测试源">
+          <span class="tag" data-url="https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8" data-zh="Apple 官方 BipBop" data-en="Apple Official BipBop">Apple 官方 BipBop</span>
+          <span class="tag" data-url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" data-zh="Mux 测试流" data-en="Mux Test Stream">Mux 测试流</span>
+          <span class="tag" data-url="https://test-streams.mux.dev/tos_ismc/main.m3u8" data-zh="Tears of Steel (Mux)" data-en="Tears of Steel (Mux)">Tears of Steel (Mux)</span>
+          <span class="tag" data-url="https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd" data-zh="Big Buck Bunny (MPD)" data-en="Big Buck Bunny (MPD)">Big Buck Bunny (MPD)</span>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- 历史记录 -->
+      <div class="history">
+        <h4 data-zh="最近测试" data-en="Recent Tests">最近测试 <span id="histCount" style="color:var(--text-faint);font-weight:400;"></span></h4>
+        <div id="historyList" class="history-list"></div>
+        <div id="historyEmpty" class="history-empty i18n-block" style="display:none;">
+          <span class="zh">暂无记录。测试过的流地址会自动出现在这里。</span>
+          <span class="en">No records yet. Tested streams will appear here automatically.</span>
+        </div>
+      </div>
+
+      <!-- AdSense 手动黄金位（方案第七章）-->
+      <div class="ad-slot" id="adsense-slot" aria-label="广告位">
+        <span data-zh="广告位 · AdSense 审核通过后可在此展示（手动放置，每页仅 1 个）"
+              data-en="Ad Slot · Display here after AdSense approval (manual placement, 1 per page)">广告位 · AdSense 审核通过后可在此展示（手动放置，每页仅 1 个）</span>
+      </div>
+
+      <!-- 深度技术文档（中英双版）-->
+      <article class="prose i18n-block">
+        <div class="zh">
+          <h2>关于 M3U8、HLS 与「在线播放 m3u8 报错」的真相</h2>
+          <p class="lead"><strong>M3U8</strong> 是 HTTP Live Streaming（HLS）协议的播放清单格式，本质是一个纯文本索引文件，内部按行列出不同清晰度（码率）的子清单（.ts 或 fMP4 分片）地址。浏览器原生并不理解 M3U8，这就是为什么你需要一个 <strong>HLS Stream Tester</strong> 来把它翻译成可播放的视频流。</p>
+
+          <h3>为什么要在线上测试 M3U8？</h3>
+          <p>在把流地址接入自己的播放器、App 或 OBS 推流之前，先用一个中立的第三方工具验证「地址是否有效、清单能否解析、分片能否连续加载」非常关键。本页提供的 <strong>M3U8 在线测试</strong> 完全在浏览器端完成，不收集、不上传你的任何链接，是排查问题最干净的方式。</p>
+
+          <h3>最常见的报错：CORS 跨域被拦截</h3>
+          <p>当你看到「在线播放 m3u8 报错」、黑屏或控制台出现 <code>Cross-Origin Request Blocked</code>，绝大多数情况不是浏览器坏了，而是<strong>流媒体服务器没有返回 <code>Access-Control-Allow-Origin</code> 响应头</strong>。浏览器的同源策略禁止网页读取跨域资源，于是播放器拿不到分片数据。</p>
+          <div class="note">本工具在播放失败时会自动发起诊断：先以 <code>no-cors</code> 探活确认服务器可达，再以 <code>cors</code> 模式验证跨域许可。若服务器可达却因 CORS 被拦，我们会给出精准中文提示，避免你误以为是地址失效。</div>
+
+          <h3>如何修复跨域问题？</h3>
+          <ul>
+            <li>若你掌控该服务器：在 CDN / 源站增加响应头 <code>Access-Control-Allow-Origin: *</code>（或更严格的白名单域名）。</li>
+            <li>若源站不支持改头：在自有服务器上做一层反向代理，由同源代理转发流数据，规避浏览器跨域。</li>
+            <li>仅做本地验证：直接用本工具的快捷测试源，它们均配置了标准 CORS，可放心调试。</li>
+          </ul>
+
+          <h3>关于 MPD（DASH）</h3>
+          <p>除了 HLS，本工具同时支持 <code>.mpd</code>（MPEG-DASH）格式。两者理念相似——都是「清单 + 分片」的自适应码流，只是厂商阵营不同（Apple 主推 HLS，国际标准主推 DASH）。本页已内置 Dash.js 解码内核，粘贴 MPD 地址即可直接播放。</p>
+
+          <h3>隐私与历史</h3>
+          <p>你的测试地址仅保存在当前浏览器的 <code>localStorage</code> 中，最多保留 5 条，<strong>绝不会发送到任何服务器</strong>。清空浏览器数据即可一并删除，也可在上方历史区逐条移除。</p>
+        </div>
+
+        <div class="en">
+          <h2>The Truth About M3U8, HLS and "Online M3U8 Playback Errors"</h2>
+          <p class="lead"><strong>M3U8</strong> is the playlist format of the HTTP Live Streaming (HLS) protocol. It is essentially a plain-text index file that lists, line by line, the sub-playlists (`.ts` or fMP4 segments) for different resolutions (bitrates). Browsers do not understand M3U8 natively — that is why you need an <strong>HLS Stream Tester</strong> to translate it into a playable video stream.</p>
+
+          <h3>Why test M3U8 online?</h3>
+          <p>Before wiring a stream URL into your own player, app, or OBS push, it is critical to verify with a neutral third-party tool that "the URL is valid, the playlist parses, and the segments load continuously." The <strong>M3U8 online test</strong> on this page runs entirely in your browser — it collects and uploads nothing, making it the cleanest way to troubleshoot.</p>
+
+          <h3>The most common error: blocked by CORS</h3>
+          <p>When you see an "online m3u8 playback error", a black screen, or <code>Cross-Origin Request Blocked</code> in the console, it is almost never a broken browser. The usual cause is that the <strong>streaming server does not return an <code>Access-Control-Allow-Origin</code> header</strong>. The browser's same-origin policy forbids web pages from reading cross-origin resources, so the player cannot fetch the segment data.</p>
+          <div class="note">When playback fails, this tool auto-diagnoses: it first probes reachability with <code>no-cors</code>, then verifies the CORS permission with a <code>cors</code> request. If the server is reachable but blocked by CORS, we show a precise message so you don't mistake it for a dead URL.</div>
+
+          <h3>How to fix the CORS issue?</h3>
+          <ul>
+            <li>If you control the server: add the response header <code>Access-Control-Allow-Origin: *</code> (or a stricter whitelist domain) at your CDN / origin.</li>
+            <li>If the origin can't be changed: put a same-origin reverse proxy in front of it on your own server to forward the stream and bypass the browser's cross-origin limit.</li>
+            <li>For local verification only: use the quick test sources on this page — they all ship with standard CORS and are safe to debug with.</li>
+          </ul>
+
+          <h3>About MPD (DASH)</h3>
+          <p>Besides HLS, this tool also supports <code>.mpd</code> (MPEG-DASH). The two share the same idea — an "index + segments" adaptive bitrate stream — only backed by different camps (Apple pushes HLS, the open standard pushes DASH). This page ships a built-in Dash.js decoder, so pasting an MPD URL plays directly.</p>
+
+          <h3>Privacy & history</h3>
+          <p>Your tested URLs are stored only in the current browser's <code>localStorage</code>, kept for at most 5 entries, and are <strong>never sent to any server</strong>. Clearing your browser data removes them, or delete them one by one in the history area above.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/" data-zh="首页" data-en="Home">首页</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+        <a href="/about/" data-zh="关于" data-en="About">关于</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- 依赖（已本地化，离线可用） -->
+  <script src="/assets/vendor/hls.min.js"></script>
+  <script src="/assets/vendor/dash.all.min.js"></script>
+  <script src="/assets/vendor/plyr.min.js"></script>
+  <script src="/assets/js/player.js"></script>
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>
