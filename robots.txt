@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /short-link/go.html
+
+Sitemap: https://816800.xyz/sitemap.xml

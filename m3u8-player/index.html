@@ -5,16 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>M3U8 / HLS 在线播放测试 — 816800 工具箱</title>
   <meta name="description" content="免费在线 M3U8 / HLS 流媒体测试工具。粘贴 .m3u8 或 .mpd 地址即时解析播放，自动诊断 CORS 跨域报错，本地记录最近 5 条测试历史。HLS Stream Tester。" />
-  <meta name="description" lang="en" content="Free online M3U8 / HLS streaming tester. Paste a .m3u8 or .mpd URL to play instantly, auto-diagnose CORS errors, and keep your last 5 tests locally. HLS Stream Tester." />
   <meta name="keywords" content="M3U8 在线测试, HLS Stream Tester, 在线播放 m3u8 报错, m3u8 跨域 CORS, 流媒体测试工具" />
   <meta name="author" content="816800.xyz" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/m3u8-player/" />
+  <meta property="og:title" content="M3U8 / HLS 在线播放测试 — 816800 工具箱" />
+  <meta property="og:description" content="粘贴 .m3u8 或 .mpd 地址即时播放，自动诊断 CORS 跨域报错，本地记录最近 5 条测试历史。" />
+  <meta property="og:url" content="https://816800.xyz/m3u8-player/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="M3U8 / HLS 在线播放测试 — 816800 工具箱" />
+  <meta name="twitter:description" content="粘贴 .m3u8 或 .mpd 地址即时播放，自动诊断 CORS 跨域报错，本地记录最近 5 条测试历史。" />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
   <link rel="stylesheet" href="/assets/vendor/plyr.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
-  <meta property="og:title" content="M3U8 / HLS 在线播放测试" />
-  <meta property="og:description" content="粘贴 .m3u8 或 .mpd 地址即时播放，自动诊断 CORS 跨域报错。" />
-  <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "M3U8 / HLS 在线播放测试",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+    "url": "https://816800.xyz/m3u8-player/",
+    "description": "免费在线 M3U8 / HLS 流媒体测试工具，自动诊断 CORS 跨域报错。"
+  }
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -135,6 +154,52 @@
 
           <h3>Privacy & history</h3>
           <p>Your tested URLs are stored only in the current browser's <code>localStorage</code>, kept for at most 5 entries, and are <strong>never sent to any server</strong>. Clearing your browser data removes them, or delete them one by one in the history area above.</p>
+        </div>
+      </article>
+
+      <article class="prose i18n-block faq">
+        <div class="zh">
+          <h2>常见问题</h2>
+
+          <h3>M3U8 是什么？</h3>
+          <p><strong>M3U8</strong> 是 HLS（HTTP Live Streaming）协议使用的播放列表格式，本质上是一个纯文本索引文件，列出了不同码率（清晰度）对应的视频分片地址。浏览器本身不会直接播放 M3U8，需要借助 hls.js 这类播放器把索引“翻译”成可播放的流。</p>
+
+          <h3>为什么在线播放 m3u8 会报错或黑屏？</h3>
+          <p>最常见的两个原因：① 原地址本身已失效、需要鉴权或被限流；② 视频服务器没有开启 <code>Access-Control-Allow-Origin</code> 跨域头，浏览器会按 CORS 策略阻止页面读取资源。本工具会在出错时自动区分“地址不通”和“CORS 被拦截”两种情况，避免误判。</p>
+
+          <h3>M3U8 和 MP4 有什么区别？</h3>
+          <p>MP4 是完整视频文件，点播时一次性下载即可播放；M3U8 是索引文件，通常指向多个小的 <code>.ts</code> 分片，直播和自适应清晰度切换更灵活。也就是说，M3U8 本身不是视频，需要播放器先解析清单再逐段加载。</p>
+
+          <h3>这个工具支持哪些格式？</h3>
+          <p>当前支持 <strong>HLS（.m3u8）</strong> 和 <strong>DASH / MPD（.mpd）</strong>。M3U8 由 Apple 生态主推，MPD 是国际标准 MPEG-DASH 的清单格式。页面已分别内置 hls.js 与 dash.js 解码内核。</p>
+
+          <h3>我粘贴的流地址会被保存或上传吗？</h3>
+          <p>不会。所有测试地址仅保存在当前浏览器的 <code>localStorage</code> 中，最多保留 5 条，方便你再次测试；<strong>不会发送到任何服务器</strong>，清空浏览器数据即可删除。</p>
+
+          <h3>快捷测试源显示 403 怎么办？</h3>
+          <p>公开测试源可能因版权、地区或服务器限流随时下线。若某个源返回 403，请换用本页其它测试源对比；如果自定义地址 403，说明该地址需要鉴权 Token、Referer 或已失效。</p>
+        </div>
+
+        <div class="en">
+          <h2>FAQ</h2>
+
+          <h3>What is M3U8?</h3>
+          <p><strong>M3U8</strong> is the playlist format of HLS (HTTP Live Streaming). It is a plain-text index that lists the segment URLs for different bitrates. Browsers cannot play M3U8 natively, so a player like hls.js is needed to translate the index into a playable stream.</p>
+
+          <h3>Why do I see an online m3u8 playback error or black screen?</h3>
+          <p>The two most common reasons are: ① the source URL is expired, token-protected or rate-limited; ② the streaming server does not send an <code>Access-Control-Allow-Origin</code> header and the browser blocks the request by CORS policy. This tool auto-diagnoses the exact reason so you don't mistake CORS for a dead URL.</p>
+
+          <h3>What's the difference between M3U8 and MP4?</h3>
+          <p>MP4 is a complete video file, usually downloaded and played as one file. M3U8 is only an index that points to small <code>.ts</code> segments, making live streaming and adaptive-bitrate switching easier. You need a player to resolve the playlist before playback.</p>
+
+          <h3>What formats does this tool support?</h3>
+          <p>It currently supports <strong>HLS (.m3u8)</strong> and <strong>DASH / MPD (.mpd)</strong>. M3U8 is mainly driven by Apple, while MPD belongs to the MPEG-DASH open standard. Both hls.js and dash.js decoders are bundled.</p>
+
+          <h3>Will my stream URL be saved or uploaded?</h3>
+          <p>No. Your test URLs are stored only in the current browser's <code>localStorage</code> for up to 5 entries for easy retesting. They are <strong>never sent to any server</strong>; clearing browser data removes them.</p>
+
+          <h3>What if a quick test source returns 403?</h3>
+          <p>Public test sources may go offline, get rate-limited or blocked by region at any time. Try another test source on this page; if your own URL returns 403, it likely needs an auth token, Referer header or has simply expired.</p>
         </div>
       </article>
     </div>
