@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64" role="img" aria-label="816800.xyz">
+  <defs>
+    <linearGradient id="l8l-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <!-- mark -->
+  <rect x="3.5" y="3.5" width="57" height="57" rx="17" fill="#09090b" stroke="url(#l8l-grad)" stroke-width="3"/>
+  <circle cx="32" cy="41" r="11" fill="none" stroke="#ffffff" stroke-width="3.5"/>
+  <circle cx="32" cy="23" r="11" fill="url(#l8l-grad)"/>
+  <!-- wordmark -->
+  <text x="74" y="42" font-family="'Segoe UI', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" font-weight="700" letter-spacing="0.5" fill="#ffffff">816800<tspan fill="#71717a" font-weight="500" font-size="21" dx="1">.xyz</tspan></text>
+</svg>
