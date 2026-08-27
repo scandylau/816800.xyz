@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HLS 直播与点播：m3u8 的两种用法 · 816800 博客</title>
+  <meta name="description" content="m3u8 既能做点播也能做直播。讲清 VOD 与 Live 在清单结构、断流行为、延迟上的差异，以及怎么用在线播放器验证。" />
+  <meta name="keywords" content="HLS 直播, HLS 点播, m3u8 直播, VOD 与 Live, 直播延迟, m3u8 原理" />
+  <meta name="author" content="816800.xyz" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/blog/hls-live-vod/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="HLS 直播与点播：m3u8 的两种用法" />
+  <meta property="og:description" content="m3u8 既能做点播也能做直播。讲清 VOD 与 Live 在清单结构、断流行为、延迟上的差异，以及怎么用在线播放器验证。" />
+  <meta property="og:url" content="https://816800.xyz/blog/hls-live-vod/" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HLS 直播与点播：m3u8 的两种用法" />
+  <meta name="twitter:description" content="m3u8 既能做点播也能做直播。讲清 VOD 与 Live 在清单结构、断流行为、延迟上的差异，以及怎么用在线播放器验证。" />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "HLS 直播与点播：m3u8 的两种用法",
+        "description": "m3u8 既能做点播也能做直播。讲清 VOD 与 Live 在清单结构、断流行为、延迟上的差异，以及怎么用在线播放器验证。",
+        "datePublished": "2026-08-28",
+        "dateModified": "2026-08-28",
+        "inLanguage": "zh-CN",
+        "author": { "@type": "Organization", "name": "816800.xyz", "url": "https://816800.xyz/" },
+        "publisher": { "@type": "Organization", "name": "816800.xyz", "logo": { "@type": "ImageObject", "url": "https://816800.xyz/assets/img/logo.svg" } },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://816800.xyz/blog/hls-live-vod/" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://816800.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://816800.xyz/blog/" },
+          { "@type": "ListItem", "position": 3, "name": "HLS 直播与点播", "item": "https://816800.xyz/blog/hls-live-vod/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 首页">
+        <img class="brand-mark" src="/assets/img/logo.svg" alt="" width="26" height="26" />
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="/" data-zh="首页" data-en="Home">首页</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+          <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+          <a href="/blog/" class="active" data-zh="博客" data-en="Blog">博客</a>
+          <a href="/about/" data-zh="关于" data-en="About">关于</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="page-title">
+        <h1 class="i18n-block">
+          <span class="zh">HLS 直播与点播：m3u8 的两种用法</span>
+          <span class="en">HLS Live vs VOD: Two Uses of M3U8</span>
+        </h1>
+        <p data-zh="2026-08-28 · 约 5 分钟阅读" data-en="2026-08-28 · 5 min read">2026-08-28 · 约 5 分钟阅读</p>
+      </div>
+
+      <article class="prose i18n-block">
+        <div class="zh">
+          <h2>一、同一个 m3u8，两种模式</h2>
+          <p>很多人以为 m3u8 只是“点播文件”，其实它既能做<strong>点播（VOD）</strong>也能做<strong>直播（Live）</strong>。区别不在文件后缀，而在清单里的“时间轴是否还在生长”。</p>
+
+          <h2>二、点播（VOD）</h2>
+          <p>清单是<strong>完整且固定</strong>的——所有分片一次性列全，末尾有 <code>#EXT-X-ENDLIST</code> 标记。播放器知道总长、能拖动进度条、可以任意跳转。普通影视、课程、录播都用这种。</p>
+
+          <h2>三、直播（Live）</h2>
+          <p>清单<strong>持续增长</strong>：服务端不断往末尾追加新分片、删除旧分片，<code>#EXT-X-ENDLIST</code> 不存在（或更晚才出现）。播放器定期刷新清单、追着最新的分片播，所以是“跟着时间走”。直播延迟主要来自分片时长与缓冲区。</p>
+
+          <h2>四、怎么一眼区分</h2>
+          <ul>
+            <li>打开你的 m3u8（或粘贴到 <a href="/m3u8-player/">在线播放器</a>），看是否含 <code>#EXT-X-ENDLIST</code>。</li>
+            <li>有 → 点播；没有且画面一直在更新 → 直播。</li>
+            <li>直播还会带 <code>#EXT-X-MEDIA-SEQUENCE</code> 标明当前窗口的起始序号。</li>
+          </ul>
+
+          <h2>五、给开发者的提示</h2>
+          <p>直播断流时，往往不是“地址失效”，而是服务端停推了——此时清单还在但分片拉不到。这也是为什么 <a href="/blog/m3u8-playback-failed/">播放失败排查</a>要先区分“地址失效”和“CORS 被拦截”。</p>
+
+          <h2>相关工具</h2>
+          <p>想直接试：用 <a href="/m3u8-player/">M3U8 / HLS 在线播放器</a> 分别粘贴点播与直播源对比；需要分享长地址走 <a href="/short-link/">短网址</a>。</p>
+        </div>
+
+        <div class="en">
+          <h2>1. Same m3u8, two modes</h2>
+          <p>Many think m3u8 is just "VOD", but it does both <strong>VOD</strong> and <strong>Live</strong>. The difference isn't the extension but whether the timeline is still growing.</p>
+
+          <h2>2. VOD</h2>
+          <p>The playlist is <strong>complete and fixed</strong> — all segments listed at once, ending with <code>#EXT-X-ENDLIST</code>. The player knows the total length, supports seeking and arbitrary jumps. Movies, courses, recordings use this.</p>
+
+          <h2>3. Live</h2>
+          <p>The playlist <strong>keeps growing</strong>: the server appends new segments and drops old ones; <code>#EXT-X-ENDLIST</code> is absent (or appears much later). The player periodically refreshes and chases the newest segment, so it "follows time". Latency comes mainly from segment length and buffering.</p>
+
+          <h2>4. How to tell at a glance</h2>
+          <ul>
+            <li>Open your m3u8 (or paste into the <a href="/m3u8-player/">online player</a>) and look for <code>#EXT-X-ENDLIST</code>.</li>
+            <li>Present → VOD; absent but picture keeps updating → Live.</li>
+            <li>Live also carries <code>#EXT-X-MEDIA-SEQUENCE</code> marking the start index of the current window.</li>
+          </ul>
+
+          <h2>5. A note for developers</h2>
+          <p>When a live stream drops, it's often not a dead URL but the server stopped pushing — the playlist remains but segments can't be fetched. That's why <a href="/blog/m3u8-playback-failed/">the troubleshooting guide</a> first separates dead URLs from CORS blocks.</p>
+
+          <h2>Related tools</h2>
+          <p>Try it: use the <a href="/m3u8-player/">M3U8 / HLS online player</a> to compare a VOD and a live source; for sharing long URLs use the <a href="/short-link/">short link</a>.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/" data-zh="首页" data-en="Home">首页</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
+        <a href="/about/" data-zh="关于" data-en="About">关于</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>

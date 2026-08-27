@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DASH 与 HLS 怎么选？流媒体协议全方位对比 · 816800 博客</title>
+  <meta name="description" content="DASH 与 HLS 都是“清单+分片+自适应”的流媒体协议。从阵营、封装、兼容性、延迟与国内可用性出发，给出到底该选哪个的实用结论。" />
+  <meta name="keywords" content="DASH vs HLS, MPEG-DASH, HLS 对比, mpd 播放, 流媒体协议, 自适应码率, m3u8" />
+  <meta name="author" content="816800.xyz" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/blog/dash-vs-hls/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="DASH 与 HLS 怎么选？流媒体协议全方位对比" />
+  <meta property="og:description" content="DASH 与 HLS 都是“清单+分片+自适应”的流媒体协议。从阵营、封装、兼容性、延迟与国内可用性给出选择结论。" />
+  <meta property="og:url" content="https://816800.xyz/blog/dash-vs-hls/" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DASH 与 HLS 怎么选？流媒体协议全方位对比" />
+  <meta name="twitter:description" content="DASH 与 HLS 都是“清单+分片+自适应”的流媒体协议。从阵营、封装、兼容性、延迟与国内可用性给出选择结论。" />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "DASH 与 HLS 怎么选？流媒体协议全方位对比",
+        "description": "DASH 与 HLS 都是“清单+分片+自适应”的流媒体协议。从阵营、封装、兼容性、延迟与国内可用性出发，给出到底该选哪个的实用结论。",
+        "datePublished": "2026-08-28",
+        "dateModified": "2026-08-28",
+        "inLanguage": "zh-CN",
+        "author": { "@type": "Organization", "name": "816800.xyz", "url": "https://816800.xyz/" },
+        "publisher": { "@type": "Organization", "name": "816800.xyz", "logo": { "@type": "ImageObject", "url": "https://816800.xyz/assets/img/logo.svg" } },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://816800.xyz/blog/dash-vs-hls/" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://816800.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://816800.xyz/blog/" },
+          { "@type": "ListItem", "position": 3, "name": "DASH 与 HLS 对比", "item": "https://816800.xyz/blog/dash-vs-hls/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 首页">
+        <img class="brand-mark" src="/assets/img/logo.svg" alt="" width="26" height="26" />
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="/" data-zh="首页" data-en="Home">首页</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+          <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+          <a href="/blog/" class="active" data-zh="博客" data-en="Blog">博客</a>
+          <a href="/about/" data-zh="关于" data-en="About">关于</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="page-title">
+        <h1 class="i18n-block">
+          <span class="zh">DASH 与 HLS 怎么选？流媒体协议全方位对比</span>
+          <span class="en">DASH vs HLS: How to Choose a Streaming Protocol</span>
+        </h1>
+        <p data-zh="2026-08-28 · 约 6 分钟阅读" data-en="2026-08-28 · 6 min read">2026-08-28 · 约 6 分钟阅读</p>
+      </div>
+
+      <article class="prose i18n-block">
+        <div class="zh">
+          <h2>一、它们其实是一类东西</h2>
+          <p><strong>DASH（MPEG-DASH）</strong>和 <strong>HLS（HTTP Live Streaming）</strong>都采用同一套底层思路：把视频切成许多小分片，再用一个文本清单描述这些分片，播放器按网络状况挑合适的清晰度。这套“清单 + 分片 + 自适应”模型，让视频能像普通网页一样走 HTTP、享受 CDN 缓存，也方便穿越防火墙。</p>
+          <p>二者最大的区别不在原理，而在<strong>阵营与文件格式</strong>：HLS 是 Apple 主推、事实标准；DASH 是 MPEG 国际标准，标签更中立。下面从几个维度拆解。</p>
+
+          <h2>二、文件格式对照</h2>
+          <ul>
+            <li><strong>清单文件</strong>：HLS 用 <code>.m3u8</code>（基于 M3U 文本）；DASH 用 <code>.mpd</code>（基于 XML）。</li>
+            <li><strong>分片封装</strong>：HLS 传统用 <code>.ts</code>，新规范也支持 <code>.fmp4</code>；DASH 多用 <code>.m4s</code>（ fragmented MP4）。</li>
+            <li><strong>加密</strong>：两者都支持 AES-128 / DRM，HLS 用 EXT-X-KEY，DASH 用 Common Encryption（CENC）。</li>
+          </ul>
+
+          <h2>三、兼容性与“浏览器原生支持”</h2>
+          <p>这是最容易踩坑的一点：</p>
+          <ul>
+            <li><strong>Safari（含 iOS/macOS）</strong> 原生支持 HLS，可以直接用 <code>&lt;video src="x.m3u8"&gt;</code> 播放；对 DASH 没有原生支持。</li>
+            <li><strong>Chrome / Firefox / Android</strong> 原生支持 DASH（通过 MSE），但对 HLS 原生支持有限，通常需要借助 <code>hls.js</code> 这类库。</li>
+            <li>所以“到底谁更兼容”取决于你的目标平台——苹果生态偏 HLS，开放浏览器偏 DASH。</li>
+          </ul>
+
+          <h2>四、延迟与实时性</h2>
+          <p>传统 HLS / DASH 都是“切片后播”，端到端延迟通常在 10~30 秒，适合点播和常规直播。若要秒级低延迟（LL-HLS / LL-DASH）需要额外配置，且并非所有播放器都支持。如果你的场景是“主播实时互动”，两者都不是最优选，但常规直播两者都能扛。</p>
+
+          <h2>五、国内可用性</h2>
+          <p>在国内，CDN 厂商对两种协议都支持良好，文件走 HTTPS 时 CORS 是绕不过去的一环——任一协议只要分片域名和页面域名不一致，都必须正确配置 <code>Access-Control-Allow-Origin</code>。这也正是很多“播不了”的真正原因。</p>
+
+          <h2>六、到底选哪个</h2>
+          <ul>
+            <li>面向<strong>苹果用户为主 / 想用原生播放省事</strong> → 优先 HLS（.m3u8）。</li>
+            <li>面向<strong>全平台 / 国际标准 / 大厂生态（如 YouTube 系）</strong> → DASH（.mpd）更常见。</li>
+            <li>最稳的做法：<strong>同时产出两套</strong>，让播放器按设备挑——本站播放器就同时内置 hls.js 与 dash.js，粘贴任一格式都能直接播。</li>
+          </ul>
+
+          <h2>相关工具</h2>
+          <p>想直接验证源站能不能播？打开 <a href="/m3u8-player/">M3U8 / HLS 在线播放测试</a>，粘贴 <code>.m3u8</code> 或 <code>.mpd</code> 地址即时播放；遇到跨域报错可参考 <a href="/blog/m3u8-playback-failed/">m3u8 播放失败排查</a>。需要把长播放地址生成短链分享，用 <a href="/short-link/">短网址</a> 即可。</p>
+        </div>
+
+        <div class="en">
+          <h2>1. They are essentially the same idea</h2>
+          <p><strong>DASH (MPEG-DASH)</strong> and <strong>HLS (HTTP Live Streaming)</strong> share the same core design: chop video into small segments and describe them with a text manifest, letting the player pick the right quality by network conditions. This "manifest + segments + adaptive" model lets video travel over plain HTTP, benefit from CDN caching, and pass through firewalls easily.</p>
+          <p>The real difference is not the principle but the <strong>camp and file format</strong>: HLS is Apple-backed (de-facto), while DASH is an open MPEG standard. Let's break it down.</p>
+
+          <h2>2. File format comparison</h2>
+          <ul>
+            <li><strong>Manifest</strong>: HLS uses <code>.m3u8</code> (text-based M3U); DASH uses <code>.mpd</code> (XML).</li>
+            <li><strong>Segment container</strong>: HLS traditionally uses <code>.ts</code>, newer spec also supports <code>.fmp4</code>; DASH mostly uses <code>.m4s</code> (fragmented MP4).</li>
+            <li><strong>Encryption</strong>: both support AES-128 / DRM; HLS uses EXT-X-KEY, DASH uses Common Encryption (CENC).</li>
+          </ul>
+
+          <h2>3. Compatibility and "native support"</h2>
+          <ul>
+            <li><strong>Safari (including iOS/macOS)</strong> plays HLS natively via <code>&lt;video src="x.m3u8"&gt;</code>, but does not natively support DASH.</li>
+            <li><strong>Chrome / Firefox / Android</strong> support DASH natively (via MSE) but need a library like <code>hls.js</code> for HLS.</li>
+            <li>So "which is more compatible" depends on your target platform — Apple-leaning for HLS, open-browser-leaning for DASH.</li>
+          </ul>
+
+          <h2>4. Latency and real-time</h2>
+          <p>Traditional HLS / DASH slice-then-play, with end-to-end latency usually 10–30s, good for VOD and normal live. Sub-second low latency (LL-HLS / LL-DASH) needs extra config and player support. For interactive streaming, neither is ideal, but both handle normal live fine.</p>
+
+          <h2>5. Availability in China</h2>
+          <p>Domestic CDNs support both protocols well. The one unavoidable pain is CORS: whichever protocol you use, if the segment domain differs from the page domain, <code>Access-Control-Allow-Origin</code> must be set correctly — that's the real reason many streams "won't play".</p>
+
+          <h2>6. Which to choose</h2>
+          <ul>
+            <li>Mostly <strong>Apple users / want native playback</strong> → prefer HLS (.m3u8).</li>
+            <li><strong>Cross-platform / international / big-ecosystem (e.g. YouTube)</strong> → DASH (.mpd) is more common.</li>
+            <li>Safest: <strong>produce both</strong> and let the player pick by device — this site's player bundles both hls.js and dash.js so any format plays.</li>
+          </ul>
+
+          <h2>Related tools</h2>
+          <p>Want to verify a source plays? Open the <a href="/m3u8-player/">M3U8 / HLS online player</a> and paste a <code>.m3u8</code> or <code>.mpd</code> URL to play instantly; for CORS errors see <a href="/blog/m3u8-playback-failed/">the playback troubleshooting guide</a>. Need a short link for a long playback URL? Use the <a href="/short-link/">short link</a> tool.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/" data-zh="首页" data-en="Home">首页</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
+        <a href="/about/" data-zh="关于" data-en="About">关于</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>
