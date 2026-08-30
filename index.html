@@ -1,44 +1,46 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>816800 工具箱 — 极简 · 无广告 · 暗黑风技术工具</title>
-  <meta name="description" content="816800.xyz 是一个纯前端、零广告的极简暗黑风技术工具箱。已上线 M3U8 / HLS 在线播放与流媒体测试工具，更多开发者小工具陆续解锁。" />
-  <meta name="keywords" content="M3U8 在线测试, HLS Stream Tester, 在线播放 m3u8 报错, 流媒体测试工具, 开发者工具箱" />
+  <title>816800.xyz - Free Online Developer Tools (M3U8 Player, Text Utils)</title>
+  <meta name="description" content="Free, fast, privacy-first online tools for developers and creators: M3U8/HLS stream tester, URL shortener, case converter, word counter and more. No signup, no tracking, runs in your browser." />
+  <meta name="keywords" content="free online tools, m3u8 player, hls stream tester, case converter, word counter, url shortener, developer tools" />
   <meta name="author" content="816800.xyz" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/" />
-  <meta property="og:title" content="816800 工具箱 — 极简暗黑风技术工具" />
-  <meta property="og:description" content="M3U8 / HLS 在线播放测试，纯前端零广告开发者工具箱。" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/" />
+  <meta property="og:title" content="816800.xyz - Free Online Developer Tools (M3U8 Player, Text Utils)" />
+  <meta property="og:description" content="Free, fast, privacy-first online tools for developers and creators: M3U8/HLS stream tester, URL shortener, case converter, word counter and more. No signup, no tracking, runs in your browser." />
   <meta property="og:url" content="https://816800.xyz/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="816800.xyz" />
   <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="816800 工具箱 — 极简暗黑风技术工具" />
-  <meta name="twitter:description" content="M3U8 / HLS 在线播放测试，纯前端零广告开发者工具箱。" />
+  <meta name="twitter:title" content="816800.xyz - Free Online Developer Tools (M3U8 Player, Text Utils)" />
+  <meta name="twitter:description" content="Free, fast, privacy-first online tools for developers and creators: M3U8/HLS stream tester, URL shortener, case converter, word counter and more. No signup, no tracking, runs in your browser." />
   <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "name": "816800.xyz 工具箱",
-        "url": "https://816800.xyz/",
-        "description": "纯前端、零广告的极简暗黑风技术工具箱。"
-      },
-      {
-        "@type": "Organization",
-        "name": "816800.xyz",
-        "url": "https://816800.xyz/",
-        "logo": "https://816800.xyz/assets/img/logo.svg"
-      }
-    ]
-  }
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "816800.xyz",
+      "url": "https://816800.xyz/",
+      "description": "Free, minimal, privacy-first online tools for developers that run entirely in your browser."
+    },
+    {
+      "@type": "Organization",
+      "name": "816800.xyz",
+      "url": "https://816800.xyz/",
+      "logo": "https://816800.xyz/assets/img/logo.svg"
+    }
+  ]
+}
   </script>
   <script src="/assets/js/analytics.js" defer></script>
 </head>
@@ -52,12 +54,13 @@
       <div class="nav-right">
         <button id="langToggle" class="lang-toggle" type="button">EN</button>
         <nav class="nav-links" aria-label="主导航">
-          <a href="/" class="active" data-zh="首页" data-en="Home">首页</a>
-          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-          <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
-          <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
-          <a href="/about/" data-zh="关于" data-en="About">关于</a>
-          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+          <a href="/" class="active" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/short-link/" data-zh="短网址" data-en="Short Link">Short Link</a>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/about/" data-zh="关于" data-en="About">About</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">Contact</a>
         </nav>
       </div>
     </div>
@@ -67,114 +70,141 @@
     <div class="container">
       <!-- Hero -->
       <section class="hero">
-        <span class="eyebrow" data-zh="纯前端 · 零广告 · 秒开" data-en="Pure Front-End · Ad-Free · Instant">纯前端 · 零广告 · 秒开</span>
-        <h1 class="i18n-block">
+        <span class="eyebrow" data-zh="纯前端 · 零广告 · 秒开" data-en="Pure Front-End · Ad-Free · Instant">Pure Front-End · Ad-Free · Instant</span>
+        <h1 class="i18n-block lang-en">
           <span class="zh">为开发者打造的<br><span class="grad">极简技术工具箱</span></span>
           <span class="en">A Minimal Toolkit<br><span class="grad">Built for Developers</span></span>
         </h1>
         <p data-zh="一个没有任何弹窗与追踪的暗黑风工具站。专注把单个工具做到极致——从 M3U8 / HLS 流媒体在线测试开始。"
-           data-en="A dark-themed toolkit with zero popups and zero tracking. We obsess over doing one tool perfectly — starting with M3U8 / HLS streaming tests.">一个没有任何弹窗与追踪的暗黑风工具站。专注把单个工具做到极致——从 M3U8 / HLS 流媒体在线测试开始。</p>
+           data-en="A dark-themed toolkit with zero popups and zero tracking. We obsess over doing one tool perfectly — starting with M3U8 / HLS streaming tests.">A dark-themed toolkit with zero popups and zero tracking. We obsess over doing one tool perfectly — starting with M3U8 / HLS streaming tests.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/m3u8-player/" data-zh="▶ 开始 M3U8 测试" data-en="▶ Start M3U8 Test">▶ 开始 M3U8 测试</a>
-          <a class="btn btn-ghost" href="/about/" data-zh="了解本站" data-en="About Us">了解本站</a>
+          <a class="btn btn-primary" href="/m3u8-player/" data-zh="▶ 开始 M3U8 测试" data-en="▶ Start M3U8 Test">▶ Start M3U8 Test</a>
+          <a class="btn btn-ghost" href="/about/" data-zh="了解本站" data-en="About Us">About Us</a>
         </div>
       </section>
 
       <!-- 工具魔方网格 -->
       <div class="section-head">
-        <h2 data-zh="工具魔方" data-en="Tool Grid">工具魔方</h2>
-        <span class="hint" data-zh="已上线 2 个 · 更多陆续解锁" data-en="2 live · more unlocking">已上线 2 个 · 更多陆续解锁</span>
+        <h2 data-zh="工具魔方" data-en="Tool Grid">Tool Grid</h2>
+        <span class="hint" data-zh="已上线 5 个 · 更多陆续解锁" data-en="5 live · more unlocking">5 live · more unlocking</span>
       </div>
 
       <section class="grid" aria-label="工具列表">
         <a class="tool-card feature" href="/m3u8-player/">
           <span class="badge-live">ONLINE</span>
           <div class="tool-icon">🎬</div>
-          <h3 data-zh="M3U8 / HLS 在线播放" data-en="M3U8 / HLS Player">M3U8 / HLS 在线播放</h3>
+          <h3 data-zh="M3U8 / HLS 在线播放" data-en="M3U8 / HLS Player">M3U8 / HLS Player</h3>
           <p data-zh="粘贴 .m3u8 或 .mpd 流地址，即时解析播放；自动诊断 CORS 跨域、记录测试历史。"
-             data-en="Paste a .m3u8 or .mpd URL to play instantly; auto-diagnoses CORS issues and logs your test history.">粘贴 .m3u8 或 .mpd 流地址，即时解析播放；自动诊断 CORS 跨域、记录测试历史。</p>
-          <span class="go" data-zh="立即测试 →" data-en="Test now →">立即测试 →</span>
+             data-en="Paste a .m3u8 or .mpd URL to play instantly; auto-diagnoses CORS issues and logs your test history.">Paste a .m3u8 or .mpd URL to play instantly; auto-diagnoses CORS issues and logs your test history.</p>
+          <span class="go" data-zh="立即测试 →" data-en="Test now →">Test now →</span>
         </a>
 
         <a class="tool-card feature" href="/short-link/">
           <span class="badge-live">ONLINE</span>
           <div class="tool-icon">🔗</div>
-          <h3 data-zh="短网址 / 链接中转" data-en="Short Link">短网址 / 链接中转</h3>
+          <h3 data-zh="短网址 / 链接中转" data-en="Short Link">Short Link</h3>
           <p data-zh="粘贴长链接，生成带本站域名的分享跳转链接；零后端、零上传。"
-             data-en="Paste a long URL to get a branded share link — no backend, no upload.">粘贴长链接，生成带本站域名的分享跳转链接；零后端、零上传。</p>
-          <span class="go" data-zh="立即使用 →" data-en="Use now →">立即使用 →</span>
+             data-en="Paste a long URL to get a branded share link — no backend, no upload.">Paste a long URL to get a branded share link — no backend, no upload.</p>
+          <span class="go" data-zh="立即使用 →" data-en="Use now →">Use now →</span>
+        </a>
+
+        <a class="tool-card feature" href="/tools/case-converter/">
+          <span class="badge-live">ONLINE</span>
+          <div class="tool-icon">🔠</div>
+          <h3 data-zh="大小写转换" data-en="Case Converter">Case Converter</h3>
+          <p data-zh="全大写、全小写、标题式、句首大写，以及 camelCase、snake_case、kebab-case 等编程命名风格，一键互转。"
+             data-en="Switch between UPPERCASE, lowercase, Title Case, Sentence case and code styles like camelCase, snake_case and kebab-case.">Switch between UPPERCASE, lowercase, Title Case, Sentence case and code styles like camelCase, snake_case and kebab-case.</p>
+          <span class="go" data-zh="立即使用 →" data-en="Use now →">Use now →</span>
+        </a>
+
+        <a class="tool-card feature" href="/tools/word-counter/">
+          <span class="badge-live">ONLINE</span>
+          <div class="tool-icon">🔢</div>
+          <h3 data-zh="字数与关键词密度统计" data-en="Word Counter">Word Counter</h3>
+          <p data-zh="实时统计词数、字符数、句数、段落数与阅读时长，并给出 Top 10 关键词密度排行。"
+             data-en="Live word, character, sentence, paragraph and reading-time counts, plus a top 10 keyword density table.">Live word, character, sentence, paragraph and reading-time counts, plus a top 10 keyword density table.</p>
+          <span class="go" data-zh="立即使用 →" data-en="Use now →">Use now →</span>
+        </a>
+
+        <a class="tool-card feature" href="/tools/font-changer/">
+          <span class="badge-live">ONLINE</span>
+          <div class="tool-icon">✨</div>
+          <h3 data-zh="社媒花体字生成" data-en="Fancy Text Generator">Fancy Text Generator</h3>
+          <p data-zh="把普通英文变成粗体、斜体、花体、等宽等 Unicode 样式，可直接粘贴到各大社交平台。"
+             data-en="Turn plain text into bold, italic, cursive and monospace Unicode styles ready to paste into any social platform.">Turn plain text into bold, italic, cursive and monospace Unicode styles ready to paste into any social platform.</p>
+          <span class="go" data-zh="立即使用 →" data-en="Use now →">Use now →</span>
         </a>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">🗜️</div>
-          <h3 data-zh="WebP 图片压缩" data-en="WebP Image Compress">WebP 图片压缩</h3>
+          <h3 data-zh="WebP 图片压缩" data-en="WebP Image Compress">WebP Image Compress</h3>
           <p data-zh="纯本地浏览器压缩，100% 隐私，不上传任何文件。"
-             data-en="In-browser compression, 100% private — no files ever leave your device.">纯本地浏览器压缩，100% 隐私，不上传任何文件。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="In-browser compression, 100% private — no files ever leave your device.">In-browser compression, 100% private — no files ever leave your device.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">🔧</div>
-          <h3 data-zh="JSON 格式化 / 转换" data-en="JSON Formatter">JSON 格式化 / 转换</h3>
+          <h3 data-zh="JSON 格式化 / 转换" data-en="JSON Formatter">JSON Formatter</h3>
           <p data-zh="一键美化、压缩、校验 JSON，支持转 CSV / YAML。"
-             data-en="Beautify, minify and validate JSON in one click; export to CSV / YAML.">一键美化、压缩、校验 JSON，支持转 CSV / YAML。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="Beautify, minify and validate JSON in one click; export to CSV / YAML.">Beautify, minify and validate JSON in one click; export to CSV / YAML.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">🔳</div>
-          <h3 data-zh="二维码生成 / 解析" data-en="QR Code">二维码生成 / 解析</h3>
+          <h3 data-zh="二维码生成 / 解析" data-en="QR Code">QR Code</h3>
           <p data-zh="文本、链接秒变二维码；支持本地扫描识别。"
-             data-en="Turn text and links into QR codes instantly; scan and decode locally.">文本、链接秒变二维码；支持本地扫描识别。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="Turn text and links into QR codes instantly; scan and decode locally.">Turn text and links into QR codes instantly; scan and decode locally.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">⏱️</div>
-          <h3 data-zh="时间戳转换" data-en="Timestamp Converter">时间戳转换</h3>
+          <h3 data-zh="时间戳转换" data-en="Timestamp Converter">Timestamp Converter</h3>
           <p data-zh="Unix 时间戳与本地时间互转，支持毫秒 / 多时区。"
-             data-en="Convert between Unix timestamps and local time, with ms and multi-timezone support.">Unix 时间戳与本地时间互转，支持毫秒 / 多时区。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="Convert between Unix timestamps and local time, with ms and multi-timezone support.">Convert between Unix timestamps and local time, with ms and multi-timezone support.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">🔤</div>
-          <h3 data-zh="Base64 编解码" data-en="Base64">Base64 编解码</h3>
+          <h3 data-zh="Base64 编解码" data-en="Base64">Base64</h3>
           <p data-zh="文本与 Base64 双向转换，支持 URL 安全模式。"
-             data-en="Bidirectional text / Base64 conversion with URL-safe mode.">文本与 Base64 双向转换，支持 URL 安全模式。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="Bidirectional text / Base64 conversion with URL-safe mode.">Bidirectional text / Base64 conversion with URL-safe mode.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">🎨</div>
-          <h3 data-zh="颜色拾取 / 转换" data-en="Color Picker">颜色拾取 / 转换</h3>
+          <h3 data-zh="颜色拾取 / 转换" data-en="Color Picker">Color Picker</h3>
           <p data-zh="HEX、RGB、HSL 实时互转，屏幕取色。"
-             data-en="Live conversion between HEX, RGB and HSL, with eyedropper support.">HEX、RGB、HSL 实时互转，屏幕取色。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="Live conversion between HEX, RGB and HSL, with eyedropper support.">Live conversion between HEX, RGB and HSL, with eyedropper support.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">📐</div>
-          <h3 data-zh="正则表达式测试" data-en="Regex Tester">正则表达式测试</h3>
+          <h3 data-zh="正则表达式测试" data-en="Regex Tester">Regex Tester</h3>
           <p data-zh="实时高亮匹配，支持分组与替换预览。"
-             data-en="Highlight matches in real time, with groups and replace preview.">实时高亮匹配，支持分组与替换预览。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="Highlight matches in real time, with groups and replace preview.">Highlight matches in real time, with groups and replace preview.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
 
         <div class="tool-card soon" aria-disabled="true">
           <span class="badge-soon">SOON</span>
           <div class="tool-icon">➕</div>
-          <h3 data-zh="更多工具" data-en="More Tools">更多工具</h3>
+          <h3 data-zh="更多工具" data-en="More Tools">More Tools</h3>
           <p data-zh="每 1~2 个月解锁一个全新工具，保持站点常新。"
-             data-en="A brand-new tool unlocks every 1–2 months to keep the site fresh.">每 1~2 个月解锁一个全新工具，保持站点常新。</p>
-          <span class="go" data-zh="敬请期待" data-en="Coming soon">敬请期待</span>
+             data-en="A brand-new tool unlocks every 1–2 months to keep the site fresh.">A brand-new tool unlocks every 1–2 months to keep the site fresh.</p>
+          <span class="go" data-zh="敬请期待" data-en="Coming soon">Coming soon</span>
         </div>
       </section>
     </div>
@@ -182,16 +212,17 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">Minimal Dark Tech Toolkit</span></div>
       <nav class="footer-links" aria-label="页脚导航">
-        <a href="/" data-zh="首页" data-en="Home">首页</a>
-        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
-        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
-          <a href="/about/" data-zh="关于" data-en="About">关于</a>
-        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
-        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
-        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        <a href="/" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">Short Link</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/about/" data-zh="关于" data-en="About">About</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">Contact</a>
       </nav>
     </div>
   </footer>

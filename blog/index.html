@@ -1,45 +1,57 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>博客 — 流媒体与开发者工具笔记 · 816800 工具箱</title>
-  <meta name="description" content="816800.xyz 博客：围绕 M3U8 / HLS / DASH 流媒体、CORS 跨域与常用开发者工具的长尾技术笔记，附带可立即使用的在线工具。" />
-  <meta name="keywords" content="M3U8 教程, HLS 是什么, m3u8 播放失败, m3u8 与 mp4 区别, DASH vs HLS, m3u8 在线播放器, 短链接, CORS 跨域, 流媒体测试" />
+  <title>Blog - Streaming & Developer Tool Guides | 816800.xyz</title>
+  <meta name="description" content="In-depth guides on M3U8, HLS and DASH streaming, CORS troubleshooting and practical online tools, each paired with a free tester you can use right away." />
+  <meta name="keywords" content="hls tutorial, m3u8 guide, streaming blog, cors guide, developer tools blog" />
   <meta name="author" content="816800.xyz" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/blog/" />
-  <meta property="og:title" content="博客 — 流媒体与开发者工具笔记 · 816800 工具箱" />
-  <meta property="og:description" content="M3U8 / HLS / DASH 流媒体、CORS 跨域与开发者工具的长尾技术笔记。" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/blog/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/blog/" />
+  <meta property="og:title" content="Blog - Streaming & Developer Tool Guides | 816800.xyz" />
+  <meta property="og:description" content="In-depth guides on M3U8, HLS and DASH streaming, CORS troubleshooting and practical online tools, each paired with a free tester you can use right away." />
   <meta property="og:url" content="https://816800.xyz/blog/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="816800.xyz" />
   <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="博客 — 流媒体与开发者工具笔记 · 816800 工具箱" />
-  <meta name="twitter:description" content="M3U8 / HLS / DASH 流媒体、CORS 跨域与开发者工具的长尾技术笔记。" />
+  <meta name="twitter:title" content="Blog - Streaming & Developer Tool Guides | 816800.xyz" />
+  <meta name="twitter:description" content="In-depth guides on M3U8, HLS and DASH streaming, CORS troubleshooting and practical online tools, each paired with a free tester you can use right away." />
   <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Blog",
-        "name": "816800.xyz 博客",
-        "url": "https://816800.xyz/blog/",
-        "description": "围绕 M3U8 / HLS / DASH 流媒体、CORS 跨域与开发者工具的技术笔记。"
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://816800.xyz/" },
-          { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://816800.xyz/blog/" }
-        ]
-      }
-    ]
-  }
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "name": "816800.xyz Blog",
+      "url": "https://816800.xyz/blog/",
+      "description": "Technical notes on M3U8, HLS and DASH streaming, CORS and practical developer tools."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://816800.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://816800.xyz/blog/"
+        }
+      ]
+    }
+  ]
+}
   </script>
   <script src="/assets/js/analytics.js" defer></script>
 </head>
@@ -53,12 +65,13 @@
       <div class="nav-right">
         <button id="langToggle" class="lang-toggle" type="button">EN</button>
         <nav class="nav-links" aria-label="主导航">
-          <a href="/" data-zh="首页" data-en="Home">首页</a>
-          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-          <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
-          <a href="/blog/" class="active" data-zh="博客" data-en="Blog">博客</a>
-          <a href="/about/" data-zh="关于" data-en="About">关于</a>
-          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+          <a href="/" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/short-link/" data-zh="短网址" data-en="Short Link">Short Link</a>
+          <a href="/blog/" class="active" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/about/" data-zh="关于" data-en="About">About</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">Contact</a>
         </nav>
       </div>
     </div>
@@ -67,73 +80,73 @@
   <main class="site-main">
     <div class="container">
       <div class="page-title">
-        <h1 data-zh="博客 · 流媒体与工具笔记" data-en="Blog · Streaming & Tool Notes">博客 · 流媒体与工具笔记</h1>
+        <h1 data-zh="博客 · 流媒体与工具笔记" data-en="Blog · Streaming & Tool Notes">Blog · Streaming & Tool Notes</h1>
         <p data-zh="把 M3U8 / HLS / DASH 踩过的坑，写成能直接用的笔记。"
-           data-en="Field notes on M3U8 / HLS / DASH, written to be immediately useful.">把 M3U8 / HLS / DASH 踩过的坑，写成能直接用的笔记。</p>
+           data-en="Field notes on M3U8 / HLS / DASH, written to be immediately useful.">Field notes on M3U8 / HLS / DASH, written to be immediately useful.</p>
       </div>
 
       <section class="grid" aria-label="文章列表">
         <a class="tool-card" href="/blog/m3u8-playback-failed/">
           <div class="tool-icon">📺</div>
           <h3 data-zh="m3u8 播放失败/黑屏？一步步排查 CORS 与地址失效"
-              data-en="M3U8 Playback Failed / Black Screen? Fix CORS & Dead URLs">m3u8 播放失败/黑屏？一步步排查 CORS 与地址失效</h3>
+              data-en="M3U8 Playback Failed / Black Screen? Fix CORS & Dead URLs">M3U8 Playback Failed / Black Screen? Fix CORS & Dead URLs</h3>
           <p data-zh="黑屏、报错、控制台跨域…系统区分“地址失效”与“CORS 被拦截”，给出可操作的修复步骤。"
-             data-en="Black screen, errors, CORS in console… tell dead URLs from CORS blocks, with actionable fixes.">黑屏、报错、控制台跨域…系统区分“地址失效”与“CORS 被拦截”，给出可操作的修复步骤。</p>
-          <span class="go" data-zh="阅读 →" data-en="Read →">阅读 →</span>
+             data-en="Black screen, errors, CORS in console… tell dead URLs from CORS blocks, with actionable fixes.">Black screen, errors, CORS in console… tell dead URLs from CORS blocks, with actionable fixes.</p>
+          <span class="go" data-zh="阅读 →" data-en="Read →">Read →</span>
         </a>
 
         <a class="tool-card" href="/blog/m3u8-vs-mp4/">
           <div class="tool-icon">⚖️</div>
           <h3 data-zh="M3U8 和 MP4 到底有什么区别？"
-              data-en="M3U8 vs MP4: What's the Difference?">M3U8 和 MP4 到底有什么区别？</h3>
+              data-en="M3U8 vs MP4: What's the Difference?">M3U8 vs MP4: What's the Difference?</h3>
           <p data-zh="一个是指引分片的索引，一个是完整文件。从原理、直播、自适应清晰度到兼容性一次讲清。"
-             data-en="One is an index of segments, the other a complete file. Covers principle, live streaming, ABR and compatibility.">一个是指引分片的索引，一个是完整文件。从原理、直播、自适应清晰度到兼容性一次讲清。</p>
-          <span class="go" data-zh="阅读 →" data-en="Read →">阅读 →</span>
+             data-en="One is an index of segments, the other a complete file. Covers principle, live streaming, ABR and compatibility.">One is an index of segments, the other a complete file. Covers principle, live streaming, ABR and compatibility.</p>
+          <span class="go" data-zh="阅读 →" data-en="Read →">Read →</span>
         </a>
 
         <a class="tool-card" href="/blog/what-is-hls/">
           <div class="tool-icon">🛰️</div>
           <h3 data-zh="什么是 HLS？为什么浏览器不能直接播 m3u8"
-              data-en="What Is HLS? Why Browsers Can't Play M3U8 Directly">什么是 HLS？为什么浏览器不能直接播 m3u8</h3>
+              data-en="What Is HLS? Why Browsers Can't Play M3U8 Directly">What Is HLS? Why Browsers Can't Play M3U8 Directly</h3>
           <p data-zh="HLS 是 Apple 的自适应流协议。讲清 m3u8 清单、.ts 分片与播放器“翻译”的全过程。"
-             data-en="HLS is Apple's adaptive streaming protocol. How the m3u8 playlist, .ts segments and the player's 'translation' work.">HLS 是 Apple 的自适应流协议。讲清 m3u8 清单、.ts 分片与播放器“翻译”的全过程。</p>
-          <span class="go" data-zh="阅读 →" data-en="Read →">阅读 →</span>
+             data-en="HLS is Apple's adaptive streaming protocol. How the m3u8 playlist, .ts segments and the player's 'translation' work.">HLS is Apple's adaptive streaming protocol. How the m3u8 playlist, .ts segments and the player's 'translation' work.</p>
+          <span class="go" data-zh="阅读 →" data-en="Read →">Read →</span>
         </a>
 
         <a class="tool-card" href="/blog/dash-vs-hls/">
           <div class="tool-icon">🔀</div>
           <h3 data-zh="DASH 与 HLS 怎么选？流媒体协议全方位对比"
-              data-en="DASH vs HLS: How to Choose a Streaming Protocol">DASH 与 HLS 怎么选？流媒体协议全方位对比</h3>
+              data-en="DASH vs HLS: How to Choose a Streaming Protocol">DASH vs HLS: How to Choose a Streaming Protocol</h3>
           <p data-zh="二者都是“清单+分片+自适应”。从阵营、封装、兼容性、延迟与国内可用性给出选择结论。"
-             data-en="Both are manifest+segment+adaptive. Covers camp, container, compatibility, latency and China availability.">二者都是“清单+分片+自适应”。从阵营、封装、兼容性、延迟与国内可用性给出选择结论。</p>
-          <span class="go" data-zh="阅读 →" data-en="Read →">阅读 →</span>
+             data-en="Both are manifest+segment+adaptive. Covers camp, container, compatibility, latency and China availability.">Both are manifest+segment+adaptive. Covers camp, container, compatibility, latency and China availability.</p>
+          <span class="go" data-zh="阅读 →" data-en="Read →">Read →</span>
         </a>
 
         <a class="tool-card" href="/blog/m3u8-player-recommend/">
           <div class="tool-icon">🎬</div>
           <h3 data-zh="2026 好用的 M3U8 在线播放器推荐（含自测）"
-              data-en="Best M3U8 Online Players in 2026 (with Self-Test)">2026 好用的 M3U8 在线播放器推荐（含自测）</h3>
+              data-en="Best M3U8 Online Players in 2026 (with Self-Test)">Best M3U8 Online Players in 2026 (with Self-Test)</h3>
           <p data-zh="盘点 hls.js、Video.js、Plyr 与商业方案，并给出挑选要点与本站自测方法。"
-             data-en="Roundup of hls.js, Video.js, Plyr and commercial players, with selection criteria and self-test.">盘点 hls.js、Video.js、Plyr 与商业方案，并给出挑选要点与本站自测方法。</p>
-          <span class="go" data-zh="阅读 →" data-en="Read →">阅读 →</span>
+             data-en="Roundup of hls.js, Video.js, Plyr and commercial players, with selection criteria and self-test.">Roundup of hls.js, Video.js, Plyr and commercial players, with selection criteria and self-test.</p>
+          <span class="go" data-zh="阅读 →" data-en="Read →">Read →</span>
         </a>
 
         <a class="tool-card" href="/blog/short-link-guide/">
           <div class="tool-icon">🔗</div>
           <h3 data-zh="短链接是什么？为什么你需要一个短网址工具"
-              data-en="What Is a Short Link? Why You Need a URL Shortener">短链接是什么？为什么你需要一个短网址工具</h3>
+              data-en="What Is a Short Link? Why You Need a URL Shortener">What Is a Short Link? Why You Need a URL Shortener</h3>
           <p data-zh="讲清短网址的原理、典型用途、风险与选型，以及分享 m3u8 长链接为何有用。"
-             data-en="Explains how URL shorteners work, their uses, risks, and how to choose, and why they help with long m3u8 links.">讲清短网址的原理、典型用途、风险与选型，以及分享 m3u8 长链接为何有用。</p>
-          <span class="go" data-zh="阅读 →" data-en="Read →">阅读 →</span>
+             data-en="Explains how URL shorteners work, their uses, risks, and how to choose, and why they help with long m3u8 links.">Explains how URL shorteners work, their uses, risks, and how to choose, and why they help with long m3u8 links.</p>
+          <span class="go" data-zh="阅读 →" data-en="Read →">Read →</span>
         </a>
 
         <a class="tool-card" href="/blog/hls-live-vod/">
           <div class="tool-icon">📡</div>
           <h3 data-zh="HLS 直播与点播：m3u8 的两种用法"
-              data-en="HLS Live vs VOD: Two Uses of M3U8">HLS 直播与点播：m3u8 的两种用法</h3>
+              data-en="HLS Live vs VOD: Two Uses of M3U8">HLS Live vs VOD: Two Uses of M3U8</h3>
           <p data-zh="同一个 m3u8 既能点播也能直播。讲清 VOD 与 Live 在结构与延迟上的差异。"
-             data-en="The same m3u8 does VOD and Live. Covers the difference in structure and latency.">同一个 m3u8 既能点播也能直播。讲清 VOD 与 Live 在结构与延迟上的差异。</p>
-          <span class="go" data-zh="阅读 →" data-en="Read →">阅读 →</span>
+             data-en="The same m3u8 does VOD and Live. Covers the difference in structure and latency.">The same m3u8 does VOD and Live. Covers the difference in structure and latency.</p>
+          <span class="go" data-zh="阅读 →" data-en="Read →">Read →</span>
         </a>
       </section>
     </div>
@@ -141,16 +154,17 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">Minimal Dark Tech Toolkit</span></div>
       <nav class="footer-links" aria-label="页脚导航">
-        <a href="/" data-zh="首页" data-en="Home">首页</a>
-        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
-        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
-        <a href="/about/" data-zh="关于" data-en="About">关于</a>
-        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
-        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
-        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        <a href="/" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">Short Link</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+        <a href="/about/" data-zh="关于" data-en="About">About</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">Contact</a>
       </nav>
     </div>
   </footer>

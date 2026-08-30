@@ -583,3 +583,100 @@ a { color: inherit; text-decoration: none; }
   .result-row { flex-direction: column; }
   .result-row .btn { width: 100%; }
 }
+
+
+/* ===================== 文本类工具通用组件 ===================== */
+.tool-wrap { max-width: 900px; margin: 0 auto; }
+.tool-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-player);
+}
+.io-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 720px) { .io-grid { grid-template-columns: 1fr; } }
+
+/* 分段按钮组 */
+.seg { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.seg-btn {
+  padding: 8px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: var(--bg-soft, #101014);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm, 8px);
+  cursor: pointer;
+  transition: all .18s ease;
+  font-family: inherit;
+}
+.seg-btn:hover { color: var(--text); border-color: var(--border-strong); }
+.seg-btn.active {
+  color: #04121a;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+}
+
+/* 统计卡片 */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin: 18px 0 0;
+}
+.stat {
+  background: var(--bg-soft, #101014);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm, 8px);
+  padding: 14px 16px;
+}
+.stat-label { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+.stat-value { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.1; }
+.stat-value.grad {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* 关键词密度 */
+.kw-list { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.kw-row { display: grid; grid-template-columns: 130px 1fr 62px; gap: 12px; align-items: center; font-size: 13.5px; }
+.kw-word { color: var(--text); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kw-bar-wrap { background: var(--bg-soft, #101014); border: 1px solid var(--border); border-radius: 999px; height: 9px; overflow: hidden; }
+.kw-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 999px;
+  transition: width .25s ease;
+}
+.kw-pct { color: var(--text-dim); text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .kw-row { grid-template-columns: 96px 1fr 54px; font-size: 12.5px; } }
+
+/* 花体字样式列表 */
+.style-list { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.style-item {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--bg-soft, #101014);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm, 8px);
+}
+.style-name { font-size: 12.5px; color: var(--text-dim); }
+.style-out {
+  font-size: 16px; color: var(--text); word-break: break-all; line-height: 1.45;
+}
+.style-copy { padding: 6px 12px; font-size: 12.5px; }
+@media (max-width: 620px) {
+  .style-item { grid-template-columns: 1fr auto; }
+  .style-name { grid-column: 1 / -1; }
+}
+
+.tool-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.empty-hint { color: var(--text-dim); font-size: 13.5px; margin-top: 14px; }

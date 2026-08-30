@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>联系我们 — 816800.xyz</title>
-  <meta name="description" content="与 816800.xyz 团队取得联系：提交工具建议、反馈问题或申请合作。" />
-  <meta name="keywords" content="联系, 816800, 反馈, 合作" />
+  <title>Contact 816800.xyz - Tool Requests and Feedback</title>
+  <meta name="description" content="Get in touch with the 816800.xyz team: suggest a new tool, report an issue, or reach out about partnerships and collaborations." />
+  <meta name="keywords" content="contact 816800.xyz, tool request, feedback, support" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/contact/" />
-  <meta property="og:title" content="联系我们 — 816800.xyz" />
-  <meta property="og:description" content="与 816800.xyz 团队取得联系：提交工具建议、反馈问题或申请合作。" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/contact/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/contact/" />
+  <meta property="og:title" content="Contact 816800.xyz - Tool Requests and Feedback" />
+  <meta property="og:description" content="Get in touch with the 816800.xyz team: suggest a new tool, report an issue, or reach out about partnerships and collaborations." />
   <meta property="og:url" content="https://816800.xyz/contact/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="816800.xyz" />
   <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="联系我们 — 816800.xyz" />
-  <meta name="twitter:description" content="与 816800.xyz 团队取得联系：提交工具建议、反馈问题或申请合作。" />
+  <meta name="twitter:title" content="Contact 816800.xyz - Tool Requests and Feedback" />
+  <meta name="twitter:description" content="Get in touch with the 816800.xyz team: suggest a new tool, report an issue, or reach out about partnerships and collaborations." />
   <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
@@ -32,11 +34,12 @@
       <div class="nav-right">
         <button id="langToggle" class="lang-toggle" type="button">EN</button>
         <nav class="nav-links" aria-label="主导航">
-          <a href="/" data-zh="首页" data-en="Home">首页</a>
-          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-          <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
-          <a href="/about/" data-zh="关于" data-en="About">关于</a>
-          <a href="/contact/" class="active" data-zh="联系" data-en="Contact">联系</a>
+          <a href="/" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/about/" data-zh="关于" data-en="About">About</a>
+          <a href="/contact/" class="active" data-zh="联系" data-en="Contact">Contact</a>
         </nav>
       </div>
     </div>
@@ -44,10 +47,10 @@
 
   <main class="site-main">
     <div class="container legal">
-      <h1 data-zh="联系我们" data-en="Contact Us">联系我们</h1>
-      <p class="updated" data-zh="我们重视每一条反馈" data-en="We value every message">我们重视每一条反馈</p>
+      <h1 data-zh="联系我们" data-en="Contact Us">Contact Us</h1>
+      <p class="updated" data-zh="我们重视每一条反馈" data-en="We value every message">We value every message</p>
 
-      <article class="i18n-block">
+      <article class="i18n-block lang-en">
         <div class="zh">
           <p>有工具建议、遇到报错，或想申请某个功能的优先开发？填写下方表单，我们会通过你的邮件客户端发送给我们（本站为纯静态站，表单不会经服务器中转，隐私无忧）。</p>
         </div>
@@ -58,35 +61,36 @@
 
       <form class="contact-form" id="contactForm">
         <div class="field">
-          <label for="cName" data-zh="称呼" data-en="Name">称呼</label>
-          <input id="cName" name="name" type="text" data-zh-ph="你的名字 / 昵称" data-en-ph="Your name / nickname" placeholder="你的名字 / 昵称" required />
+          <label for="cName" data-zh="称呼" data-en="Name">Name</label>
+          <input id="cName" name="name" type="text" data-zh-ph="你的名字 / 昵称" data-en-ph="Your name / nickname" placeholder="Your name / nickname" required />
         </div>
         <div class="field">
-          <label for="cEmail" data-zh="邮箱" data-en="Email">邮箱</label>
+          <label for="cEmail" data-zh="邮箱" data-en="Email">Email</label>
           <input id="cEmail" name="email" type="email" data-zh-ph="you@example.com" data-en-ph="you@example.com" placeholder="you@example.com" required />
         </div>
         <div class="field">
-          <label for="cMsg" data-zh="内容" data-en="Message">内容</label>
-          <textarea id="cMsg" name="message" data-zh-ph="想说的都写在这里…" data-en-ph="Write whatever you'd like to say…" placeholder="想说的都写在这里…" required></textarea>
+          <label for="cMsg" data-zh="内容" data-en="Message">Message</label>
+          <textarea id="cMsg" name="message" data-zh-ph="想说的都写在这里…" data-en-ph="Write whatever you'd like to say…" placeholder="Write whatever you'd like to say…" required></textarea>
         </div>
-        <button class="btn btn-primary" type="submit" data-zh="发送邮件" data-en="Send Email">发送邮件</button>
+        <button class="btn btn-primary" type="submit" data-zh="发送邮件" data-en="Send Email">Send Email</button>
         <p class="form-note" data-zh="提交后将打开你的默认邮件客户端，收件人为 admin@816800.xyz。若未自动打开，请手动发信至该地址。"
-           data-en="Submitting opens your default mail client, addressed to admin@816800.xyz. If it doesn't open automatically, please email that address manually.">提交后将打开你的默认邮件客户端，收件人为 admin@816800.xyz。若未自动打开，请手动发信至该地址。</p>
+           data-en="Submitting opens your default mail client, addressed to admin@816800.xyz. If it doesn't open automatically, please email that address manually.">Submitting opens your default mail client, addressed to admin@816800.xyz. If it doesn't open automatically, please email that address manually.</p>
       </form>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">Minimal Dark Tech Toolkit</span></div>
       <nav class="footer-links" aria-label="页脚导航">
-        <a href="/" data-zh="首页" data-en="Home">首页</a>
-        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
-          <a href="/about/" data-zh="关于" data-en="About">关于</a>
-        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
-        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
-        <a href="/contact/" class="active" data-zh="联系" data-en="Contact">联系</a>
+        <a href="/" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/about/" data-zh="关于" data-en="About">About</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+        <a href="/contact/" class="active" data-zh="联系" data-en="Contact">Contact</a>
       </nav>
     </div>
   </footer>

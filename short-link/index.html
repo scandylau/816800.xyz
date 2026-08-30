@@ -1,37 +1,43 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>短网址 / 链接中转 — 816800 工具箱</title>
-  <meta name="description" content="零后端的品牌链接中转工具：粘贴长链接，生成带 816800.xyz 域名的分享跳转链接，任何人可点击跳转，数据不上传服务器。" />
-  <meta name="keywords" content="短网址, 短链接, 链接中转, 跳转, 分享链接, URL redirect" />
+  <title>Free URL Shortener - Branded Short Link Creator | 816800.xyz</title>
+  <meta name="description" content="Create short, branded share links instantly. Fully static and serverless, so your long URLs never leave the browser. Ideal for sharing long m3u8 stream links. No signup required." />
+  <meta name="keywords" content="url shortener, short link, free url shortener, link shortener, shorten url online" />
   <meta name="author" content="816800.xyz" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/short-link/" />
-  <meta property="og:title" content="短网址 / 链接中转 — 816800 工具箱" />
-  <meta property="og:description" content="零后端、零上传的品牌链接中转工具。粘贴长链接，生成带 816800.xyz 域名的分享跳转链接。" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/short-link/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/short-link/" />
+  <meta property="og:title" content="Free URL Shortener - Branded Short Link Creator | 816800.xyz" />
+  <meta property="og:description" content="Create short, branded share links instantly. Fully static and serverless, so your long URLs never leave the browser. Ideal for sharing long m3u8 stream links. No signup required." />
   <meta property="og:url" content="https://816800.xyz/short-link/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="816800.xyz" />
   <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="短网址 / 链接中转 — 816800 工具箱" />
-  <meta name="twitter:description" content="零后端、零上传的品牌链接中转工具。粘贴长链接，生成带 816800.xyz 域名的分享跳转链接。" />
+  <meta name="twitter:title" content="Free URL Shortener - Branded Short Link Creator | 816800.xyz" />
+  <meta name="twitter:description" content="Create short, branded share links instantly. Fully static and serverless, so your long URLs never leave the browser. Ideal for sharing long m3u8 stream links. No signup required." />
   <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "短网址 / 链接中转",
-    "applicationCategory": "WebApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
-    "url": "https://816800.xyz/short-link/",
-    "description": "零后端、零上传的品牌链接中转工具。"
-  }
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "URL Shortener",
+  "applicationCategory": "WebApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CNY"
+  },
+  "url": "https://816800.xyz/short-link/",
+  "description": "A zero-backend, zero-upload tool for creating branded short links."
+}
   </script>
   <script src="/assets/js/analytics.js" defer></script>
 </head>
@@ -45,12 +51,13 @@
       <div class="nav-right">
         <button id="langToggle" class="lang-toggle" type="button">EN</button>
         <nav class="nav-links" aria-label="主导航">
-          <a href="/" data-zh="首页" data-en="Home">首页</a>
-          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-          <a href="/short-link/" class="active" data-zh="短网址" data-en="Short Link">短网址</a>
-          <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
-          <a href="/about/" data-zh="关于" data-en="About">关于</a>
-          <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+          <a href="/" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/short-link/" class="active" data-zh="短网址" data-en="Short Link">Short Link</a>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/about/" data-zh="关于" data-en="About">About</a>
+          <a href="/contact/" data-zh="联系" data-en="Contact">Contact</a>
         </nav>
       </div>
     </div>
@@ -59,9 +66,9 @@
   <main class="site-main">
     <div class="container player-page">
       <div class="page-title">
-        <h1 data-zh="短网址 / 链接中转" data-en="Short Link / Redirect">短网址 / 链接中转</h1>
+        <h1 data-zh="短网址 / 链接中转" data-en="Short Link / Redirect">Short Link / Redirect</h1>
         <p data-zh="粘贴长链接，生成带本站域名的分享跳转链接 · 零后端 · 零上传"
-           data-en="Paste a long URL to get a branded share link · No backend · No upload">粘贴长链接，生成带本站域名的分享跳转链接 · 零后端 · 零上传</p>
+           data-en="Paste a long URL to get a branded share link · No backend · No upload">Paste a long URL to get a branded share link · No backend · No upload</p>
       </div>
 
       <!-- 创建区 -->
@@ -70,15 +77,15 @@
           <input id="srcInput" class="url-input" type="text" spellcheck="false"
             data-zh-ph="粘贴要分享的长链接，例如 https://example.com/very/long/path?x=1"
             data-en-ph="Paste the long URL to share, e.g. https://example.com/very/long/path?x=1"
-            placeholder="粘贴要分享的长链接，例如 https://example.com/very/long/path?x=1"
+            placeholder="Paste the long URL to share, e.g. https://example.com/very/long/path?x=1"
             aria-label="长链接输入框" />
-          <button id="genBtn" class="btn btn-primary" type="button" data-zh="生成" data-en="Generate">生成</button>
+          <button id="genBtn" class="btn btn-primary" type="button" data-zh="生成" data-en="Generate">Generate</button>
         </div>
         <div id="result" class="result" style="display:none;">
-          <label class="result-label" data-zh="你的分享链接" data-en="Your share link">你的分享链接</label>
+          <label class="result-label" data-zh="你的分享链接" data-en="Your share link">Your share link</label>
           <div class="result-row">
             <input id="outInput" class="url-input" type="text" readonly aria-label="生成的链接" />
-            <button id="copyBtn" class="btn btn-ghost" type="button" data-zh="复制" data-en="Copy">复制</button>
+            <button id="copyBtn" class="btn btn-ghost" type="button" data-zh="复制" data-en="Copy">Copy</button>
           </div>
           <div id="copyHint" class="copy-hint" data-zh="已复制到剪贴板" data-en="Copied to clipboard" style="display:none;"></div>
         </div>
@@ -122,15 +129,16 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">极简暗黑风技术工具箱</span></div>
+      <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">Minimal Dark Tech Toolkit</span></div>
       <nav class="footer-links" aria-label="页脚导航">
-        <a href="/" data-zh="首页" data-en="Home">首页</a>
-        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 播放器</a>
-        <a href="/short-link/" data-zh="短网址" data-en="Short Link">短网址</a>
-        <a href="/blog/" data-zh="博客" data-en="Blog">博客</a>
-        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
-        <a href="/terms/" data-zh="服务条款" data-en="Terms">服务条款</a>
-        <a href="/contact/" data-zh="联系" data-en="Contact">联系</a>
+        <a href="/" data-zh="首页" data-en="Home">Home</a>
+        <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
+        <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+        <a href="/short-link/" data-zh="短网址" data-en="Short Link">Short Link</a>
+        <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+        <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+        <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+        <a href="/contact/" data-zh="联系" data-en="Contact">Contact</a>
       </nav>
     </div>
   </footer>

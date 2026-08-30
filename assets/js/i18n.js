@@ -11,12 +11,13 @@
   var STORE = "lang_v1";
 
   function getLang() {
+    // 站点为英文优先（English-first）：只有用户显式切换过中文才返回 zh。
+    // 不再按浏览器语言自动切中文，保证 Googlebot 与首次访问者拿到的都是英文。
     try {
       var s = localStorage.getItem(STORE);
       if (s === "zh" || s === "en") return s;
     } catch (e) {}
-    var nav = (navigator.language || "zh").toLowerCase();
-    return nav.indexOf("zh") === 0 ? "zh" : "en";
+    return "en";
   }
 
   function setLang(l) {
