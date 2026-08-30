@@ -119,13 +119,13 @@
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="/" aria-label="816800 首页">
+      <a class="brand" href="/" aria-label="816800 home">
         <img class="brand-mark" src="/assets/img/logo.svg" alt="" width="26" height="26" />
         <span class="num">816800</span><span class="dot">.xyz</span>
       </a>
       <div class="nav-right">
         <button id="langToggle" class="lang-toggle" type="button">EN</button>
-        <nav class="nav-links" aria-label="主导航">
+        <nav class="nav-links" aria-label="Main navigation">
           <a href="/" data-zh="首页" data-en="Home">Home</a>
         <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
           <a href="/m3u8-player/" class="active" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
@@ -158,11 +158,11 @@
             data-zh-ph="粘贴 .m3u8 或 .mpd 流地址，例如 https://.../master.m3u8"
             data-en-ph="Paste a .m3u8 or .mpd URL, e.g. https://.../master.m3u8"
             placeholder="Paste a .m3u8 or .mpd URL, e.g. https://.../master.m3u8"
-            aria-label="流媒体地址输入框" />
+            aria-label="Stream URL input" />
           <button id="playBtn" class="btn btn-primary" type="button" data-zh="播放" data-en="Play">Play</button>
         </div>
 
-        <div class="tags" id="tags" aria-label="快捷测试源">
+        <div class="tags" id="tags" aria-label="Quick test sources">
           <span class="tag" data-url="https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8" data-zh="Apple 官方 BipBop" data-en="Apple Official BipBop">Apple Official BipBop</span>
           <span class="tag" data-url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" data-zh="Mux 测试流" data-en="Mux Test Stream">Mux Test Stream</span>
           <span class="tag" data-url="https://test-streams.mux.dev/tos_ismc/main.m3u8" data-zh="Tears of Steel (Mux)" data-en="Tears of Steel (Mux)">Tears of Steel (Mux)</span>
@@ -174,22 +174,22 @@
 
       <!-- 历史记录 -->
       <div class="history">
-        <h4 data-zh="最近测试" data-en="Recent Tests">最近测试 <span id="histCount" style="color:var(--text-faint);font-weight:400;"></span></h4>
+        <h4 data-zh="最近测试" data-en="Recent Tests">Recent Tests<span id="histCount" style="color:var(--text-faint);font-weight:400;"></span></h4>
         <div id="historyList" class="history-list"></div>
-        <div id="historyEmpty" class="history-empty i18n-block" style="display:none;">
+        <div id="historyEmpty" class="history-empty i18n-block lang-en" style="display:none;">
           <span class="zh">暂无记录。测试过的流地址会自动出现在这里。</span>
           <span class="en">No records yet. Tested streams will appear here automatically.</span>
         </div>
       </div>
 
       <!-- AdSense 手动黄金位（方案第七章）-->
-      <div class="ad-slot" id="adsense-slot" aria-label="广告位">
+      <div class="ad-slot" id="adsense-slot" aria-label="Advertisement">
         <span data-zh="广告位 · AdSense 审核通过后可在此展示（手动放置，每页仅 1 个）"
               data-en="Ad Slot · Display here after AdSense approval (manual placement, 1 per page)">Ad Slot · Display here after AdSense approval (manual placement, 1 per page)</span>
       </div>
 
       <!-- 深度技术文档（中英双版）-->
-      <article class="prose i18n-block">
+      <article class="prose i18n-block lang-en">
         <div class="zh">
           <h2>关于 M3U8、HLS 与「在线播放 m3u8 报错」的真相</h2>
           <p class="lead"><strong>M3U8</strong> 是 HTTP Live Streaming（HLS）协议的播放清单格式，本质是一个纯文本索引文件，内部按行列出不同清晰度（码率）的子清单（.ts 或 fMP4 分片）地址。浏览器原生并不理解 M3U8，这就是为什么你需要一个 <strong>HLS Stream Tester</strong> 来把它翻译成可播放的视频流。</p>
@@ -241,7 +241,7 @@
         </div>
       </article>
 
-      <article class="prose i18n-block faq">
+      <article class="prose i18n-block faq lang-en">
         <div class="zh">
           <h2>常见问题</h2>
 
@@ -292,7 +292,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-copy">© 2026 <strong>816800.xyz</strong> · <span data-zh="极简暗黑风技术工具箱" data-en="Minimal Dark Tech Toolkit">Minimal Dark Tech Toolkit</span></div>
-      <nav class="footer-links" aria-label="页脚导航">
+      <nav class="footer-links" aria-label="Footer navigation">
         <a href="/" data-zh="首页" data-en="Home">Home</a>
         <a href="/tools/" data-zh="工具" data-en="Tools">Tools</a>
         <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
