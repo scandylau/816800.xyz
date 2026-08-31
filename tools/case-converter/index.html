@@ -90,11 +90,21 @@
         <button id="langToggle" class="lang-toggle" type="button">中文</button>
         <nav class="nav-links" aria-label="Main navigation">
           <a href="/" data-zh="首页" data-en="Home">Home</a>
-          <a href="/tools/" class="active" data-zh="工具" data-en="Tools">Tools</a>
           <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
-          <a href="/short-link/" data-zh="短网址" data-en="Short Link">Short Link</a>
+          <a href="/tools/case-converter/" class="active" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <div class="nav-dropdown">
+            <a href="/tools/" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false"><span data-zh="更多" data-en="More">More</span><span class="caret" aria-hidden="true">▾</span></a>
+            <div class="nav-dropdown-menu">
+              <a href="/tools/font-changer/" data-zh="花体字生成" data-en="Fancy Text Generator">Fancy Text Generator</a>
+              <a href="/tools/" data-zh="全部工具" data-en="All tools">All tools</a>
+              <div class="divider"></div>
+              <a href="/about/" data-zh="关于" data-en="About">About</a>
+              <a href="/contact/" data-zh="联系" data-en="Contact">Contact</a>
+            </div>
+          </div>
           <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
-          <a href="/about/" data-zh="关于" data-en="About">About</a>
         </nav>
       </div>
     </div>
@@ -120,23 +130,23 @@
           </div>
 
           <div class="seg" id="ccSeg">
-            <button class="seg-btn active" data-case="sentence" type="button">Sentence case</button>
-            <button class="seg-btn" data-case="lower" type="button">lowercase</button>
-            <button class="seg-btn" data-case="upper" type="button">UPPERCASE</button>
-            <button class="seg-btn" data-case="title" type="button">Title Case</button>
-            <button class="seg-btn" data-case="capitalize" type="button">Capitalize Words</button>
-            <button class="seg-btn" data-case="camel" type="button">camelCase</button>
-            <button class="seg-btn" data-case="pascal" type="button">PascalCase</button>
-            <button class="seg-btn" data-case="snake" type="button">snake_case</button>
-            <button class="seg-btn" data-case="kebab" type="button">kebab-case</button>
-            <button class="seg-btn" data-case="constant" type="button">CONSTANT_CASE</button>
-            <button class="seg-btn" data-case="alternating" type="button">aLtErNaTiNg</button>
-            <button class="seg-btn" data-case="inverse" type="button">InVeRsE</button>
+            <button class="seg-btn active" data-case="sentence" type="button" data-zh="句首大写" data-en="Sentence case">Sentence case</button>
+            <button class="seg-btn" data-case="lower" type="button" data-zh="全小写" data-en="lowercase">lowercase</button>
+            <button class="seg-btn" data-case="upper" type="button" data-zh="全大写" data-en="UPPERCASE">UPPERCASE</button>
+            <button class="seg-btn" data-case="title" type="button" data-zh="标题式" data-en="Title Case">Title Case</button>
+            <button class="seg-btn" data-case="capitalize" type="button" data-zh="单词首字母大写" data-en="Capitalize Words">Capitalize Words</button>
+            <button class="seg-btn" data-case="camel" type="button" data-zh="小驼峰" data-en="camelCase">camelCase</button>
+            <button class="seg-btn" data-case="pascal" type="button" data-zh="大驼峰" data-en="PascalCase">PascalCase</button>
+            <button class="seg-btn" data-case="snake" type="button" data-zh="下划线命名" data-en="snake_case">snake_case</button>
+            <button class="seg-btn" data-case="kebab" type="button" data-zh="连字符命名" data-en="kebab-case">kebab-case</button>
+            <button class="seg-btn" data-case="constant" type="button" data-zh="常量命名" data-en="CONSTANT_CASE">CONSTANT_CASE</button>
+            <button class="seg-btn" data-case="alternating" type="button" data-zh="交替大小写" data-en="aLtErNaTiNg">aLtErNaTiNg</button>
+            <button class="seg-btn" data-case="inverse" type="button" data-zh="大小写反转" data-en="InVeRsE">InVeRsE</button>
           </div>
 
           <div class="field">
             <label for="ccOutput" data-zh="转换结果" data-en="Result">Result</label>
-            <textarea id="ccOutput" readonly placeholder="Your converted text appears here…"></textarea>
+            <textarea id="ccOutput" readonly data-zh-ph="转换后的文本会显示在这里…" data-en-ph="Your converted text appears here…" placeholder="Your converted text appears here…"></textarea>
           </div>
 
           <div class="tool-actions">

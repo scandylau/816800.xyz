@@ -50,6 +50,11 @@
       block.classList.toggle("lang-zh", l === "zh");
       block.classList.toggle("lang-en", l === "en");
     });
+
+    // 通知由 JS 动态生成的内容（工具页的样式列表、统计表等）按新语言重新渲染
+    try {
+      document.dispatchEvent(new CustomEvent("langchange", { detail: { lang: l } }));
+    } catch (e) {}
   }
 
   function updateToggle() {
@@ -72,6 +77,35 @@
     }
     // 语言变更时同步重新渲染（如历史记录等动态内容依赖 lang 不影响，但保险）
     document.addEventListener("languagechange", function () { apply(getLang()); updateToggle(); });
+    initNavDropdown();
+  }
+
+  // 导航下拉菜单：触屏 / 窄屏没有 hover，改为点击展开
+  function initNavDropdown() {
+    var narrow = function () {
+      try {
+        return window.matchMedia("(max-width: 760px)").matches ||
+               window.matchMedia("(hover: none)").matches;
+      } catch (e) { return false; }
+    };
+    document.querySelectorAll(".nav-dropdown-toggle").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        var dd = btn.closest(".nav-dropdown");
+        if (!dd || !narrow()) return;   // 桌面端保留跳转行为
+        e.preventDefault();
+        var open = dd.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    });
+    document.addEventListener("click", function (e) {
+      document.querySelectorAll(".nav-dropdown.open").forEach(function (dd) {
+        if (!dd.contains(e.target)) {
+          dd.classList.remove("open");
+          var t = dd.querySelector(".nav-dropdown-toggle");
+          if (t) t.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
   }
 
   if (document.readyState === "loading") {

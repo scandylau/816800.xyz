@@ -101,20 +101,20 @@
   }
 
   var STYLES = [
-    { name: "Bold", fn: function (t) { return applyMap(BOLD, t); } },
-    { name: "Italic", fn: function (t) { return applyMap(ITALIC, t); } },
-    { name: "Bold Italic", fn: function (t) { return applyMap(BOLD_ITALIC, t); } },
-    { name: "Script", fn: function (t) { return applyMap(SCRIPT, t); } },
-    { name: "Bold Script", fn: function (t) { return applyMap(BOLD_SCRIPT, t); } },
-    { name: "Fraktur", fn: function (t) { return applyMap(FRAKTUR, t); } },
-    { name: "Double-struck", fn: function (t) { return applyMap(DOUBLE, t); } },
-    { name: "Monospace", fn: function (t) { return applyMap(MONO, t); } },
-    { name: "Sans Bold", fn: function (t) { return applyMap(SANS_BOLD, t); } },
-    { name: "Sans Italic", fn: function (t) { return applyMap(SANS_ITALIC, t); } },
-    { name: "Circled", fn: function (t) { return applyMap(CIRCLED, t); } },
-    { name: "Fullwidth", fn: fullwidth },
-    { name: "Small Caps", fn: smallCaps },
-    { name: "Upside Down", fn: upsideDown }
+    { name: "Bold", zh: "粗体", fn: function (t) { return applyMap(BOLD, t); } },
+    { name: "Italic", zh: "斜体", fn: function (t) { return applyMap(ITALIC, t); } },
+    { name: "Bold Italic", zh: "粗斜体", fn: function (t) { return applyMap(BOLD_ITALIC, t); } },
+    { name: "Script", zh: "花体", fn: function (t) { return applyMap(SCRIPT, t); } },
+    { name: "Bold Script", zh: "粗花体", fn: function (t) { return applyMap(BOLD_SCRIPT, t); } },
+    { name: "Fraktur", zh: "哥特体", fn: function (t) { return applyMap(FRAKTUR, t); } },
+    { name: "Double-struck", zh: "空心体", fn: function (t) { return applyMap(DOUBLE, t); } },
+    { name: "Monospace", zh: "等宽", fn: function (t) { return applyMap(MONO, t); } },
+    { name: "Sans Bold", zh: "无衬线粗体", fn: function (t) { return applyMap(SANS_BOLD, t); } },
+    { name: "Sans Italic", zh: "无衬线斜体", fn: function (t) { return applyMap(SANS_ITALIC, t); } },
+    { name: "Circled", zh: "圆圈", fn: function (t) { return applyMap(CIRCLED, t); } },
+    { name: "Fullwidth", zh: "全角", fn: fullwidth },
+    { name: "Small Caps", zh: "小型大写", fn: smallCaps },
+    { name: "Upside Down", zh: "倒置", fn: upsideDown }
   ];
 
   function esc(s) {
@@ -136,10 +136,12 @@
     }
     if (emptyHint) emptyHint.style.display = "none";
 
+    var isZh = document.documentElement.lang === "zh-CN";
     list.innerHTML = STYLES.map(function (st, i) {
       var out = st.fn(text);
+      var label = isZh ? (st.zh || st.name) : st.name;
       return '<div class="style-item">' +
-        '<span class="style-name">' + esc(st.name) + "</span>" +
+        '<span class="style-name">' + esc(label) + "</span>" +
         '<span class="style-out" id="fcOut' + i + '">' + esc(out) + "</span>" +
         '<button class="btn btn-ghost style-copy" type="button" data-idx="' + i + '">' +
         (lang() === "zh" ? "复制" : "Copy") + "</button>" +
@@ -187,4 +189,7 @@
   }
 
   render();
+
+  // 语言切换后重新渲染（样式名与复制按钮文案）
+  document.addEventListener("langchange", render);
 })();

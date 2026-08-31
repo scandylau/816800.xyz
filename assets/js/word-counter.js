@@ -130,7 +130,9 @@
         }).join("");
         el.kw.innerHTML = html;
         if (el.kwHint) {
-          el.kwHint.textContent = useStop ? "stop words removed" : "raw counts";
+          var zh = document.documentElement.lang === "zh-CN";
+          if (zh) el.kwHint.textContent = useStop ? "已过滤停用词" : "原始计数";
+          else el.kwHint.textContent = useStop ? "stop words removed" : "raw counts";
         }
       }
     }
@@ -153,4 +155,7 @@
   }
 
   analyze();
+
+  // 语言切换后重新统计（关键词密度提示文案）
+  document.addEventListener("langchange", analyze);
 })();
