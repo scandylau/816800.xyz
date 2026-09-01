@@ -543,16 +543,9 @@ a { color: inherit; text-decoration: none; }
 }
 .footer-cta:hover { background: rgba(34, 211, 238, 0.1); border-color: var(--accent); }
 
-/* 三栏链接组套用首页 .tool-card.feature 同款视觉语言：160deg 青→紫渐变 + 青色描边 + 冷光晕 */
+/* 三栏链接组：仅列标题(Tools/Site/Legal)带青色高亮标签背景，链接本身保持纯文本 */
 .footer-col {
-  display: flex; flex-direction: column; align-items: stretch; gap: 6px;
-  padding: 16px 18px 18px;
-  border-radius: var(--r-md);
-  background:
-    linear-gradient(160deg, rgba(34, 211, 238, 0.08), rgba(168, 85, 247, 0.05) 55%, transparent),
-    var(--surface);
-  border: 1px solid rgba(34, 211, 238, 0.22);
-  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.06), 0 14px 38px -24px var(--accent-glow);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
 }
 /* 页脚在 <=640px 是移动端唯一的导航入口，链接对比度需达 WCAG AA */
 .footer-col a { color: var(--text-mute); font-size: 13.5px; line-height: 1.5; transition: color .2s ease; }
@@ -560,10 +553,8 @@ a { color: inherit; text-decoration: none; }
 /* 四栏条目数不等（5/3/2），给每个分组标题加一条通栏下划线作为基线锚点，
    让栏底参差读起来是分栏结构而非错位 */
 .footer-col .footer-group-title {
-  align-self: stretch;
-  padding-bottom: 8px;
-  margin-bottom: 3px;
-  border-bottom: 1px solid var(--border);
+  align-self: flex-start;
+  margin-bottom: 9px;
 }
 
 .footer-bottom {
@@ -871,11 +862,18 @@ a { color: inherit; text-decoration: none; }
 .dd-desc { font-size: 11.5px; color: var(--text-mute); line-height: 1.35; }
 
 /* 页脚分组标题（配合 .footer-col 使用，样式定义见上方「页脚」区块） */
+/* 三个菜单名：青色高亮标签（与首页工具卡片的青色描边同色系），仅标题带背景，链接不带 */
 .footer-group-title {
+  display: inline-block;
+  align-self: flex-start;
   font-size: 13.5px;
   font-weight: 600;
   color: var(--text);
   letter-spacing: normal;
   text-transform: none;
+  padding: 4px 11px;
+  border-radius: 8px;
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.28);
   margin-bottom: 1px;
 }
