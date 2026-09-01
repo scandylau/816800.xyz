@@ -872,9 +872,10 @@ a { color: inherit; text-decoration: none; }
 
 /* 页脚分组标题（配合 .footer-col 使用，样式定义见上方「页脚」区块） */
 .footer-group-title {
-  font-size: 11px;
-  color: var(--text-mute);
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: normal;
+  text-transform: none;
   margin-bottom: 1px;
 }
