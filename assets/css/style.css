@@ -543,7 +543,17 @@ a { color: inherit; text-decoration: none; }
 }
 .footer-cta:hover { background: rgba(34, 211, 238, 0.1); border-color: var(--accent); }
 
-.footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+/* 三栏链接组套用首页 .tool-card.feature 同款视觉语言：160deg 青→紫渐变 + 青色描边 + 冷光晕 */
+.footer-col {
+  display: flex; flex-direction: column; align-items: stretch; gap: 6px;
+  padding: 16px 18px 18px;
+  border-radius: var(--r-md);
+  background:
+    linear-gradient(160deg, rgba(34, 211, 238, 0.08), rgba(168, 85, 247, 0.05) 55%, transparent),
+    var(--surface);
+  border: 1px solid rgba(34, 211, 238, 0.22);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.06), 0 14px 38px -24px var(--accent-glow);
+}
 /* 页脚在 <=640px 是移动端唯一的导航入口，链接对比度需达 WCAG AA */
 .footer-col a { color: var(--text-mute); font-size: 13.5px; line-height: 1.5; transition: color .2s ease; }
 .footer-col a:hover { color: var(--text); }
@@ -785,10 +795,16 @@ a { color: inherit; text-decoration: none; }
   display: none;
   flex-direction: column;
   padding: 6px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-strong);
+  /* 与首页 .tool-card.feature 同一套视觉语言：160deg 青→紫渐变 + 青色描边 + 冷光晕 */
+  background:
+    linear-gradient(160deg, rgba(34, 211, 238, 0.10), rgba(168, 85, 247, 0.06) 55%, transparent),
+    var(--surface);
+  border: 1px solid rgba(34, 211, 238, 0.28);
   border-radius: var(--r-md);
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.10),
+    0 18px 50px -22px var(--accent-glow),
+    var(--shadow-soft);
   z-index: 60;
 }
 .nav-dropdown:hover .nav-dropdown-menu,
@@ -836,21 +852,23 @@ a { color: inherit; text-decoration: none; }
   white-space: normal;
   transition: background .18s ease;
 }
-.dd-item:hover { background: var(--surface-hover); }
+/* hover / 当前页用青色而非中性灰，与卡片的 accent 描边呼应 */
+.dd-item:hover { background: rgba(34, 211, 238, 0.10); }
+.dd-item.active { background: rgba(34, 211, 238, 0.09); }
 .dd-item:hover .dd-name { color: var(--text); }
+/* 图标块：缩微版工具卡片，青色描边 + 淡青填充，与首页工具图标呼应 */
 .dd-icon {
   width: 26px; height: 26px; flex-shrink: 0;
   border-radius: 7px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.22);
   display: flex; align-items: center; justify-content: center;
-  color: var(--text-dim);
+  color: var(--accent);
 }
 .dd-icon svg { width: 14px; height: 14px; }
 .dd-text { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
 .dd-name { font-size: 13.5px; color: var(--text); line-height: 1.3; }
 .dd-desc { font-size: 11.5px; color: var(--text-mute); line-height: 1.35; }
-.dd-item.active { background: var(--surface-hover); }
 
 /* 页脚分组标题（配合 .footer-col 使用，样式定义见上方「页脚」区块） */
 .footer-group-title {
