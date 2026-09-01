@@ -14,7 +14,8 @@
   /* 文字层 */
   --text: #ffffff;
   --text-dim: #71717a;      /* 烟灰次要字 */
-  --text-faint: #52525b;
+  --text-faint: #52525b;    /* 仅用于占位符等装饰，勿用于需阅读的小字 */
+  --text-mute: #8b8b94;     /* 小字可读层：菜单 5.25:1 / 页脚 6.00:1，达 WCAG AA */
 
   /* 点缀色 */
   --accent: #22d3ee;        /* 赛博荧光蓝 */
@@ -521,7 +522,8 @@ a { color: inherit; text-decoration: none; }
   align-items: center; justify-content: space-between;
 }
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
-.footer-links a { color: var(--text-dim); font-size: 13.5px; transition: color .2s ease; }
+/* 页脚在 <=640px 是移动端唯一的导航入口，链接对比度需达 WCAG AA */
+.footer-links a { color: var(--text-mute); font-size: 13.5px; transition: color .2s ease; }
 .footer-links a:hover { color: var(--text); }
 .footer-copy { color: var(--text-faint); font-size: 13px; }
 
@@ -767,7 +769,7 @@ a { color: inherit; text-decoration: none; }
 .nav-dropdown-menu { min-width: 258px; padding: 6px; }
 .dd-group {
   font-size: 11px;
-  color: var(--text-faint);
+  color: var(--text-mute);
   letter-spacing: .08em;
   text-transform: uppercase;
   padding: 7px 11px 4px;
@@ -792,7 +794,7 @@ a { color: inherit; text-decoration: none; }
 .dd-icon svg { width: 14px; height: 14px; }
 .dd-text { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
 .dd-name { font-size: 13.5px; color: var(--text); line-height: 1.3; }
-.dd-desc { font-size: 11.5px; color: var(--text-faint); line-height: 1.35; }
+.dd-desc { font-size: 11.5px; color: var(--text-mute); line-height: 1.35; }
 .dd-item.active { background: var(--surface-hover); }
 
 /* ===================== 页脚分组 ===================== */
@@ -800,7 +802,7 @@ a { color: inherit; text-decoration: none; }
 .footer-group { display: flex; flex-direction: column; gap: 7px; }
 .footer-group-title {
   font-size: 11px;
-  color: var(--text-faint);
+  color: var(--text-mute);
   letter-spacing: .08em;
   text-transform: uppercase;
   margin-bottom: 1px;
