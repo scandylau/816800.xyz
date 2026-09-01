@@ -98,13 +98,24 @@
       });
     });
     document.addEventListener("click", function (e) {
-      document.querySelectorAll(".nav-dropdown.open").forEach(function (dd) {
-        if (!dd.contains(e.target)) {
-          dd.classList.remove("open");
-          var t = dd.querySelector(".nav-dropdown-toggle");
-          if (t) t.setAttribute("aria-expanded", "false");
-        }
-      });
+      closeAllExcept(e.target);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeAllExcept(null);
+        var openBtn = document.querySelector('.nav-dropdown.open .nav-dropdown-toggle');
+        if (openBtn) openBtn.focus();
+      }
+    });
+  }
+
+  function closeAllExcept(target) {
+    document.querySelectorAll(".nav-dropdown.open").forEach(function (dd) {
+      if (!target || !dd.contains(target)) {
+        dd.classList.remove("open");
+        var t = dd.querySelector(".nav-dropdown-toggle");
+        if (t) t.setAttribute("aria-expanded", "false");
+      }
     });
   }
 
