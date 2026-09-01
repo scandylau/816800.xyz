@@ -13,7 +13,7 @@
 
   /* 文字层 */
   --text: #ffffff;
-  --text-dim: #71717a;      /* 烟灰次要字 */
+  --text-dim: #828282;      /* 烟灰次要字：提至 #828282 后，在 surface/bg-soft 底上 ≥4.5:1，达 WCAG AA 正文对比度 */
   --text-faint: #52525b;    /* 仅用于占位符等装饰，勿用于需阅读的小字 */
   --text-mute: #8b8b94;     /* 小字可读层：菜单 5.25:1 / 页脚 6.00:1，达 WCAG AA */
 
@@ -24,7 +24,7 @@
 
   /* 边框 / 分割 */
   --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.22);
 
   /* 形状 */
   --r-sm: 8px;
@@ -362,7 +362,7 @@ a { color: inherit; text-decoration: none; }
   outline: none;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
-.url-input::placeholder { color: var(--text-faint); }
+.url-input::placeholder { color: var(--text-mute); }
 .url-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
@@ -507,6 +507,7 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
 }
+.field input::placeholder, .field textarea::placeholder { color: var(--text-mute); }
 .field textarea { resize: vertical; min-height: 120px; }
 .form-note { color: var(--text-faint); font-size: 13px; }
 
@@ -754,6 +755,12 @@ a { color: inherit; text-decoration: none; }
 .related-tools li { margin-bottom: 7px; font-size: 14px; color: #a1a1aa; }
 .related-tools a { color: var(--accent); }
 .related-tools a:hover { color: var(--accent-2); }
+.related-articles { margin-top: 18px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); }
+.related-articles h3 { font-size: 15px; font-weight: 650; margin: 0 0 10px; color: #e4e4e7; }
+.related-articles ul { margin: 0; padding-left: 18px; }
+.related-articles li { margin-bottom: 7px; font-size: 14px; color: #a1a1aa; }
+.related-articles a { color: var(--accent); }
+.related-articles a:hover { color: var(--accent-2); }
 
 
 /* ===================== 导航下拉菜单 ===================== */
