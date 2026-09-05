@@ -228,6 +228,20 @@
           <h2>关于 M3U8、HLS 与「在线播放 m3u8 报错」的真相</h2>
           <p class="lead"><strong>M3U8</strong> 是 HTTP Live Streaming（HLS）协议的播放清单格式，本质是一个纯文本索引文件，内部按行列出不同清晰度（码率）的子清单（.ts 或 fMP4 分片）地址。浏览器原生并不理解 M3U8，这就是为什么你需要一个 <strong>HLS Stream Tester</strong> 来把它翻译成可播放的视频流。</p>
 
+          <h3>如何使用本播放器</h3>
+          <ol>
+            <li>把 <code>.m3u8</code> 或 <code>.mpd</code> 地址粘贴到上方输入框。</li>
+            <li>点击播放：播放器会自动解析主清单并选择合适的码率。</li>
+            <li>若播放失败，请留意自动诊断提示——它会区分「地址不可达」与「被 CORS 拦截」。</li>
+            <li>不确定是不是地址问题？用输入框下方的快捷测试源验证播放器本身是否正常。</li>
+          </ol>
+
+          <h3>HLS 是如何工作的？</h3>
+          <p>HLS 把视频切成 2–10 秒的分片，用<strong>主清单</strong>（master playlist）列出可用清晰度，每个清晰度再对应自己的<strong>媒体清单</strong>与 <code>.ts</code> 分片。播放器按实时带宽在清单间切换，这就是「自适应码率」。多数浏览器没有内置 HLS 解码器，需要 hls.js 这类库通过 Media Source Extensions 把分片拼起来喂给 video 标签。</p>
+
+          <h3>M3U8 与 HLS 的区别</h3>
+          <p>两者不是竞争关系：<strong>HLS 是协议</strong>（切分与传输的规则），<strong>M3U8 是它使用的清单文件格式</strong>（一个列出分片的 UTF-8 文本索引）。日常说法里「M3U8 播放器」与「HLS 播放器」指的是同一个东西。</p>
+
           <h3>为什么要在线上测试 M3U8？</h3>
           <p>在把流地址接入自己的播放器、App 或 OBS 推流之前，先用一个中立的第三方工具验证「地址是否有效、清单能否解析、分片能否连续加载」非常关键。本页提供的 <strong>M3U8 在线测试</strong> 完全在浏览器端完成，不收集、不上传你的任何链接，是排查问题最干净的方式。</p>
 
@@ -252,6 +266,20 @@
         <div class="en">
           <h2>The Truth About M3U8, HLS and "Online M3U8 Playback Errors"</h2>
           <p class="lead"><strong>M3U8</strong> is the playlist format of the HTTP Live Streaming (HLS) protocol. It is essentially a plain-text index file that lists, line by line, the sub-playlists (`.ts` or fMP4 segments) for different resolutions (bitrates). Browsers do not understand M3U8 natively — that is why you need an <strong>HLS Stream Tester</strong> to translate it into a playable video stream.</p>
+
+          <h3>How to use this M3U8 player</h3>
+          <ol>
+            <li>Paste your <code>.m3u8</code> or <code>.mpd</code> URL into the input field above.</li>
+            <li>Click <strong>Play</strong>. The player resolves the master playlist and picks a starting bitrate automatically.</li>
+            <li>If playback fails, read the on-screen diagnosis — it separates "URL unreachable" from "blocked by CORS" so you don't chase the wrong fix.</li>
+            <li>Not sure whether the problem is your URL? Use one of the quick test sources below the input to confirm the player itself is working.</li>
+          </ol>
+
+          <h3>How does HLS streaming work?</h3>
+          <p>HLS cuts a video into short chunks, usually 2–10 seconds long, and describes them in a playlist. A <strong>master playlist</strong> lists every available quality level; each level has its own <strong>media playlist</strong> pointing at the <code>.ts</code> or fMP4 segments. The player measures your bandwidth, picks a media playlist, and switches between them mid-playback — that is what <strong>adaptive bitrate</strong> means. Most browsers ship no built-in HLS decoder, so a JavaScript library such as hls.js fetches the playlists, joins the segments through Media Source Extensions, and feeds them to the video element.</p>
+
+          <h3>M3U8 vs HLS: what's the difference?</h3>
+          <p>They are not competing formats. <strong>HLS</strong> is the streaming protocol — the set of rules for chopping up and delivering video. <strong>M3U8</strong> is the playlist file format HLS uses: a UTF-8 text index that lists the segments. In everyday usage people say "M3U8 player" and "HLS player" interchangeably, and they mean exactly the same thing.</p>
 
           <h3>Why test M3U8 online?</h3>
           <p>Before wiring a stream URL into your own player, app, or OBS push, it is critical to verify with a neutral third-party tool that "the URL is valid, the playlist parses, and the segments load continuously." The <strong>M3U8 online test</strong> on this page runs entirely in your browser — it collects and uploads nothing, making it the cleanest way to troubleshoot.</p>
@@ -320,6 +348,18 @@
           <p>Public test sources may go offline, get rate-limited or blocked by region at any time. Try another test source on this page; if your own URL returns 403, it likely needs an auth token, Referer header or has simply expired.</p>
         </div>
       </article>
+
+      <div class="related-articles">
+        <h3 data-zh="深入了解 M3U8 与 HLS" data-en="Learn more about M3U8 and HLS">Learn more about M3U8 and HLS</h3>
+        <ul>
+          <li><a href="/blog/what-is-hls/" data-zh="什么是 HLS？为什么浏览器不能直接播 M3U8" data-en="What is HLS? Why browsers can't play M3U8 natively">What is HLS? Why browsers can't play M3U8 natively</a></li>
+          <li><a href="/blog/m3u8-vs-mp4/" data-zh="M3U8 与 MP4 的区别" data-en="M3U8 vs MP4: what's the difference?">M3U8 vs MP4: what's the difference?</a></li>
+          <li><a href="/blog/m3u8-playback-failed/" data-zh="M3U8 播放失败？排查 CORS 与失效地址" data-en="M3U8 playback failed? Fix CORS and dead links">M3U8 playback failed? Fix CORS and dead links</a></li>
+          <li><a href="/blog/hls-live-vod/" data-zh="HLS 直播与点播：M3U8 的两种用法" data-en="HLS live vs VOD: two ways to use M3U8">HLS live vs VOD: two ways to use M3U8</a></li>
+          <li><a href="/blog/dash-vs-hls/" data-zh="DASH 与 HLS 怎么选？" data-en="DASH vs HLS: which streaming protocol should you use?">DASH vs HLS: which streaming protocol should you use?</a></li>
+          <li><a href="/blog/m3u8-player-recommend/" data-zh="2026 好用的 M3U8 在线播放器" data-en="Best free M3U8 online players (2026)">Best free M3U8 online players (2026)</a></li>
+        </ul>
+      </div>
     </div>
   </main>
 
