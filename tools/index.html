@@ -174,6 +174,48 @@
         <div class="en">
           <p>Every tool on this page runs entirely in your browser. There is no server round trip, which means conversion is instant and your text never leaves your device. Nothing is logged, nothing is stored, and no account is required.</p>
           <p>We keep each tool focused on doing one job properly rather than burying it in options. If you need a quick conversion, open a tool, paste, copy, and move on.</p>
+
+          <h3>Which tool does what</h3>
+          <div class="table-scroll">
+            <table>
+              <caption>What each tool accepts, where the work happens, and who it is for</caption>
+              <thead>
+                <tr><th>Tool</th><th>Accepts</th><th>Processed</th><th>Best for</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><a href="/tools/case-converter/">Case Converter</a></td><td>Text up to a few hundred KB</td><td>In your browser</td><td>Variable naming, headlines, bulk rewrites</td></tr>
+                <tr><td><a href="/tools/word-counter/">Word Counter</a></td><td>Text of any length</td><td>In your browser</td><td>Submission limits, SEO density, reading time</td></tr>
+                <tr><td><a href="/tools/font-changer/">Fancy Text Generator</a></td><td>Short strings</td><td>In your browser</td><td>Social bios, display names, captions</td></tr>
+                <tr><td><a href="/m3u8-player/">M3U8 / HLS Player</a></td><td><code>.m3u8</code> and <code>.mpd</code> URLs</td><td>In your browser via hls.js / dash.js</td><td>Verifying a stream plays, and CORS diagnosis</td></tr>
+                <tr><td><a href="/short-link/">URL Shortener</a></td><td>Any <code>http(s)</code> URL</td><td>In your browser</td><td>Branded sharing, QR codes, very long stream links</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Choosing between them</h3>
+          <ul>
+            <li><strong>Working with video?</strong> Start with the <a href="/m3u8-player/">M3U8 player</a>. It tells you whether a stream fails because the URL is dead or because CORS is blocking it — the two look identical in a black rectangle.</li>
+            <li><strong>Working with text?</strong> The <a href="/tools/word-counter/">word counter</a> handles length, reading time and keyword density in one pass; the <a href="/tools/case-converter/">case converter</a> handles the rewrite afterwards.</li>
+            <li><strong>Not sure which?</strong> The <a href="/blog/">blog guides</a> explain the underlying formats, which usually makes the right tool obvious.</li>
+          </ul>
+
+          <h3>Frequently asked questions</h3>
+
+          <h3>Do I need to install or register anything?</h3>
+          <p>No. There is no sign-up, no extension and no download. If your browser can open this page, every tool on it works.</p>
+
+          <h3>Is there a size limit on what I paste?</h3>
+          <p>No enforced limit, but the browser is doing the work. A few hundred kilobytes of text is instant; a multi-megabyte paste will make the tab think about it. Nothing is uploaded either way.</p>
+
+          <h3>Are the tools really free?</h3>
+          <p>Yes — no caps, no watermarks, no trial. The site may display advertising to cover hosting costs, but no feature is behind a payment or a login.</p>
+
+          <h3>Can I use the results commercially?</h3>
+          <p>Yes. Converted text, statistics and generated links are yours, including for client and commercial work. We claim no rights over what you process.</p>
+
+          <h3>My stream will not play. What should I check first?</h3>
+          <p>Paste it into the <a href="/m3u8-player/">M3U8 player</a> and read the diagnosis. Nine times out of ten it is either a missing <code>Access-Control-Allow-Origin</code> header on the stream server, or a URL that expired — the <a href="/blog/m3u8-playback-failed/">troubleshooting guide</a> walks through both.</p>
+
           <p>Want the background behind streaming formats? The <a href="/blog/">blog</a> covers M3U8, HLS, DASH and CORS troubleshooting in detail.</p>
         </div>
         <div class="zh">
