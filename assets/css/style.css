@@ -66,13 +66,13 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-/* 双语块：默认仅显示中文，切换时由 i18n.js 加 lang-zh / lang-en 类控制 */
-.i18n-block > .en { display: none; }
-.i18n-block > .zh { display: block; }
+/* 双语块：默认显示英文（英文优先策略），切换时由 i18n.js 加 lang-zh / lang-en 类控制 */
+.i18n-block > .en { display: block; }
+.i18n-block > .zh { display: none; }
 .i18n-block.lang-en > .zh { display: none; }
 .i18n-block.lang-en > .en { display: block; }
-/* 历史空态等 <span> 子块在英文下保持为块级整行显示 */
-.i18n-block.lang-en > .en { display: block; }
+.i18n-block.lang-zh > .en { display: none; }
+.i18n-block.lang-zh > .zh { display: block; }
 
 ::selection { background: rgba(34, 211, 238, 0.28); color: #fff; }
 
