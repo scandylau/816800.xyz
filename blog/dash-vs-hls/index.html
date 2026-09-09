@@ -218,6 +218,91 @@
             <li>Safest: <strong>produce both</strong> and let the player pick by device — this site's player bundles both hls.js and dash.js so any format plays.</li>
           </ul>
 
+          <h2>7. What the two manifests look like</h2>
+          <p>Seeing them side by side explains why tooling differs. A DASH manifest is XML, with representations nested inside adaptation sets:</p>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;MPD xmlns="urn:mpeg:dash:schema:mpd:2011" type="static"
+     mediaPresentationDuration="PT10M0.000S"&gt;
+  &lt;Period&gt;
+    &lt;AdaptationSet mimeType="video/mp4"&gt;
+      &lt;Representation id="720" bandwidth="2400000"
+                      width="1280" height="720" codecs="avc1.64001f"/&gt;
+      &lt;Representation id="1080" bandwidth="5400000"
+                      width="1920" height="1080" codecs="avc1.640028"/&gt;
+    &lt;/AdaptationSet&gt;
+  &lt;/Period&gt;
+&lt;/MPD&gt;</code></pre>
+          <p>The equivalent HLS master playlist is four lines of plain text:</p>
+<pre><code>#EXTM3U
+#EXT-X-STREAM-INF:BANDWIDTH=2400000,RESOLUTION=1280x720
+720p/index.m3u8
+#EXT-X-STREAM-INF:BANDWIDTH=5400000,RESOLUTION=1920x1080
+1080p/index.m3u8</code></pre>
+          <p>Same information, wildly different verbosity. XML gives DASH a formal schema and room for complex timelines; the flat text of HLS is why it can be debugged by opening it in a browser.</p>
+
+          <h2>8. DRM: the difference that decides most real projects</h2>
+          <p>Adaptive bitrate is solved similarly in both. Content protection is not — and it is usually what forces the choice:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Protection mechanisms per protocol</caption>
+              <thead>
+                <tr><th></th><th>HLS</th><th>DASH</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Encryption signalling</td><td><code>#EXT-X-KEY</code> — AES-128 or SAMPLE-AES</td><td>CENC — ISO/IEC 23001-7 common encryption</td></tr>
+                <tr><td>Main DRM systems</td><td>Apple FairPlay</td><td>Google Widevine, Microsoft PlayReady</td></tr>
+                <tr><td>Coverage</td><td>Apple platforms and Safari</td><td>Chrome, Edge, Firefox, Android, most smart TVs</td></tr>
+                <tr><td>Studio-grade content</td><td>Requires FairPlay in the Apple ecosystem</td><td>Widevine plus PlayReady covers nearly everything else</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>In practice a service distributing premium content ends up shipping HLS with FairPlay for Apple devices and DASH with Widevine/PlayReady everywhere else. The protocol choice stops being architectural and becomes a licensing exercise.</p>
+
+          <h2>9. Choosing by scenario</h2>
+          <div class="table-scroll">
+            <table>
+              <caption>What to reach for, given who is watching</caption>
+              <thead>
+                <tr><th>If your audience is…</th><th>Reach for</th><th>Why</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Mostly iPhone, iPad and Mac</td><td>HLS</td><td>Native support in Safari — no JavaScript, best battery life</td></tr>
+                <tr><td>Desktop browsers and Android</td><td>DASH</td><td>Native MSE support, no extra library on the page</td></tr>
+                <tr><td>Smart TVs and set-top boxes</td><td>HLS, or both</td><td>HLS has the broadest device support in this segment</td></tr>
+                <tr><td>Premium content needing DRM everywhere</td><td>Both</td><td>FairPlay only exists in the HLS stack</td></tr>
+                <tr><td>Low latency interactive streams</td><td>LL-HLS or LL-DASH</td><td>Both reach 2–5 s; pick what your packager and CDN already support</td></tr>
+                <tr><td>You cannot decide</td><td>Both</td><td>Package once, let the player choose by capability</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>10. What "package both" actually involves</h2>
+          <p>Producing both is less work than it sounds, because the expensive step happens once:</p>
+          <ol>
+            <li>Encode each rendition once — for example 360p, 720p and 1080p — into fragmented MP4.</li>
+            <li>Run a packager (Shaka Packager, Bento4, ffmpeg) that emits an <code>.mpd</code> and an <code>.m3u8</code> from the same encoded assets.</li>
+            <li>Upload both sets to the CDN; the storage doubling is cheap because the media is shared where fMP4 is used.</li>
+            <li>Let the player pick: if <code>canPlayType('application/vnd.apple.mpegurl')</code> reports support, hand it the HLS URL; otherwise load dash.js or hls.js as needed.</li>
+          </ol>
+          <p>The <a href="/m3u8-player/">player on this site</a> takes exactly this approach — hls.js and dash.js are both bundled, so you can paste either format and it picks the right engine.</p>
+
+          <h2>Frequently asked questions</h2>
+
+          <h3>Is DASH replacing HLS?</h3>
+          <p>No. DASH won the standards argument and HLS won the deployment argument. Both are ubiquitous, and the trend in recent years is towards serving both rather than picking a winner.</p>
+
+          <h3>Which has lower latency?</h3>
+          <p>Neither, inherently. Both sit in the same 10–30 second range with conventional six-second segments, and both have low-latency variants that reach 2–5 seconds. Your segment length and buffer settings matter far more than the protocol.</p>
+
+          <h3>Can one player handle both?</h3>
+          <p>Yes. hls.js and dash.js coexist happily on a page; you detect the format from the file extension and initialise the matching engine. That is what this site does.</p>
+
+          <h3>Do I need CORS for both?</h3>
+          <p>Yes. Whichever protocol you use, if the manifest and segments are served from a different origin than the page, the server must send <code>Access-Control-Allow-Origin</code>. This is the most common cause of a stream that "should" work but does not — see the <a href="/blog/m3u8-playback-failed/">troubleshooting guide</a>.</p>
+
+          <h3>Which is cheaper to serve?</h3>
+          <p>Effectively identical. Both are static files over HTTP, both cache well, and if you use fMP4 segments for HLS the same media files can serve both manifests.</p>
+
           <h2>Related tools</h2>
           <p>Want to verify a source plays? Open the <a href="/m3u8-player/">M3U8 / HLS online player</a> and paste a <code>.m3u8</code> or <code>.mpd</code> URL to play instantly; for CORS errors see <a href="/blog/m3u8-playback-failed/">the playback troubleshooting guide</a>. Need a short link for a long playback URL? Use the <a href="/short-link/">short link</a> tool.</p>
         </div>

@@ -211,6 +211,78 @@
             <li>Want to quickly check whether an M3U8 URL plays and is CORS-friendly → use this site's <a href="/m3u8-player/">M3U8 / HLS online player</a>.</li>
           </ul>
 
+          <h2>6. Side-by-side comparison</h2>
+          <div class="table-scroll">
+            <table>
+              <caption>The same eight questions, answered for each format</caption>
+              <thead>
+                <tr><th></th><th>MP4</th><th>M3U8 (HLS)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>What the file is</td><td>A single container holding video, audio and index</td><td>A text playlist pointing at many segments</td></tr>
+                <tr><td>Playing it</td><td>Point a <code>&lt;video&gt;</code> tag at it</td><td>Parse the playlist, then feed segments through MSE</td></tr>
+                <tr><td>Adaptive bitrate</td><td>No — one rendition per file</td><td>Yes — switches between rungs mid-playback</td></tr>
+                <tr><td>Live streaming</td><td>Not possible</td><td>What it was designed for</td></tr>
+                <tr><td>Native browser support</td><td>Universal</td><td>Safari and iOS; elsewhere via hls.js</td></tr>
+                <tr><td>Seeking</td><td>Instant, via the index</td><td>Seek to a segment boundary, then decode</td></tr>
+                <tr><td>Server requirement</td><td>Any static host with range requests</td><td>Any static host — no special server needed</td></tr>
+                <tr><td>Best suited to</td><td>Short clips, downloads, editing</td><td>Live events, long-form, multi-quality delivery</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>7. What it costs in bandwidth and storage</h2>
+          <p>The formats differ in how much you waste, not in how much the video itself weighs. At a typical 1080p bitrate of about 5 Mbps, one hour of video is roughly 2.2 GB either way. The difference is what happens when a viewer leaves after three minutes:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Data delivered to a viewer who abandons playback at the 3-minute mark (5 Mbps source)</caption>
+              <thead>
+                <tr><th>Format</th><th>Approximate data delivered</th><th>Why</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>MP4, fully downloaded</td><td>2.2 GB</td><td>The browser keeps fetching the whole file</td></tr>
+                <tr><td>MP4, progressive with range requests</td><td>~110 MB</td><td>Stops where the viewer stopped</td></tr>
+                <tr><td>HLS, 6-second segments</td><td>~115 MB</td><td>Only the segments actually watched were fetched</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>So HLS is not lighter per minute of video — it is lighter per abandoned session. Multiply that across thousands of viewers and it becomes the main reason long-form publishers move to segmented delivery.</p>
+
+          <h2>8. Converting between them</h2>
+          <p>Both directions are one ffmpeg command away. To package an existing MP4 as VOD HLS with six-second segments:</p>
+<pre><code>ffmpeg -i input.mp4 \
+  -c:v libx264 -c:a aac -b:v 2400k \
+  -hls_time 6 -hls_playlist_type vod \
+  out.m3u8</code></pre>
+          <p>That produces <code>out.m3u8</code> plus numbered <code>.ts</code> segments next to it. To go the other way — reassemble an HLS stream into a single file — let ffmpeg read the playlist:</p>
+<pre><code>ffmpeg -i playlist.m3u8 -c copy output.mp4</code></pre>
+          <p><code>-c copy</code> remuxes without re-encoding, so it is fast and lossless, but it only works if the segments are not encrypted and all share compatible codecs. Only convert streams you own or have permission to download.</p>
+          <p>For multiple qualities, encode each rendition separately and reference them from a master playlist — which is exactly what the <a href="/blog/what-is-hls/">HLS explainer</a> shows in section 6.</p>
+
+          <h2>9. Three misconceptions worth dropping</h2>
+          <ul>
+            <li><strong>"M3U8 is a compressed version of MP4."</strong> It is not. The segments carry the same encoded video; you are changing the delivery model, not the compression.</li>
+            <li><strong>"HLS looks worse."</strong> Quality is set by the encoder and bitrate ladder. A well-built HLS stream at 5 Mbps looks identical to a 5 Mbps MP4, and adapts down instead of buffering.</li>
+            <li><strong>"MP4 cannot stream."</strong> Progressive download with HTTP range requests works fine for short clips. It simply cannot adapt to a changing network or carry a live signal.</li>
+          </ul>
+
+          <h2>Frequently asked questions</h2>
+
+          <h3>Which one has better quality?</h3>
+          <p>Neither, at equal bitrate. HLS can feel better on a bad connection because it drops to a lower rung instead of stalling, but at the top rung both deliver the same encoded picture.</p>
+
+          <h3>Can I download an m3u8 as a single MP4?</h3>
+          <p>Yes with ffmpeg, as shown above, provided the stream is not encrypted and you have the right to download it. Encrypted streams need the key from <code>#EXT-X-KEY</code>, which you should only use for content you are authorised to access.</p>
+
+          <h3>Why does my m3u8 open as a text file?</h3>
+          <p>Because that is what it is. A server sending the wrong MIME type, or a browser with no HLS player, will show you the playlist as plain text. Paste the URL into an actual player instead — the <a href="/m3u8-player/">online player</a> will parse it.</p>
+
+          <h3>Should I use MP4 for a 20-second product clip?</h3>
+          <p>Almost certainly. HLS adds a playlist, dozens of files and a JavaScript player to save bandwidth you are not spending anyway. Keep it to one MP4 and let the browser handle it.</p>
+
+          <h3>Do I need a special server for HLS?</h3>
+          <p>No — that is the whole point of the protocol. It is plain HTTP: static files any CDN can cache. You need an encoder or packager to produce the files, not a streaming server to deliver them.</p>
+
           <h2>Related tools</h2>
           <p>Need to share a long link? Use the <a href="/short-link/">short link</a> tool for a branded redirect; verify streams with the <a href="/m3u8-player/">M3U8 / HLS online player</a>.</p>
         </div>

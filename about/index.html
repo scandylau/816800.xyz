@@ -151,6 +151,14 @@
           <h2>Why we exist</h2>
           <p>When debugging streams, parsing JSON or compressing images, developers often jump between sites full of popups and tracking scripts. We believe a tool should be like a Swiss Army knife — sharp, reliable, unobtrusive. This site runs no auto-ads and injects no tracking pixels; every core feature runs locally in your browser.</p>
 
+          <h2>How our tools are built</h2>
+          <p>Every tool here follows the same three rules, which explain most of our design decisions:</p>
+          <ul>
+            <li><strong>No build step, no framework.</strong> Hand-written HTML, one hand-tuned CSS file and vanilla JavaScript. There is no bundler to break and no large runtime to download before the tool becomes usable.</li>
+            <li><strong>Vendor libraries are served locally.</strong> <code>hls.js</code>, <code>dash.js</code> and <code>Plyr</code> live in <code>/assets/vendor/</code> on our own domain, so no third-party CDN can inject code into your session or log your address.</li>
+            <li><strong>Computation happens on your device.</strong> Text conversion, word counting, font mapping and stream decoding all run inside the browser tab. Your input is never uploaded anywhere to be processed.</li>
+          </ul>
+
           <h2>Tech stack</h2>
           <ul>
             <li><strong>Static hosting</strong>: Cloudflare Pages global CDN — zero server cost, high concurrency, and naturally resistant to defacement.</li>
@@ -158,8 +166,59 @@
             <li><strong>Player core</strong>: hls.js decodes M3U8/HLS, dash.js decodes MPD/DASH, and Plyr provides a flat playback UI.</li>
           </ul>
 
+          <h2>What "privacy-first" actually means here</h2>
+          <p>Lots of sites claim it, so here is the concrete version — what this site does, and what it never does:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>How data is handled on 816800.xyz</caption>
+              <thead>
+                <tr><th>What happens</th><th>What never happens</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Recent stream URLs and tool preferences are kept in your browser's <code>localStorage</code>, on your device only.</td>
+                  <td>We run no user accounts, and there is nothing to sign up for.</td>
+                </tr>
+                <tr>
+                  <td>The <a class="link" href="/m3u8-player/">M3U8 player</a> and text tools process what you paste locally, inside the tab.</td>
+                  <td>Your URLs, text or files are not uploaded to, or stored on, our servers.</td>
+                </tr>
+                <tr>
+                  <td>We measure aggregate page views with Google Analytics 4 to see which tools are worth improving.</td>
+                  <td>We do not sell, rent or trade personal data, and we run no cross-site advertising trackers.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>You can wipe everything the site has saved by clearing site data in your browser. The full legal version lives in our <a class="link" href="/privacy/">privacy policy</a>.</p>
+
+          <h2>Who these tools are for</h2>
+          <ul>
+            <li><strong>Streaming engineers and QA testers</strong> who need to confirm that an HLS or DASH manifest actually plays before shipping it.</li>
+            <li><strong>Developers</strong> who want a fast case converter or word counter without hitting a signup wall.</li>
+            <li><strong>Writers, students and marketers</strong> checking reading time, keyword density and platform character limits.</li>
+            <li><strong>Anyone on a locked-down machine</strong> where installing software is not an option — a browser is all you need.</li>
+          </ul>
+
+          <h2>How we decide what to build next</h2>
+          <p>A tool only gets added if it passes three tests: it solves a recurring problem we have personally hit, it can run entirely client-side, and it is meaningfully better than the ten results already ranking on page one. That last test is why the site grows slowly — roughly one new tool every one to two months rather than a batch of thin clones.</p>
+
           <h2>Tool roadmap</h2>
           <p>We follow a "framework first, features unlocked in batches" strategy. The <a class="link" href="/m3u8-player/">M3U8 / HLS online player</a> is already live; a new tool from the placeholder cards (e.g. local WebP compression, JSON conversion, QR generation) unlocks every 1–2 months to keep the site fresh.</p>
+
+          <h2>Frequently asked questions</h2>
+
+          <h3>Is everything really free?</h3>
+          <p>Yes. Every tool is free, with no usage cap, no watermark and no account. We keep the whole toolkit open instead of putting features behind a login.</p>
+
+          <h3>Do I need to install anything?</h3>
+          <p>No. If your browser can load this page, it can run every tool on it. An up-to-date Chrome, Edge, Firefox or Safari gives the best results, especially for HLS and DASH playback.</p>
+
+          <h3>Can I use the output commercially?</h3>
+          <p>Yes. Converted text, generated short links and counting statistics are yours to use, including in commercial work. We claim no rights over what you process.</p>
+
+          <h3>Something is broken — who do I tell?</h3>
+          <p>Use the <a class="link" href="/contact/">contact page</a> and include the tool name, the input you used and your browser. A concrete bug report is the fastest way to get a fix prioritised.</p>
 
           <h2>Contact us</h2>
           <p>Any suggestions or want to request priority for a tool? Reach us via the <a class="link" href="/contact/">contact page</a>.</p>

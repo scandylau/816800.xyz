@@ -217,6 +217,104 @@
             <li>Plays locally but black on production → strongly suspect CORS; add the header or use a reverse proxy.</li>
           </ul>
 
+          <h2>7. HTTP status code cheat sheet</h2>
+          <p>The status code on the manifest request narrows the problem faster than any console message:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>What each status means for an HLS stream, and what to do next</caption>
+              <thead>
+                <tr><th>Status</th><th>Usual cause</th><th>Next step</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>401</td><td>Missing or expired token / signature</td><td>Re-sign the URL; check whether the clock on the signing server has drifted</td></tr>
+                <tr><td>403</td><td>Referer check, hotlink protection, geo-blocking, or a stale signature</td><td>Retry with the expected Referer; test from another network</td></tr>
+                <tr><td>404</td><td>Wrong path, or the segment already slid out of the live window</td><td>Verify the path; check whether <code>#EXT-X-MEDIA-SEQUENCE</code> has moved past it</td></tr>
+                <tr><td>410 Gone</td><td>Broadcast ended and segments were purged</td><td>Expected behaviour, not a fault</td></tr>
+                <tr><td>451</td><td>Blocked for legal or rights reasons</td><td>Territory restriction — nothing to fix client-side</td></tr>
+                <tr><td>500 / 502 / 503</td><td>Origin server or CDN failure</td><td>Check the origin; this is not a player problem</td></tr>
+                <tr><td>504</td><td>Origin too slow to respond</td><td>Look at origin latency and cache-hit ratio</td></tr>
+                <tr><td>Empty / <code>ERR_FAILED</code></td><td>Request never completed — CORS, mixed content, bad certificate, or an extension blocking it</td><td>Read the exact console line; it names the reason</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>8. Reading hls.js errors</h2>
+          <p>If you are building your own player, the browser console is vague while hls.js is specific. These are the details you will meet most:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Common hls.js error details and the recovery each one calls for</caption>
+              <thead>
+                <tr><th>Error detail</th><th>What it really means</th><th>What to do</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>manifestLoadError</code></td><td>The playlist request failed</td><td>Check URL, network and CORS — then <code>hls.startLoad()</code></td></tr>
+                <tr><td><code>manifestParsingError</code></td><td>The response is not a valid playlist</td><td>You probably received an HTML error page or a login redirect</td></tr>
+                <tr><td><code>manifestIncompatibleCodecsError</code></td><td>The browser cannot decode the declared codecs</td><td>Re-encode, or offer an H.264/AAC rendition</td></tr>
+                <tr><td><code>fragLoadError</code></td><td>A segment 404'd or timed out</td><td>Check segment paths, expiry and the live window</td></tr>
+                <tr><td><code>fragDecryptError</code></td><td>Decryption failed</td><td>Verify the <code>#EXT-X-KEY</code> URI and that it is CORS-readable</td></tr>
+                <tr><td><code>bufferStalledError</code></td><td>Buffer ran dry</td><td>Lower the starting bitrate or increase the buffer</td></tr>
+                <tr><td><code>bufferSeekOverHole</code></td><td>A gap in the buffered range</td><td>Usually missing segments — a packaging fault</td></tr>
+                <tr><td><code>bufferNudgeOnStall</code></td><td>Minor stall, playback resumed</td><td>Informational; no action needed</td></tr>
+                <tr><td><code>bufferAppendError</code></td><td>MSE refused the data</td><td>Codec and container mismatch — often fMP4 fed as TS</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Rule of thumb for recovery: <code>NETWORK_ERROR</code> → <code>hls.startLoad()</code>; <code>MEDIA_ERROR</code> → <code>hls.recoverMediaError()</code>, and if it repeats, try <code>hls.swapAudioCodec()</code> before reloading the source.</p>
+
+          <h2>9. An eight-step checklist that finds almost anything</h2>
+          <ol>
+            <li><strong>Open the m3u8 in the address bar.</strong> If the browser downloads or displays text, the URL and server are fine.</li>
+            <li><strong>Run <code>curl -I &lt;url&gt;</code>.</strong> Note the status code and <code>content-type</code>.</li>
+            <li><strong>Check for mixed content.</strong> A page served over HTTPS cannot load a stream over HTTP — the browser silently blocks it.</li>
+            <li><strong>Inspect the response headers.</strong> <code>Access-Control-Allow-Origin</code> must be present when the stream is on another origin.</li>
+            <li><strong>Watch the Network panel.</strong> Three requests matter: the master playlist, the media playlist, and the first segment. Find the first one that fails.</li>
+            <li><strong>Confirm the codec.</strong> The <code>CODECS</code> attribute in <code>#EXT-X-STREAM-INF</code> tells you whether the browser can decode it at all.</li>
+            <li><strong>Compare against a known-good source.</strong> If a public test stream plays and yours does not, the fault is in your stream, not the player.</li>
+            <li><strong>Only then touch the player.</strong> Most "player bugs" turn out to be step 1 through 6.</li>
+          </ol>
+
+          <h2>10. Fixing CORS on the server</h2>
+          <p>If you control the origin, this is a few lines. On Nginx:</p>
+<pre><code>location ~* \.(m3u8|ts|mpd|m4s)$ {
+    add_header Access-Control-Allow-Origin  * always;
+    add_header Access-Control-Allow-Headers Range always;
+    add_header Access-Control-Expose-Headers Content-Length,Content-Range always;
+    if ($request_method = OPTIONS) { return 204; }
+}</code></pre>
+          <p>On Apache, inside the directory or a <code>.htaccess</code> file:</p>
+<pre><code>&lt;FilesMatch "\.(m3u8|ts|mpd|m4s)$"&gt;
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Expose-Headers "Content-Length,Content-Range"
+&lt;/FilesMatch&gt;</code></pre>
+          <p>For object storage such as Cloudflare R2 or AWS S3, the same thing is a CORS policy document on the bucket:</p>
+<pre><code>[{
+  "AllowedOrigins": ["*"],
+  "AllowedMethods": ["GET", "HEAD"],
+  "AllowedHeaders": ["Range"],
+  "ExposeHeaders": ["Content-Length", "Content-Range"]
+}]</code></pre>
+          <p>Two details people miss: the <code>Range</code> header must be allowed, because players request byte ranges, and <code>Content-Length</code> must be exposed, because MSE needs it to manage the buffer.</p>
+
+          <h2>Frequently asked questions</h2>
+
+          <h3>curl fetches the stream fine, but the browser fails. Why?</h3>
+          <p>curl ignores the same-origin policy, sends no Referer by default, and often skips certificate validation. The browser enforces all three. When curl works and the browser does not, suspect CORS first, then Referer checks, then mixed content.</p>
+
+          <h3>It plays on my phone but not on my laptop.</h3>
+          <p>Almost always native support. Safari on iOS plays HLS without help; Chrome on the desktop needs a JavaScript player. If the page has no such player, you get a black rectangle instead of an error message.</p>
+
+          <h3>The stream plays for a few seconds and then stops.</h3>
+          <p>Either the server stopped appending segments — reload the playlist and watch whether <code>#EXT-X-MEDIA-SEQUENCE</code> still climbs — or you fell behind a rolling live window and the next segment 404'd.</p>
+
+          <h3>Do I need to disable ad blockers or extensions?</h3>
+          <p>Sometimes. Privacy extensions and corporate proxies block media requests and produce a bare <code>ERR_FAILED</code> with no explanation. Test in a private window before debugging anything else.</p>
+
+          <h3>The certificate is valid, so why does it still fail?</h3>
+          <p>Check the whole chain. An incomplete intermediate certificate, a hostname mismatch on the segment domain, or an expired root will all produce failures that look identical to a network error in the player.</p>
+
+          <h3>Can a reverse proxy really fix this?</h3>
+          <p>Yes, when you cannot change the origin. Serving the manifest and segments from the same origin as the page removes the cross-origin restriction entirely. Do it only for content you are entitled to redistribute.</p>
+
           <h2>Related tools</h2>
           <p>Want to verify a stream right now? Open the <a href="/m3u8-player/">M3U8 / HLS online player</a> to diagnose CORS and playback; for sharing long links use the <a href="/short-link/">short link</a> tool.</p>
         </div>

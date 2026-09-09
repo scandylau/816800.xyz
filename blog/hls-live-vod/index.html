@@ -193,6 +193,95 @@
           <h2>5. A note for developers</h2>
           <p>When a live stream drops, it's often not a dead URL but the server stopped pushing — the playlist remains but segments can't be fetched. That's why <a href="/blog/m3u8-playback-failed/">the troubleshooting guide</a> first separates dead URLs from CORS blocks.</p>
 
+          <h2>6. There are actually three modes, not two</h2>
+          <p>Most explanations stop at live and VOD. The specification also defines <strong>EVENT</strong>, and knowing the difference saves a lot of confusion when a stream behaves oddly:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>VOD, Live and EVENT playlists compared</caption>
+              <thead>
+                <tr><th></th><th>VOD</th><th>Live</th><th>EVENT</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>#EXT-X-PLAYLIST-TYPE</code></td><td><code>VOD</code> (or omitted)</td><td>omitted</td><td><code>EVENT</code></td></tr>
+                <tr><td><code>#EXT-X-ENDLIST</code></td><td>Present</td><td>Absent</td><td>Absent until the event ends, then added</td></tr>
+                <tr><td>Old segments removed?</td><td>No</td><td>Yes — rolling window</td><td>No — the list only grows</td></tr>
+                <tr><td>Seekable range</td><td>Everything</td><td>Only inside the window</td><td>Everything published so far</td></tr>
+                <tr><td>Typical use</td><td>Films, courses, recordings</td><td>Sports, news, 24/7 channels</td><td>Concerts, conferences, webinars</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>An EVENT playlist is the honest answer when you want people to join late and rewind to the start, but the broadcast has not finished yet.</p>
+
+          <h2>7. Where live latency actually comes from</h2>
+          <p>Latency is not one number, it is a sum. From camera to screen it roughly adds up as:</p>
+<pre><code>end-to-end latency ≈ (segments buffered × segment duration)
+                   + encoder and packaging delay
+                   + network and CDN transfer time</code></pre>
+          <p>The first term dominates, and it is the one you control. A player that keeps three segments in the buffer is deliberately sitting three segment-lengths behind the edge:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Buffer arithmetic for a player holding three segments</caption>
+              <thead>
+                <tr><th>Segment duration</th><th>Approximate added latency</th><th>Practical result</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>10 s (older HLS default)</td><td>~30 s</td><td>Very stable, hopeless for interaction</td></tr>
+                <tr><td>6 s (common today)</td><td>~18 s</td><td>Standard broadcast feel</td></tr>
+                <tr><td>4 s</td><td>~12 s</td><td>Acceptable for most events</td></tr>
+                <tr><td>2 s (LL-HLS partial segments)</td><td>~6 s</td><td>Near real time</td></tr>
+                <tr><td>LL-HLS with preload hints</td><td>2–5 s</td><td>Comparable to WebRTC</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Cut the segment length and you cut latency, but you also multiply the number of requests every viewer makes and give the encoder less room to compress efficiently. Every low-latency setup is a trade between those three.</p>
+
+          <h2>8. How to measure your own latency</h2>
+          <p>You do not need special tooling — the "two clocks" method works:</p>
+          <ol>
+            <li>Open a page showing an accurate clock, such as time.is, on your computer.</li>
+            <li>Start the live stream on your phone and point the phone camera at the screen.</li>
+            <li>The gap between the clock in the video and the clock in the photo is your glass-to-glass latency.</li>
+          </ol>
+          <p>If you are building the player, hls.js exposes it directly: <code>hls.latency</code> gives the distance behind the live edge, and <code>hls.targetLatency</code> / <code>hls.liveSyncPosition</code> let you tune how close to the edge the player dares to sit.</p>
+
+          <h2>9. LL-HLS in one paragraph</h2>
+          <p>Low-Latency HLS keeps the same playlist model but slices segments into <strong>partial segments</strong> that can be published before the whole segment exists, plus <strong>preload hints</strong> that tell the player what to request next. It brings HLS into the 2–5 second range without abandoning HTTP caching. The catch is that the whole chain — encoder, packager, CDN and player — has to support it; one link that does not, and you fall back to regular HLS latency.</p>
+
+          <h2>10. Troubleshooting a live stream</h2>
+          <div class="table-scroll">
+            <table>
+              <caption>Symptom → likely cause → what to check first</caption>
+              <thead>
+                <tr><th>Symptom</th><th>Likely cause</th><th>Check this</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Picture freezes, no error shown</td><td>The server stopped appending segments</td><td>Reload the m3u8 and see whether <code>#EXT-X-MEDIA-SEQUENCE</code> is still climbing</td></tr>
+                <tr><td>Plays, then 404s a few seconds in</td><td>The rolling window moved past you — you fell too far behind</td><td>Reduce the buffer, or check for a stalled network</td></tr>
+                <tr><td>Starts in sync, drifts later and later</td><td>The player accumulated buffer and never caught up</td><td>Enable live-edge sync; in hls.js, set <code>liveSyncDuration</code></td></tr>
+                <tr><td>Black frame when joining mid-broadcast</td><td>Encoding parameters changed without a discontinuity marker</td><td>Look for <code>#EXT-X-DISCONTINUITY</code> at the switch point</td></tr>
+                <tr><td>Fine on mobile, stutters on desktop</td><td>MSE buffering and bitrate switching differ per engine</td><td>Compare in the <a href="/m3u8-player/">online player</a> with diagnostics on</td></tr>
+                <tr><td>Seek bar jumps back to live</td><td>You seeked outside the retained window</td><td>Check how many segments the server keeps</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Frequently asked questions</h2>
+
+          <h3>Can I watch a live stream from the beginning?</h3>
+          <p>Only if the server keeps the old segments. In a rolling-window live playlist they are deleted as new ones arrive, so the earliest you can seek is the start of the window. In an EVENT playlist, or once the stream is republished as VOD, the whole recording is seekable.</p>
+
+          <h3>What is the DVR window?</h3>
+          <p>The span of time a live stream keeps available for rewinding — typically a few minutes to a few hours, depending on how many segments the server retains. It is a server-side decision, not a player feature.</p>
+
+          <h3>Does <code>#EXT-X-MEDIA-SEQUENCE</code> ever reset?</h3>
+          <p>It increases monotonically as the window slides and should not go backwards. If you see it jump backwards, the packager restarted and players will usually treat the stream as broken and rebuffer.</p>
+
+          <h3>Why is my stream 30 seconds behind when the segment is only 6 seconds?</h3>
+          <p>Because your player is holding several segments in the buffer. That is intentional — each extra buffered segment buys resilience against a brief network stall, and costs one segment length of latency.</p>
+
+          <h3>Is lower latency always better?</h3>
+          <p>No. Chasing sub-second latency shrinks the buffer that protects you from jitter, and a stream that stalls every thirty seconds is worse than one that is fifteen seconds behind. Match the latency to the use case: interactive betting needs seconds, a concert does not.</p>
+
           <h2>Related tools</h2>
           <p>Try it: use the <a href="/m3u8-player/">M3U8 / HLS online player</a> to compare a VOD and a live source; for sharing long URLs use the <a href="/short-link/">short link</a>.</p>
         </div>

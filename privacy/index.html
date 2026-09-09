@@ -149,33 +149,118 @@
         </div>
 
         <div class="en">
-          <p>816800.xyz (hereinafter "the Site") takes your privacy seriously. This policy explains how we handle data when you use our tools.</p>
+          <p>816800.xyz (the "Site") takes your privacy seriously. This policy explains what data is handled when you use our tools, why it is handled, and the rights you have over it. It is written to satisfy the transparency requirements of the EU and UK General Data Protection Regulation (GDPR) and the California Consumer Privacy Act as amended by the CPRA (CCPA/CPRA).</p>
 
-          <h2>1. What we collect</h2>
-          <p><strong>Almost nothing.</strong> Every tool here is pure front-end. The stream URLs, text or files you enter are <strong>never sent to or uploaded to any server</strong> — parsing and processing happen entirely in your local browser.</p>
+          <h2>1. Who we are</h2>
+          <p>The Site is a static toolkit operated by a small independent team. For any question about this policy, write to <strong>admin@816800.xyz</strong> or use the <a class="link" href="/contact/">contact page</a>. Because we run no user accounts, in most cases we hold no data about you at all — which makes requests quick to satisfy.</p>
 
-          <h2>2. Local storage (localStorage)</h2>
+          <h2>2. What we collect</h2>
+          <p><strong>Almost nothing.</strong> Every tool here is pure front-end. The stream URLs, text or files you enter are <strong>never sent to or uploaded to any server</strong> — parsing and processing happen entirely inside your own browser.</p>
+          <p>The only "personal data" the Site routinely processes, in the GDPR sense, is the technical information in server logs described in section 4 — typically an IP address. We do not ask for your name, email, payment details or precise location. If you choose to email us, we hold only what you sent, for as long as it takes to answer.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>What is handled, where, and who can see it</caption>
+              <thead>
+                <tr><th>Data</th><th>Where it is processed</th><th>Who can read it</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Stream URLs you test</td><td><code>localStorage</code> in your browser</td><td>Only you, on that device</td></tr>
+                <tr><td>Text you paste into a tool</td><td>Browser memory, discarded on reload</td><td>Only you</td></tr>
+                <tr><td>IP address, user agent, referrer</td><td>Cloudflare Pages access logs; Google Analytics 4</td><td>Our host and us, in aggregate</td></tr>
+                <tr><td>Messages you email us</td><td>Our mailbox</td><td>Us</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>3. Local storage (localStorage)</h2>
           <p>To help you re-test, the M3U8 page stores your <strong>last 5</strong> tested URLs in your browser's <code>localStorage</code>. This data:</p>
           <ul>
             <li>lives only on your current device and browser; our servers cannot read it;</li>
             <li>can be deleted one by one in the history area, or removed entirely by clearing browser data;</li>
             <li>is never used for advertising or user profiling.</li>
           </ul>
+          <p>No cookie consent is required for this storage because it is strictly necessary to deliver a feature you explicitly used, and it never leaves your device.</p>
 
-          <h2>3. Logs &amp; anonymous stats</h2>
-          <p>The host (Cloudflare Pages) may keep standard access logs (e.g. IP, User-Agent, time) for security and traffic statistics, handled per industry practice; we do not use them to identify individuals.</p>
+          <h2>4. Logs &amp; analytics</h2>
+          <p>Our host (Cloudflare Pages) keeps standard access logs — IP address, user agent, requested path and timestamp — for security, abuse prevention and traffic statistics. We also measure aggregate usage with Google Analytics 4, which relies on cookies and may process your IP address in truncated form. Analytics tell us which pages are worth improving; they are not used to build individual profiles or to make automated decisions about you.</p>
 
-          <h2>4. Cookies &amp; tracking</h2>
-          <p>The Site <strong>sets no tracking cookies</strong> and loads no third-party behavioral analytics. If ads are enabled later (e.g. Google AdSense), we will place ad units manually at designated spots only, and do our best to protect your browsing experience.</p>
+          <h2>5. Cookies, advertising and opting out</h2>
+          <p>The Site sets no tracking cookies of its own. Third parties that appear on the Site may set their own:</p>
+          <h3>Google Analytics</h3>
+          <p>You can block analytics across all sites by installing the Google Analytics opt-out browser add-on, or by refusing cookies in your browser.</p>
+          <h3>Third-party advertising</h3>
+          <p>When advertising is enabled on the Site, third-party vendors — including Google — may use cookies to serve ads based on your prior visits to this and other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this Site and/or other sites on the internet.</p>
+          <p>You can opt out of personalised advertising at any time:</p>
+          <ul>
+            <li>Google: <strong>Google Ads Settings</strong> (adssettings.google.com)</li>
+            <li>Industry-wide: <strong>aboutads.info</strong> choices page, or the European Interactive Digital Advertising Alliance page at youronlinechoices.eu</li>
+          </ul>
+          <p>Opting out does not remove advertising; it stops ads from being personalised using cookies. We place ad units manually and keep them to a minimum so they never interfere with using a tool.</p>
 
-          <h2>5. Third-party content</h2>
-          <p>When you load an external stream in the M3U8 player, the video data is served directly by that streaming server; its privacy practices are the responsibility of its operator. Please verify the compliance of any source you load.</p>
+          <h2>6. Third-party content</h2>
+          <p>When you load an external stream in the M3U8 player, the video data is served directly by that streaming server; its privacy practices are the responsibility of its operator, and that operator may see your IP address. Please verify the compliance of any source you load, especially on a network you do not control.</p>
 
-          <h2>6. Children's privacy</h2>
-          <p>The Site is not directed at children under 13, and we do not knowingly collect their information.</p>
+          <h2>7. Legal bases for processing (GDPR / UK GDPR)</h2>
+          <div class="table-scroll">
+            <table>
+              <caption>Why we process data and the lawful basis we rely on</caption>
+              <thead>
+                <tr><th>Purpose</th><th>Legal basis</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Delivering pages and keeping the Site secure</td><td>Legitimate interests (Art. 6(1)(f))</td></tr>
+                <tr><td>Remembering your recent streams and preferences</td><td>Legitimate interests — strictly necessary, device-local</td></tr>
+                <tr><td>Measuring aggregate usage with analytics</td><td>Consent (Art. 6(1)(a)), where required</td></tr>
+                <tr><td>Personalised advertising, when enabled</td><td>Consent (Art. 6(1)(a))</td></tr>
+                <tr><td>Answering your message</td><td>Legitimate interests; steps prior to a contract if you ask for one</td></tr>
+              </tbody>
+            </table>
+          </div>
 
-          <h2>7. Contact us</h2>
-          <p>If you have questions about this policy, please reach us via the <a class="link" href="/contact/">contact page</a>.</p>
+          <h2>8. Your rights under the GDPR / UK GDPR</h2>
+          <p>If you are in the EEA or the UK, you have the right to:</p>
+          <ul>
+            <li><strong>Be informed</strong> — this document is that notice.</li>
+            <li><strong>Access</strong> — ask what personal data we hold about you.</li>
+            <li><strong>Rectification</strong> — have inaccurate data corrected.</li>
+            <li><strong>Erasure</strong> — have your data deleted where there is no overriding reason to keep it.</li>
+            <li><strong>Restrict or object</strong> to processing, including profiling.</li>
+            <li><strong>Data portability</strong> — receive data you provided in a structured, machine-readable format.</li>
+            <li><strong>Withdraw consent</strong> at any time, without affecting processing already carried out.</li>
+          </ul>
+          <p>To exercise any of these, email <strong>admin@816800.xyz</strong>. We reply within one month. You also have the right to complain to your national data protection authority — in the UK, the Information Commissioner's Office (ICO).</p>
+
+          <h2>9. Your California rights (CCPA / CPRA)</h2>
+          <p>If you are a California resident, you have the right to know what personal information is collected, to delete it, to correct it, to opt out of sale or sharing, and to limit the use of sensitive personal information. You are entitled to equal service and price regardless of whether you exercise these rights.</p>
+          <p><strong>We do not sell or share personal information</strong> as those terms are defined by the CCPA/CPRA, and we do not use or disclose sensitive personal information for purposes other than those permitted by the statute. We have no "Do Not Sell" toggle because there is nothing to opt out of. To make a request, email <strong>admin@816800.xyz</strong>; we verify requests by replying to the address you use.</p>
+
+          <h2>10. Children's privacy</h2>
+          <p>The Site is not directed at children under 13, and we do not knowingly collect personal information from them. Where a higher age of consent applies under local law, that age governs. If you believe a child has sent us personal information, contact us and we will delete it.</p>
+
+          <h2>11. How long we keep data</h2>
+          <div class="table-scroll">
+            <table>
+              <caption>Retention periods</caption>
+              <thead>
+                <tr><th>Data</th><th>Retention</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Server access logs</td><td>Typically up to 30 days at our host</td></tr>
+                <tr><td>Google Analytics event data</td><td>Up to 14 months, as configured in the property</td></tr>
+                <tr><td><code>localStorage</code> entries</td><td>Until you clear them or your browser storage is cleared</td></tr>
+                <tr><td>Emails you send us</td><td>Up to 24 months, then deleted</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>12. International transfers</h2>
+          <p>Our host and analytics provider operate globally, so technical data may be processed outside your country of residence, including in the United States. Those transfers rely on safeguards such as the European Commission's Standard Contractual Clauses or an equivalent mechanism.</p>
+
+          <h2>13. Changes to this policy</h2>
+          <p>If we change this policy we will update the date at the top of the page. Material changes — for example enabling a new category of advertising — will be called out on the page itself. Continuing to use the Site after a change means you accept the updated policy.</p>
+
+          <h2>14. Contact us</h2>
+          <p>Questions about this policy or about your data? Email <strong>admin@816800.xyz</strong> or reach us via the <a class="link" href="/contact/">contact page</a>.</p>
         </div>
       </article>
     </div>

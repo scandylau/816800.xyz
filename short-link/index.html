@@ -158,6 +158,83 @@
             <li>The encoded content lives only inside the link you share — it is <strong>never received or stored by our server</strong>.</li>
             <li>If you want a real, shareable short code, the site would need Cloudflare Pages Functions + KV (Approach B), which can be deployed separately.</li>
           </ul>
+
+          <h3>How to use it</h3>
+          <ol>
+            <li>Paste the destination URL into the field above, including <code>https://</code>.</li>
+            <li>Press <strong>Generate</strong>. The tool URL-encodes the address and appends it after <code>#u=</code>.</li>
+            <li>Copy the result and share it anywhere — chat, email, a printed QR code, a slide deck.</li>
+            <li>When someone opens it, <code>go.html</code> decodes the fragment in their own browser and redirects. No server lookup, no mapping table, no delay.</li>
+          </ol>
+          <p class="note">Because the destination travels inside the link, the result is longer than a classic short code. That is the trade-off for a tool that never sees your URL.</p>
+
+          <h3>When a branded redirect beats a short code</h3>
+          <ul>
+            <li><strong>Internal docs and wikis</strong> — a long Confluence, Notion or SharePoint URL nobody should have to retype.</li>
+            <li><strong>Print and QR codes</strong> — one stable link on your own domain that keeps working as long as this site does.</li>
+            <li><strong>Email and newsletters</strong> — wrap a URL already carrying six tracking parameters into a single branded link.</li>
+            <li><strong>Sensitive destinations</strong> — staging environments, signed download links, or anything you would rather not store in a third party's database.</li>
+            <li><strong>Restricted networks</strong> — the link resolves without contacting a shortening service, so it works wherever this domain is reachable.</li>
+          </ul>
+
+          <h3>How it compares</h3>
+          <div class="table-scroll">
+            <table>
+              <caption>Three ways to shorten a link, and what each one costs you</caption>
+              <thead>
+                <tr><th></th><th>This tool</th><th>Bitly / TinyURL</th><th>Self-hosted (Functions + KV)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sign-up</td><td>None</td><td>Required for most features</td><td>None, but you maintain it</td></tr>
+                <tr><td>Where the mapping lives</td><td>Inside the link itself</td><td>Their database</td><td>Your KV store</td></tr>
+                <tr><td>Link length</td><td>Longer than the original</td><td>Very short</td><td>Very short</td></tr>
+                <tr><td>Click analytics</td><td>None</td><td>Built in</td><td>You build it</td></tr>
+                <tr><td>Can the provider read the destination?</td><td>No</td><td>Yes</td><td>No</td></tr>
+                <tr><td>Survives the provider shutting down</td><td>Yes — it is just a URL</td><td>No</td><td>Depends on you</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Add UTM tags before you shorten</h3>
+          <p>If the link is for a campaign, attach your tracking parameters <em>first</em>, then run the finished URL through this tool. UTM tags tell your analytics where a visitor actually came from:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>The five standard UTM parameters</caption>
+              <thead>
+                <tr><th>Parameter</th><th>What it answers</th><th>Example value</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>utm_source</code></td><td>Which site or sender sent the click</td><td><code>newsletter</code>, <code>reddit</code></td></tr>
+                <tr><td><code>utm_medium</code></td><td>Which channel type it was</td><td><code>email</code>, <code>social</code>, <code>cpc</code></td></tr>
+                <tr><td><code>utm_campaign</code></td><td>Which campaign it belongs to</td><td><code>spring_sale</code></td></tr>
+                <tr><td><code>utm_term</code></td><td>Which keyword or variant</td><td><code>hls+player</code></td></tr>
+                <tr><td><code>utm_content</code></td><td>Which link inside the same message</td><td><code>footer_button</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Put together, a tagged URL looks like this:</p>
+          <p><code>https://example.com/landing?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=spring_sale</code></p>
+          <p>Keep every value lowercase and use underscores instead of spaces. Mixed case and stray spaces are the most common reason one campaign shows up in reports under three different names.</p>
+
+          <h3>Frequently asked questions</h3>
+
+          <h3>Does the link expire?</h3>
+          <p>No. Nothing is stored, so there is nothing to expire. The link keeps working as long as the destination does and this page exists.</p>
+
+          <h3>Can I see how many people clicked?</h3>
+          <p>Not here. Counting clicks needs a server, which is exactly what this tool avoids. If you need numbers, add UTM parameters and read them in your own analytics.</p>
+
+          <h3>Is my destination URL private?</h3>
+          <p>It is <strong>encoded, not encrypted</strong>. Anyone holding the link can decode it in a browser. Treat it as readable, never as secret — do not put tokens, passwords or private keys in a URL you share.</p>
+
+          <h3>Is there a length limit?</h3>
+          <p>Most browsers and servers handle URLs up to roughly 2,000 characters, but some chat apps and email clients truncate much earlier. Because the encoded form is longer than the original, very long URLs can hit that ceiling and break when pasted.</p>
+
+          <h3>Can I use it for affiliate or paid links?</h3>
+          <p>Yes, as long as the destination is yours to promote and the programme allows cloaking. Some affiliate networks require the referral to be visible; check their terms before wrapping the link.</p>
+
+          <h3>Why not just use a real shortener?</h3>
+          <p>If you need byte-short codes and click statistics, use one — they are good at that. Reach for this tool when you would rather not hand your destination URL to somebody else's database.</p>
         </div>
       </article>
     </div>

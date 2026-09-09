@@ -110,6 +110,46 @@
             "@type": "Answer",
             "text": "Public test streams can go offline at any time due to copyright, region or rate limits. Try another source on this page for comparison. If your own URL returns 403, it likely needs an auth token, Referer or signed parameter."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I test a URL that needs a token or a custom Referer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Partly. The player sends what any browser sends for a media request, so custom headers cannot be added from this page. If your CDN accepts the signature as a query parameter, include it in the URL. If the origin demands a custom Referer or Authorization header, test inside your own player where you control the request."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this work on phones and tablets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. On iOS the browser plays HLS natively, and on Android the bundled hls.js engine handles playback through Media Source Extensions. The layout is responsive, so the same diagnostics appear on a small screen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my live stream twenty or thirty seconds behind real time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because of buffering. A player holding three six-second segments sits roughly eighteen seconds behind the live edge, which is deliberate: each buffered segment protects playback from a brief network stall. Shorter segments and a smaller buffer reduce the delay but make stalling more likely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this to check my CDN configuration?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is one of the best uses for the tool. Paste the CDN URL rather than the origin URL: if it plays here, the manifest, segments, CORS headers and range requests all work from a third-party page. If it plays here but fails on your own site, the fault is in your page, not your stream."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit on playlist size?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There is no hard limit, but a VOD manifest with tens of thousands of entries takes noticeably longer to parse. For very long recordings, use a rolling or segmented playlist rather than one enormous file."
+          }
         }
       ]
     }
@@ -218,11 +258,11 @@
         </div>
       </div>
 
-      <!-- AdSense 手动黄金位（方案第七章）-->
-      <div class="ad-slot" id="adsense-slot" aria-label="Advertisement">
-        <span data-zh="广告位 · AdSense 审核通过后可在此展示（手动放置，每页仅 1 个）"
-              data-en="Ad Slot · Display here after AdSense approval (manual placement, 1 per page)">Ad Slot · Display here after AdSense approval (manual placement, 1 per page)</span>
-      </div>
+      <!-- AdSense 手动黄金位（每页仅 1 个）
+           当前未投放广告：容器内保持为空，CSS 的 .ad-slot:empty 规则会将其完全隐藏、不占版面。
+           AdSense 审核通过后，把 <ins class="adsbygoogle" ...></ins> 直接放进下面这个 div 即可，无需改动 CSS。
+           注意：div 内不能有任何字符（含换行与空格），否则 :empty 失效。 -->
+      <div class="ad-slot" id="adsense-slot" aria-label="Advertisement"></div>
 
       <!-- 深度技术文档（中英双版）-->
       <article class="prose i18n-block lang-en">
@@ -280,8 +320,62 @@
           <h3>How does HLS streaming work?</h3>
           <p>HLS cuts a video into short chunks, usually 2–10 seconds long, and describes them in a playlist. A <strong>master playlist</strong> lists every available quality level; each level has its own <strong>media playlist</strong> pointing at the <code>.ts</code> or fMP4 segments. The player measures your bandwidth, picks a media playlist, and switches between them mid-playback — that is what <strong>adaptive bitrate</strong> means. Most browsers ship no built-in HLS decoder, so a JavaScript library such as hls.js fetches the playlists, joins the segments through Media Source Extensions, and feeds them to the video element.</p>
 
+          <h3>Reference numbers: bitrate ladders and segment length</h3>
+          <p>If you are building a ladder from scratch, these are the rungs most services settle on for H.264:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Typical H.264 ladder used by VOD and live services</caption>
+              <thead>
+                <tr><th>Rung</th><th>Resolution</th><th>Video bitrate</th><th>Audio</th><th>Notes</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>240p</td><td>426×240</td><td>400 kbps</td><td>64 kbps</td><td>Safety net for weak mobile networks</td></tr>
+                <tr><td>360p</td><td>640×360</td><td>800 kbps</td><td>96 kbps</td><td>Sensible mobile default</td></tr>
+                <tr><td>480p</td><td>854×480</td><td>1.4 Mbps</td><td>128 kbps</td><td>Mid tier</td></tr>
+                <tr><td>720p</td><td>1280×720</td><td>2.4–3.0 Mbps</td><td>128 kbps</td><td>The HD default most players start on</td></tr>
+                <tr><td>1080p</td><td>1920×1080</td><td>4.5–6.0 Mbps</td><td>192 kbps</td><td>Full HD</td></tr>
+                <tr><td>1440p</td><td>2560×1440</td><td>9–13 Mbps</td><td>192 kbps</td><td>High-bitrate screens</td></tr>
+                <tr><td>2160p</td><td>3840×2160</td><td>15–25 Mbps (H.264)</td><td>192–256 kbps</td><td>HEVC roughly halves these figures</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Segment length is the other dial, and it trades latency against overhead:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Choosing a segment duration</caption>
+              <thead>
+                <tr><th>Segment length</th><th>Added latency per buffered segment</th><th>Request overhead</th><th>Good for</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2 s</td><td>~2 s</td><td>High</td><td>Low-latency and interactive streams</td></tr>
+                <tr><td>4 s</td><td>~4 s</td><td>Moderate</td><td>Live events where a few seconds matter</td></tr>
+                <tr><td>6 s</td><td>~6 s</td><td>Low</td><td>The common all-round default</td></tr>
+                <tr><td>10 s</td><td>~10 s</td><td>Lowest</td><td>VOD and 24/7 channels where latency is irrelevant</td></tr>
+              </tbody>
+            </table>
+          </div>
+
           <h3>M3U8 vs HLS: what's the difference?</h3>
           <p>They are not competing formats. <strong>HLS</strong> is the streaming protocol — the set of rules for chopping up and delivering video. <strong>M3U8</strong> is the playlist file format HLS uses: a UTF-8 text index that lists the segments. In everyday usage people say "M3U8 player" and "HLS player" interchangeably, and they mean exactly the same thing.</p>
+
+          <h3>Browser and device support</h3>
+          <p>Whether a stream needs a JavaScript engine at all depends on the client:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Where HLS and DASH play natively, and where a library is required</caption>
+              <thead>
+                <tr><th>Platform</th><th>HLS (.m3u8)</th><th>DASH (.mpd)</th><th>Notes</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Safari on macOS and iOS</td><td>Native</td><td>Needs dash.js</td><td>A plain <code>&lt;video src&gt;</code> tag works</td></tr>
+                <tr><td>Any browser on iOS</td><td>Native</td><td>Needs dash.js</td><td>All iOS browsers use the WebKit engine</td></tr>
+                <tr><td>Chrome, Edge, Firefox on desktop</td><td>Needs hls.js</td><td>Native via MSE</td><td>This page bundles both engines</td></tr>
+                <tr><td>Chrome on Android</td><td>Varies by device</td><td>Native via MSE</td><td>Never rely on native HLS here</td></tr>
+                <tr><td>Smart TVs, Apple TV, Roku</td><td>Usually native</td><td>Device dependent</td><td>HLS has the widest reach in this group</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>That split explains the classic report: "it plays on my iPhone and shows a black box in Chrome". Nothing is broken — the desktop browser simply has no built-in HLS decoder.</p>
 
           <h3>Why test M3U8 online?</h3>
           <p>Before wiring a stream URL into your own player, app, or OBS push, it is critical to verify with a neutral third-party tool that "the URL is valid, the playlist parses, and the segments load continuously." The <strong>M3U8 online test</strong> on this page runs entirely in your browser — it collects and uploads nothing, making it the cleanest way to troubleshoot.</p>
@@ -295,6 +389,56 @@
             <li>If you control the server: add the response header <code>Access-Control-Allow-Origin: *</code> (or a stricter whitelist domain) at your CDN / origin.</li>
             <li>If the origin can't be changed: put a same-origin reverse proxy in front of it on your own server to forward the stream and bypass the browser's cross-origin limit.</li>
             <li>For local verification only: use the quick test sources on this page — they all ship with standard CORS and are safe to debug with.</li>
+          </ul>
+
+          <h3>Error reference: symptom to cause</h3>
+          <div class="table-scroll">
+            <table>
+              <caption>What you see, why it happens, and the first thing worth trying</caption>
+              <thead>
+                <tr><th>Symptom</th><th>Most likely cause</th><th>First thing to try</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Black screen, no error message</td><td>The page has no JavaScript HLS player, or you are on Chrome without hls.js</td><td>Paste the same URL into this page</td></tr>
+                <tr><td>"Cross-Origin Request Blocked"</td><td>Missing <code>Access-Control-Allow-Origin</code> on the stream domain</td><td>Add the header, or proxy the stream same-origin</td></tr>
+                <tr><td>403 Forbidden</td><td>Hotlink protection, a Referer check, or an expired signature</td><td>Retry with the Referer the origin expects</td></tr>
+                <tr><td>404 on segments</td><td>Wrong path, or the live window has already moved past them</td><td>Check the path and <code>#EXT-X-MEDIA-SEQUENCE</code></td></tr>
+                <tr><td>Plays briefly, then stops</td><td>The server stopped appending new segments</td><td>Reload the playlist and watch whether the sequence still climbs</td></tr>
+                <tr><td>Picture, but no sound</td><td>An audio codec the browser will not decode, such as AC3 or DTS</td><td>Re-encode the audio to AAC</td></tr>
+                <tr><td>"manifestParsingError"</td><td>The server returned an HTML error page instead of a playlist</td><td><code>curl</code> the URL and read what actually comes back</td></tr>
+                <tr><td>Buffers forever on fast internet</td><td>The chosen rung exceeds real throughput, or the packager stalled</td><td>Check the bitrate ladder and the origin</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Codecs and containers this player handles</h3>
+          <div class="table-scroll">
+            <table>
+              <caption>What plays reliably, and what depends on the browser</caption>
+              <thead>
+                <tr><th>Codec / feature</th><th>Support</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>H.264 + AAC</td><td>Universal — the combination to ship if you want no surprises</td></tr>
+                <tr><td>HEVC / H.265</td><td>Safari reliably; Chrome and Edge only with hardware support</td></tr>
+                <tr><td>AV1</td><td>Recent Chrome, Edge and Firefox; still limited by hardware decoding</td></tr>
+                <tr><td>MP3 audio</td><td>Works in most engines, but AAC is preferred</td></tr>
+                <tr><td>AC3 / E-AC3 / DTS</td><td>Inconsistent — expect silence on some browsers</td></tr>
+                <tr><td>WebVTT subtitles</td><td>Supported through hls.js</td></tr>
+                <tr><td>CEA-608/708 captions</td><td>Partially supported</td></tr>
+                <tr><td>AES-128 encrypted segments</td><td>Plays if the key URL is reachable and CORS-readable</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>What this player cannot do</h3>
+          <p>Being explicit about the limits saves you a wasted trip:</p>
+          <ul>
+            <li><strong>DRM-protected streams.</strong> FairPlay, Widevine and PlayReady require a licence server and a key exchange this tool deliberately does not implement.</li>
+            <li><strong>Download or record.</strong> There is no save button, by design.</li>
+            <li><strong>Bypass geo-blocking or authentication.</strong> If the origin refuses your region or your token, we cannot and will not work around it.</li>
+            <li><strong>Add CORS headers for you.</strong> We can tell you the header is missing; only the stream owner can add it.</li>
+            <li><strong>Handle enormous playlists comfortably.</strong> A VOD manifest with tens of thousands of entries will take a moment to parse.</li>
           </ul>
 
           <h3>About MPD (DASH)</h3>
@@ -348,6 +492,21 @@
 
           <h3>What if a quick test source returns 403?</h3>
           <p>Public test sources may go offline, get rate-limited or blocked by region at any time. Try another test source on this page; if your own URL returns 403, it likely needs an auth token, Referer header or has simply expired.</p>
+
+          <h3>Can I test a URL that needs a token or a custom Referer?</h3>
+          <p>Partly. The player sends what any browser sends for a media request — you cannot add custom headers from this page. If your CDN accepts the signature as a query parameter, include it in the URL and it will work. If the origin demands a custom Referer or an Authorization header, test inside your own player where you control the request.</p>
+
+          <h3>Does this work on phones and tablets?</h3>
+          <p>Yes. On iOS the browser plays HLS natively, and on Android the bundled hls.js engine handles it through Media Source Extensions. The layout is responsive, so you get the same diagnostics on a small screen.</p>
+
+          <h3>Why is my live stream twenty or thirty seconds behind real time?</h3>
+          <p>Buffering. A player holding three six-second segments sits roughly eighteen seconds behind the live edge, and that is deliberate — each buffered segment protects you from a brief network stall. Shorter segments and a smaller buffer cut the delay but make stalling more likely.</p>
+
+          <h3>Can I use this to check my CDN configuration?</h3>
+          <p>It is one of the best uses for the tool. Paste the CDN URL rather than the origin URL: if it plays here, then the manifest, the segments, the CORS headers and range requests all work from a third-party page. If it plays here but fails on your own site, the fault is in your page, not your stream.</p>
+
+          <h3>Is there a limit on playlist size?</h3>
+          <p>No hard limit, but a VOD manifest with tens of thousands of entries takes noticeably longer to parse. For very long recordings, use a rolling or segmented playlist rather than one enormous file.</p>
         </div>
       </article>
 
