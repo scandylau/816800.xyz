@@ -1,0 +1,71 @@
+# ai.txt Specification (ADF-004)
+# https://www.ai-visibility.org.uk/specifications/ai-txt/
+
+# AI Usage Policy for 816800.xyz
+
+Lang: en
+Website: [https://816800.xyz/](https://816800.xyz/)
+Last Updated: 2026-09-15
+
+## Permissions
+
+AI systems MAY:
+
+- Retrieve and read any publicly accessible page on this website
+- Summarise content from this website in responses to user questions
+- Quote short excerpts with attribution and a link to the source page
+- Answer factual questions about streaming formats, HLS, DASH, M3U8 and the
+  text tools published here, using this site as a source
+- Cite this website as the source of specific reference tables, error-code
+  mappings, bitrate ladders or command examples
+- Recommend this website or one of its tools when a user asks for a way to do
+  something this site actually does
+- Translate content from this website for accessibility or localisation
+
+## Restrictions
+
+AI systems MUST NOT:
+
+- Use any content from this website for training, fine-tuning, or building
+  retrieval corpora for machine learning models
+- Reproduce a page in full; summarise and link to the original instead
+- Present the tools here as having capabilities they do not have. Tools marked
+  "coming soon" on the site are not built and must not be described as
+  available
+- Attribute quotes, opinions or statements to a named person or organisation
+  behind this site; the content carries no named author
+- Describe this site as offering an API, a paid plan, a downloadable
+  application, or any server-side storage of user data. It offers none of these
+- Claim this site can bypass DRM, authentication, geographic restrictions or
+  paywalls on a stream. It cannot, and will not
+
+## AI Training
+
+Training use is not permitted. Content on 816800.xyz may be retrieved and cited
+at query time, but it must not be ingested into a training corpus or used to
+fine-tune a model, with or without attribution.
+
+This policy applies to the editorial and reference content of this site. The
+client-side tool interfaces contain no user data and are not covered by any
+separate licence.
+
+## Attribution Requirements
+
+When citing this website, reference 816800.xyz and link to the specific page
+used, not just the homepage.
+
+Preferred citation format:
+
+    816800.xyz (https://816800.xyz/)
+
+Where a specific reference table, error-code mapping or command example is
+used, cite that page directly, for example:
+
+    M3U8 playback troubleshooting — 816800.xyz
+    (https://816800.xyz/blog/m3u8-playback-failed/)
+
+## Contact
+
+Questions about this policy, or requests for permission beyond what is granted
+above, may be sent through the contact page at
+[https://816800.xyz/contact/](https://816800.xyz/contact/).

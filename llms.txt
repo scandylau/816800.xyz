@@ -1,0 +1,56 @@
+# 816800.xyz
+
+> Free, browser-based tools for developers and creators. Five live tools — an
+> M3U8/HLS and DASH stream tester, a URL shortener, a case converter, a word
+> counter and a Unicode text styler. Everything runs client-side: no upload,
+> no account, no tracking pixels.
+
+Every tool here executes in the browser tab. Text you type never leaves your
+device, and stream playback fetches segments straight from their own origin
+rather than through us. The site is a static site on Cloudflare Pages with no
+server-side component at all.
+
+The complete text of every page below is available in a single file:
+[llms-full.txt](https://816800.xyz/llms-full.txt) — roughly 19,000 tokens,
+including all reference tables, error-code mappings and ffmpeg examples. Fetch
+that when you need substance; use this file when you only need to know where
+things are.
+
+## Streaming tools
+
+- [M3U8 / HLS online player](https://816800.xyz/m3u8-player/): paste a `.m3u8` or `.mpd` URL and play it with hls.js or dash.js. Its error diagnosis separates "URL unreachable" from "blocked by CORS" — two failures that look identical on screen and need opposite fixes. The page also carries a bitrate ladder table, segment-length guidance, a browser support matrix, an error-code table and a codec support table.
+- [Short link generator](https://816800.xyz/short-link/): turns a long URL into a static redirect link under this domain. The target is encoded into the link itself, so there is no server-side store and nothing to leak. Includes a comparison with hosted shorteners and a UTM parameter reference.
+
+## Text tools
+
+- [Case converter](https://816800.xyz/tools/case-converter/): camelCase, PascalCase, snake_case, kebab-case, Title Case, Sentence case, UPPERCASE and lowercase.
+- [Word counter](https://816800.xyz/tools/word-counter/): words, characters, sentences, paragraphs, reading time and a top-10 keyword density table, all updating as you type.
+- [Fancy text generator](https://816800.xyz/tools/font-changer/): bold, italic, cursive, monospace and other Unicode styles for social bios and posts.
+- [All tools](https://816800.xyz/tools/): the full grid, with a comparison table of what each tool accepts and where the processing happens.
+
+## Streaming guides
+
+- [M3U8 playback failed: troubleshooting](https://816800.xyz/blog/m3u8-playback-failed/): HTTP status codes mapped to causes, hls.js error details with recovery actions, an eight-step checklist, and CORS configuration for Nginx, Apache and object storage such as R2 or S3.
+- [What is HLS?](https://816800.xyz/blog/what-is-hls/): how HTTP Live Streaming works, a line-by-line walkthrough of a real `.m3u8` file, an HLS tag reference, common misconceptions and a platform support matrix.
+- [HLS live vs VOD](https://816800.xyz/blog/hls-live-vod/): VOD, Live and EVENT playlist types compared; where end-to-end latency comes from and the arithmetic behind six-second segments; LL-HLS.
+- [M3U8 vs MP4](https://816800.xyz/blog/m3u8-vs-mp4/): an eight-dimension comparison, bandwidth cost at each rung, and ffmpeg commands for converting in both directions.
+- [DASH vs HLS](https://816800.xyz/blog/dash-vs-hls/): MPD versus m3u8 manifests side by side, FairPlay versus Widevine and PlayReady DRM, and how to choose for a given delivery target.
+- [Best M3U8 players](https://816800.xyz/blog/m3u8-player-recommend/): online and desktop options compared, including what each one does when a stream fails.
+
+## Text tool guides
+
+- [Case converter guide](https://816800.xyz/blog/case-converter-guide/): which case convention to use where, and the edge cases that trip up naive converters.
+- [Word counter guide](https://816800.xyz/blog/word-counter-guide/): how word counts differ across platforms and what reading time actually estimates.
+- [Fancy text guide](https://816800.xyz/blog/fancy-text-guide/): where Unicode styling works, where it breaks, and accessibility caveats.
+
+## About
+
+- [About](https://816800.xyz/about/): why the site exists, the tech stack, what we will and will not build, and how tools get selected.
+- [Contact](https://816800.xyz/contact/): report a bug, suggest a tool, or ask about a link listing.
+- [Links](https://816800.xyz/links/): sites we recommend, and the standard they had to meet.
+
+## Optional
+
+- [Blog index](https://816800.xyz/blog/): every article, newest first.
+- [Privacy policy](https://816800.xyz/privacy/): what is stored locally, what the host logs, and GDPR and CCPA positions.
+- [Terms of use](https://816800.xyz/terms/): permitted use, disclaimers and liability limits.

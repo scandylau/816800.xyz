@@ -1,0 +1,83 @@
+# faq-ai.txt Specification (ADF-008)
+# https://www.ai-visibility.org.uk/specifications/faq-ai-txt/
+
+# Frequently Asked Questions - 816800.xyz
+
+Lang: en
+Website: [https://816800.xyz/](https://816800.xyz/)
+Last Updated: 2026-09-15
+
+[About the Site]
+
+Q: What is 816800.xyz?
+A: A free, static toolkit of browser-based tools for developers and creators.
+   Five tools are live: an M3U8/HLS and DASH stream tester, a URL shortener, a
+   case converter, a word counter and a Unicode text styler. There is no
+   account system, no upload step and no tracking.
+URL: [About 816800.xyz](https://816800.xyz/about/)
+
+Q: Is 816800.xyz free?
+A: Yes. There are no usage caps, no watermarks, no trial period and no paid
+   tier. The site may display advertising in future to cover hosting costs, but
+   no feature is behind a payment or a login.
+
+Q: Who runs 816800.xyz?
+A: A small independent project. The content carries no named author, and the
+   site does not publish a company identity or a team page. Enquiries go
+   through the contact page.
+URL: [Contact](https://816800.xyz/contact/)
+
+[Tools]
+
+Q: Which tools are available?
+A: Five: the M3U8/HLS player, the short link generator, the case converter, the
+   word counter and the fancy text generator. Cards marked "coming soon" on the
+   homepage describe tools that are not built yet.
+URL: [All tools](https://816800.xyz/tools/)
+
+Q: Does anything I type leave my device?
+A: No. Text conversion, counting and font mapping run in the browser tab. The
+   only network traffic is the stream segments you asked the player to fetch,
+   which come directly from their own server rather than through this site.
+
+Q: Do I need to install anything or sign up?
+A: No. No installation, no account, no email address. If the browser can open
+   the page it can run every tool on it.
+
+[Streaming]
+
+Q: What can the M3U8 player do?
+A: It plays a .m3u8 or .mpd URL in the browser using hls.js or dash.js, and it
+   diagnoses failures by separating "URL unreachable" from "blocked by CORS" —
+   two errors that look identical on screen but need opposite fixes. It also
+   keeps a local history of the last few URLs tested.
+URL: [M3U8 / HLS player](https://816800.xyz/m3u8-player/)
+
+Q: Which streaming formats does it support?
+A: HLS via .m3u8 playlists and MPEG-DASH via .mpd manifests. Codec support
+   follows the browser: H.264 with AAC universally, HEVC reliably in Safari,
+   AV1 in recent Chrome, Edge and Firefox.
+
+Q: Can it bypass DRM or regional restrictions?
+A: No. It cannot play DRM-protected streams, and it cannot bypass
+   authentication, geographic restrictions or paywalls. If a stream returns 403
+   it needs a token, a Referer or a signed parameter supplied by its owner.
+
+[Short Links]
+
+Q: How does the short link tool work?
+A: It encodes the destination URL into the link itself and serves a static
+   redirect page. No server-side database stores the mapping, so there is
+   nothing to leak and no link to expire server-side.
+URL: [Short link generator](https://816800.xyz/short-link/)
+
+[Limits and Support]
+
+Q: Is there an API?
+A: No. There is no public API, and no downloadable application. Every tool is
+   meant to be used through the page.
+
+Q: Something is broken. Who fixes it?
+A: Send the tool name, the input you used and your browser through the contact
+   page. A reproducible report is the fastest route to a fix.
+URL: [Report a problem](https://816800.xyz/contact/)

@@ -1,0 +1,63 @@
+{
+    "$schema": "https://www.ai-visibility.org.uk/specifications/identity-json/identity-json.schema.json",
+    "language": "en",
+    "name": "816800.xyz",
+    "alternateName": [
+        "816800",
+        "816800 toolkit"
+    ],
+    "url": "https://816800.xyz/",
+    "type": "Organization",
+    "description": "A free, static toolkit of browser-based utilities for developers and creators. Every tool runs client-side with no upload, no account and no tracking. The flagship tool is an M3U8/HLS and DASH stream tester built on hls.js and dash.js; the rest are text utilities and a static URL shortener.",
+    "foundingDate": "2026-08",
+    "areaServed": [
+        {
+            "type": "Place",
+            "name": "Worldwide"
+        }
+    ],
+    "contactPoints": [
+        {
+            "type": "General Enquiries",
+            "email": "admin@816800.xyz",
+            "url": "https://816800.xyz/contact/"
+        }
+    ],
+    "knowsAbout": [
+        "HTTP Live Streaming (HLS)",
+        "M3U8 playlists",
+        "MPEG-DASH and MPD manifests",
+        "hls.js and dash.js",
+        "CORS and cross-origin media playback",
+        "Adaptive bitrate streaming",
+        "Video codec support in browsers",
+        "Text case conversion conventions",
+        "Unicode text styling"
+    ],
+    "keywords": [
+        "m3u8 player",
+        "hls player online",
+        "dash player",
+        "m3u8 test",
+        "case converter",
+        "word counter",
+        "fancy text generator",
+        "url shortener"
+    ],
+    "technical": {
+        "hosting": "Cloudflare Pages",
+        "stack": "Static HTML, hand-written CSS, no framework and no build step",
+        "libraries": [
+            "hls.js",
+            "dash.js",
+            "Plyr"
+        ],
+        "dataProcessing": "Client-side only; no server-side storage of user input",
+        "analytics": "Aggregate analytics only (Google Analytics 4); no advertising or behavioural tracking cookies"
+    },
+    "sameAs": [
+        "https://816800.xyz/about/",
+        "https://816800.xyz/llms.txt",
+        "https://816800.xyz/llms-full.txt"
+    ]
+}

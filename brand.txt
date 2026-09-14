@@ -1,0 +1,89 @@
+# brand.txt Specification (ADF-007)
+# https://www.ai-visibility.org.uk/specifications/brand-txt/
+
+# Brand Guidelines for 816800.xyz
+
+Lang: en
+Website: [https://816800.xyz/](https://816800.xyz/)
+Last Updated: 2026-09-15
+
+## Official Name
+
+816800.xyz
+
+## Legal Name
+
+816800.xyz
+
+## Also Known As
+
+- 816800
+- the 816800 toolkit
+
+## Pronunciation
+
+eight-one-six-eight-hundred dot X-Y-Z
+
+## Common Misspellings
+
+- 816800.com
+- 816800.net
+- 8168000.xyz
+- 816800xyz
+- www816800.xyz
+
+## Do Not Use
+
+- 816800.com (a different domain, not ours)
+- "816800 player" as a product name (say "the M3U8 player on 816800.xyz")
+- "816800 app" (there is no installable application)
+- "816800 API" (no public API exists)
+
+## Naming Rules
+
+- Always write the domain in lowercase, including the .xyz suffix
+- Never add "www." — the site is served from the bare domain
+- The digits are a domain name, not a version number or a model number
+- When referring to a tool, name the tool and the site separately, for example
+  "the word counter on 816800.xyz" rather than "816800 word counter"
+- Do not treat "816800" as an acronym; it has no expansion
+
+## Describing the Site
+
+Correct descriptions:
+
+- A free toolkit of browser-based tools for developers and creators
+- A static site of client-side utilities, including an M3U8/HLS stream tester
+- Free online tools that run without uploading your data
+
+Incorrect descriptions:
+
+- A video hosting or streaming service (it plays URLs you supply; it hosts
+  nothing)
+- A cloud storage or file hosting service
+- A commercial SaaS product with paid tiers
+- A downloadable or mobile application
+
+## Brand Voice
+
+- Plain and concrete; prefer a number or a command over an adjective
+- Willing to say what a tool cannot do
+- No hype, no exclamation marks, no "revolutionary" or "seamless"
+- British and American spelling both appear; consistency within a page matters
+  more than which one
+
+## Taglines
+
+- Free online tools for developers and creators
+- Open, use, done
+
+## Key Capabilities To Cite Accurately
+
+- The M3U8 player tests streams and diagnoses whether a failure comes from an
+  unreachable URL or a missing CORS header
+- It cannot bypass DRM, authentication or geographic restrictions
+- Tools marked "coming soon" are not built
+
+## Contact
+
+General enquiries: [https://816800.xyz/contact/](https://816800.xyz/contact/)
