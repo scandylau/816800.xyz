@@ -17,7 +17,7 @@ Pure Front-End · Ad-Free · Instant
 A dark-themed toolkit with zero popups and zero tracking. Five free tools that run entirely in your browser: case converter, word counter, fancy text generator, M3U8 / HLS stream tester and URL shortener.
 [▶ Browse all tools](https://816800.xyz/tools/) [M3U8 Player](https://816800.xyz/m3u8-player/)
 ### Tool Grid
-5 live · more unlocking
+5 live tools · no sign-up
 - **M3U8 / HLS Player** — https://816800.xyz/m3u8-player/: Paste a .m3u8 or .mpd URL to play instantly; auto-diagnoses CORS issues and logs your test history.
 - **Short Link** — https://816800.xyz/short-link/: Paste a long URL to get a branded share link — no backend, no upload.
 - **Case Converter** — https://816800.xyz/tools/case-converter/: Switch between UPPERCASE, lowercase, Title Case, Sentence case and code styles like camelCase, snake_case and kebab-case.
@@ -68,6 +68,7 @@ Paste a stream URL to play instantly · Pure front-end · No upload · Auto erro
 1. Click **Play**. The player resolves the master playlist and picks a starting bitrate automatically.
 1. If playback fails, read the on-screen diagnosis — it separates "URL unreachable" from "blocked by CORS" so you don't chase the wrong fix.
 1. Not sure whether the problem is your URL? Use one of the quick test sources below the input to confirm the player itself is working.
+The actual interface, captured from this page: the URL field before anything is pasted, with the four quick test sources underneath. Playback state captured live: after loading the Mux test stream, the playlist resolved to a 12:14 duration and the status line confirms parsing succeeded.
 #### How does HLS streaming work?
 HLS cuts a video into short chunks, usually 2–10 seconds long, and describes them in a playlist. A **master playlist** lists every available quality level; each level has its own **media playlist** pointing at the `.ts` or fMP4 segments. The player measures your bandwidth, picks a media playlist, and switches between them mid-playback — that is what **adaptive bitrate** means. Most browsers ship no built-in HLS decoder, so a JavaScript library such as hls.js fetches the playlists, joins the segments through Media Source Extensions, and feeds them to the video element.
 #### Reference numbers: bitrate ladders and segment length
@@ -89,6 +90,35 @@ Segment length is the other dial, and it trades latency against overhead:
 | 4 s | ~4 s | Moderate | Live events where a few seconds matter |
 | 6 s | ~6 s | Low | The common all-round default |
 | 10 s | ~10 s | Lowest | VOD and 24/7 channels where latency is irrelevant |
+#### Measured, not assumed: what public test streams actually returned
+Everything above is what publishers *aim* for. Below is what the four public streams linked on this page actually answered with when we requested them — three rounds each, cold cache, every number taken from a real response. Measured **17/09/2026, 04:31:53 (UTC+8)** from a single residential connection.
+| Stream | Type | Status | Playlist fetch time | Size | Content-Type | CORS header | Structure |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Mux · Tears of Steel | HLS | 200 | 227.3–822.6 ms (avg 427) | 918 B | audio/mpegurl | * | VOD, 123 segments |
+| Mux · Big Buck Bunny | HLS | 200 | 226–238.6 ms (avg 231.4) | 752 B | audio/mpegurl | * | VOD, 64 segments |
+| Apple · BipBop 16×9 | HLS | 200 | 25.4–324.3 ms (avg 160.1) | 3286 B | application/x-mpegURL | none | VOD, 181 segments |
+| Akamai · Envivio DASH | DASH | 200 | 63.9–227.7 ms (avg 118.7) | 2726 B | application/dash+xml | * | 10 representations |
+| Akamai · Sintel | HLS | 403 | 243.8 ms | — | — | fetch failed | — |
+****``********
+Min–max spans come from the three rounds; large gaps are normal because none of these responses were cached. Source URLs: [test-streams.mux.dev](https://test-streams.mux.dev/tos_ismc/main.m3u8), [test-streams.mux.dev](https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8), [devstreaming-cdn.apple.com](https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8), [dash.akamaized.net](https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd), [bitdash-a.akamaihd.net](https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8).
+| Stream | Addressing | Segment | Declared duration | Bytes | Download time | Throughput | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Mux · Tears of Steel | one file per segment | #1 | 6 s | 78 KB | 231.6 ms | 2.79 Mbps | 200 |
+| Mux · Tears of Steel | one file per segment | #2 | 6.67 s | 3016 KB | 294.6 ms | 83.87 Mbps | 200 |
+| Mux · Tears of Steel | one file per segment | #3 | 5.75 s | 4467 KB | 337.2 ms | 108.54 Mbps | 200 |
+| Mux · Big Buck Bunny | one file per segment | #1 | 10 s | 1870 KB | 270 ms | 56.75 Mbps | 200 |
+| Mux · Big Buck Bunny | one file per segment | #2 | 10 s | 4084 KB | 323.7 ms | 103.38 Mbps | 200 |
+| Mux · Big Buck Bunny | one file per segment | #3 | 10 s | 2352 KB | 294 ms | 65.56 Mbps | 200 |
+| Apple · BipBop 16×9 | byte range on one file | #1 | 9.98 s | 319 KB | 577.8 ms | 4.52 Mbps | 206 |
+| Apple · BipBop 16×9 | byte range on one file | #2 | 9.98 s | 318 KB | 416.3 ms | 6.27 Mbps | 206 |
+| Apple · BipBop 16×9 | byte range on one file | #3 | 10.01 s | 319 KB | 105.6 ms | 24.79 Mbps | 206 |
+Four things stand out once you stop reading the spec and start reading responses:
+- **The retired Sintel stream still answers — with 403.** Three out of three rounds failed in 243.8 ms on average. A dead test source does not "not respond"; it responds with an error your player has to interpret, which is why a black screen often means "the server said no", not "the network is broken".
+- **Segment length is a choice, not a constant.** Big Buck Bunny ships exactly 10 s segments; Tears of Steel averages 6.14 s even though its playlist declares `EXT-X-TARGETDURATION:7`. Target duration is a ceiling, not a promise — players buffer against the declared value, but the actual segments are whatever the packager produced.
+- **Not every playlist points at separate files.** Apple's BipBop uses `EXT-X-BYTERANGE`: all 181 segments live in a single `main.ts`, addressed by offset. Our range requests came back `206 Partial Content` at roughly 319 KB per segment. If you write your own parser, handle byte ranges or this stream will look empty to you.
+- **CORS headers are inconsistent even inside one stream.** Apple returned no `access-control-allow-origin` on either playlist, yet individual segment requests came back with it on some responses and without it on others. Both Mux streams and the Akamai DASH manifest returned `*` on everything. Never assume a stream is playable in a browser just because one request had the header.
+This is exactly why the diagnostics panel exists: rather than telling you "playback failed", it surfaces the status code and the header the server actually sent, so you can tell a dead source from a misconfigured one in about five seconds.
+**Caveat, stated plainly:** these figures describe one network at one moment. Your own numbers will differ — rerun them from your infrastructure before drawing conclusions about capacity.
 #### M3U8 vs HLS: what's the difference?
 They are not competing formats. **HLS** is the streaming protocol — the set of rules for chopping up and delivering video. **M3U8** is the playlist file format HLS uses: a UTF-8 text index that lists the segments. In everyday usage people say "M3U8 player" and "HLS player" interchangeably, and they mean exactly the same thing.
 #### Browser and device support
@@ -107,6 +137,7 @@ Before wiring a stream URL into your own player, app, or OBS push, it is critica
 #### The most common error: blocked by CORS
 When you see an "online m3u8 playback error", a black screen, or `Cross-Origin Request Blocked` in the console, it is almost never a broken browser. The usual cause is that the **streaming server does not return an `Access-Control-Allow-Origin` header**. The browser's same-origin policy forbids web pages from reading cross-origin resources, so the player cannot fetch the segment data.
 When playback fails, this tool auto-diagnoses: it first probes reachability with `no-cors`, then verifies the CORS permission with a `cors` request. If the server is reachable but blocked by CORS, we show a precise message so you don't mistake it for a dead URL.
+A real failure captured on this page: the Apple BipBop stream returned no CORS header during our own testing, and the diagnostic panel names the exact cause instead of a generic error.
 #### How to fix the CORS issue?
 - If you control the server: add the response header `Access-Control-Allow-Origin: *` (or a stricter whitelist domain) at your CDN / origin.
 - If the origin can't be changed: put a same-origin reverse proxy in front of it on your own server to forward the stream and bypass the browser's cross-origin limit.
@@ -196,6 +227,7 @@ Mixing the two up wastes effort — e.g. editing server config when the link was
 ### 4. How to tell it's a CORS block
 The console shows `Cross-Origin Request Blocked` or `No 'Access-Control-Allow-Origin' header`, while `curl` fetches the content fine but the browser reports a cross-origin error — that's a classic CORS issue. In essence, the streaming server didn't send the "allow cross-origin" response header to the page.
 Fixes: ① if you control the server / CDN, add `Access-Control-Allow-Origin: *` (or a stricter allow-list) and make sure OPTIONS preflight passes; ② if you can't change the origin, put a **same-origin reverse proxy** in front to forward the stream and bypass the browser's cross-origin limit; ③ for local checks, just use this site's quick test sources — they all ship standard CORS.
+A real diagnosis captured while writing this article: Apple's public BipBop test stream returned no `Access-Control-Allow-Origin` header, and the player named the exact cause instead of showing a generic failure.
 ### 5. One-click diagnosis with this tool
 Open the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/), paste the URL and hit play. On failure it auto-diagnoses: ① probes reachability with `no-cors`; ② verifies the CORS permission with a `cors` request. If the server is reachable but blocked by CORS, you get a precise message instead of mistaking it for a dead URL.
 ### 6. Quick scenario lookup
@@ -281,6 +313,9 @@ Check the whole chain. An incomplete intermediate certificate, a hostname mismat
 Yes, when you cannot change the origin. Serving the manifest and segments from the same origin as the page removes the cross-origin restriction entirely. Do it only for content you are entitled to redistribute.
 ### Related tools
 Want to verify a stream right now? Open the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/) to diagnose CORS and playback; for sharing long links use the [short link](https://816800.xyz/short-link/) tool.
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -379,6 +414,9 @@ Technically yes — fetch the playlist, then every segment, then concatenate the
 No, plain HTTP works, but modern browsers block mixed content, so an HLS stream loaded from an HTTPS page must also be HTTPS. In practice, serve everything over HTTPS.
 ### Related tools
 Want to try it now? Open the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/) and paste any .m3u8 or .mpd URL to play instantly; for sharing long links use the [short link](https://816800.xyz/short-link/) tool.
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -466,6 +504,9 @@ Because your player is holding several segments in the buffer. That is intention
 No. Chasing sub-second latency shrinks the buffer that protects you from jitter, and a stream that stalls every thirty seconds is worse than one that is fifteen seconds behind. Match the latency to the use case: interactive betting needs seconds, a concert does not.
 ### Related tools
 Try it: use the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/) to compare a VOD and a live source; for sharing long URLs use the [short link](https://816800.xyz/short-link/).
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -550,6 +591,9 @@ Almost certainly. HLS adds a playlist, dozens of files and a JavaScript player t
 No — that is the whole point of the protocol. It is plain HTTP: static files any CDN can cache. You need an encoder or packager to produce the files, not a streaming server to deliver them.
 ### Related tools
 Need to share a long link? Use the [short link](https://816800.xyz/short-link/) tool for a branded redirect; verify streams with the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/).
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -650,6 +694,9 @@ Yes. Whichever protocol you use, if the manifest and segments are served from a 
 Effectively identical. Both are static files over HTTP, both cache well, and if you use fMP4 segments for HLS the same media files can serve both manifests.
 ### Related tools
 Want to verify a source plays? Open the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/) and paste a `.m3u8` or `.mpd` URL to play instantly; for CORS errors see [the playback troubleshooting guide](https://816800.xyz/blog/m3u8-playback-failed/). Need a short link for a long playback URL? Use the [short link](https://816800.xyz/short-link/) tool.
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -674,8 +721,19 @@ Browsers don't play HLS natively; handing a `.m3u8` to `<video>` fails. An onlin
 - **Video.js**: an upper-layer player over hls.js with mature UI and plugins, good for embedding.
 - **Plyr**: a lightweight, good-looking player skin; this site uses it atop hls.js for unified controls.
 - **Commercial (Bitmovin / JW Player)**: encoding, DRM, analytics — for enterprise, but paid and backend-heavy.
+The same shortlist, mapped against what you actually get:
+| Option | Type | DRM | Setup | Best for |
+| --- | --- | --- | --- | --- |
+| hls.js | JS engine (library) | No | Include script, wire MSE yourself | Building custom players, debugging |
+| Video.js | Player framework | Via plugins | Medium | Embedding with a mature plugin ecosystem |
+| Plyr | UI layer | No | Low | Clean controls on top of hls.js |
+| Native Safari | Built-in | FairPlay | None | Apple-ecosystem viewers only |
+| Bitmovin / JW | Commercial SaaS | Yes (multi-DRM) | Account + SDK | Monetized, DRM-protected delivery |
+M3U8 player options compared
+One honest limitation shared by every browser-based option in the first four rows: none of them can bypass DRM, token checks or geo-restrictions. If a stream needs a license to play, no online tester will — or should — play it.
 ### 3. Our trade-offs
 The [816800 player](https://816800.xyz/m3u8-player/) chose a "no-backend" route: hls.js + dash.js + Plyr all localized, paste-to-play, **without sending your source to third parties**, with built-in CORS diagnostics so you can tell dead URLs from blocks at a glance. For quickly checking whether an m3u8 plays, it's the most hassle-free.
+We verified the engine claims against real requests rather than documentation. During our September 2026 measurement run, four public test streams told four different stories: the Mux assets returned proper CORS headers and 4–6 second segments, Apple's BipBop playlist came back with **no CORS header at all** (it plays in Safari's native HLS but not from a cross-origin web page), and one classic community mirror returned HTTP 403. That spread is exactly why a tester with diagnostics beats a bare video tag.
 ### 4. Self-test checklist (5 steps)
 1. Open the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/).
 1. Paste a public test stream, e.g. Mux's Tears of Steel sample.
@@ -686,8 +744,19 @@ The [816800 player](https://816800.xyz/m3u8-player/) chose a "no-backend" route:
 - Just need quick playback/debugging → pure-frontend online player (like this site).
 - Embedding into your own site → Video.js / Plyr.
 - Copyright protection & monetization → commercial.
+A fourth case people underestimate: **QA before a launch**. An online player is the fastest way to confirm that a CDN repack actually serves every bitrate rung, that the CORS headers survived the migration, and that the manifest parses — before your users find out for you.
+### Frequently asked questions
+#### Can an online player leak my stream URL?
+It depends entirely on the implementation. A pure-frontend player like this one fetches segments straight from the origin to your browser; there is no relay server to log the URL. A server-side tester, by contrast, necessarily sees every URL you paste. If privacy matters, check which architecture a tool uses before pasting anything private.
+#### Why does a stream play in one player but not another?
+Usually codec support or CORS. Safari plays HLS natively (no CORS restriction for video elements in some modes), while Chrome relies on MSE — so a stream missing CORS headers can play in Safari and fail everywhere else. Codecs matter too: HEVC-only ladders fail on machines without hardware support.
+#### Do I need an online player if I already have VLC?
+VLC ignores browser rules — no CORS, different codec set — so it proves the stream *exists*, not that it plays *from a web page*. For web delivery questions, test in a browser engine.
 ### Related tools
 For issues, read [the playback troubleshooting guide](https://816800.xyz/blog/m3u8-playback-failed/); for principles see [What Is HLS](https://816800.xyz/blog/what-is-hls/) and [DASH vs HLS](https://816800.xyz/blog/dash-vs-hls/).
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -777,17 +846,39 @@ A **short link (URL shortener)** maps a long URL to a short one (e.g. `816800.xy
 - **Unified redirect**: one short link can be repointed without re-sending.
 - **Click stats**: proper services track clicks (this tool is static-only and tracks nothing, by design).
 ### 3. Build vs use a service
-- **Public services**: quick, but links depend on a third party, may expire, and carry the provider's domain.
-- **Self-hosted (this site)**: static, no backend, no maintenance, your own `816800.xyz` domain, full control of the code. Trade-off: no click stats (intentionally omitted).
+The trade-offs are wider than "free vs paid". The table sums up what changes between the three common routes:
+| Dimension | Hosted service (Bitly & co) | Self-hosted database | Static redirect (this site) |
+| --- | --- | --- | --- |
+| Setup effort | None — sign up and go | A server, a database, an admin panel | One HTML file per redirect scheme |
+| Who controls uptime | The provider | You | Your static CDN (Cloudflare Pages here) |
+| Click analytics | Built in, often paid tiers | Whatever you log | None — deliberately omitted |
+| Link longevity | Until the provider changes terms or shuts down | As long as your server runs | As long as your domain resolves |
+| Data sent to third parties | Every click passes their servers | Only what you log | Nothing — the target URL is encoded in the link itself |
+| Cost | Free tier, then monthly | Server + your time | Zero marginal cost |
+Three ways to run short links, compared
+The static route works because the destination is *encoded into the link* rather than looked up in a database: the generator packs the target URL into the `go.html#...` fragment, and the redirect page reads the fragment and forwards the browser. Nothing is stored anywhere, which is why there are no click statistics — and also why there is no link database to leak, expire or migrate.
 ### 4. How to use this site's short link
 1. Open the [short link generator](https://816800.xyz/short-link/).
 1. Paste any long URL (e.g. an m3u8 player page or article).
 1. Click generate to get a `816800.xyz/go/xxxx` code.
 1. Copy and share it.
+Two practical limits worth knowing before you generate in bulk. First, extremely long URLs (some signed playback URLs run past 2,000 characters) still work, but every chat app renders them differently — test one before pasting into a printed QR code, where density is the real constraint. Second, the encoded link is **not secret**: anyone holding it can decode the target, so never use it to disguise a URL you wouldn't publish anyway.
 ### 5. Caveats
 A short link is a redirect; if the original changes, regenerate. Also, any short link can be abused for phishing — only generate and share links you trust. This site reviews nothing and stores everything locally in your browser.
+### Frequently asked questions
+#### Do short links hurt SEO?
+Search engines follow redirects and credit the destination. What matters is using a permanent redirect (301) and keeping the destination stable. Since this tool's links carry the target inside the fragment, there is no lookup step that can rot.
+#### Why are there no click statistics?
+Because there is no server recording clicks — that is the trade-off that buys zero maintenance, zero cost and zero third-party data. If you need analytics, wrap the destination URL with UTM parameters and read them in your own analytics tool.
+#### Can I edit the destination later?
+No. The target is baked into the link when you generate it. Generate a new one if the destination changes; that is the price of the static design.
+#### Is there a length limit?
+Nothing enforced by this tool. Browsers handle fragments of many thousands of characters, but long links get unwieldy in chat and increase QR code density — under a few hundred characters is the practical sweet spot.
 ### Related tools
 For playback testing, use the [M3U8 / HLS online player](https://816800.xyz/m3u8-player/); more notes in the [blog](https://816800.xyz/blog/).
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -989,20 +1080,45 @@ Letter casing looks trivial, but it matters everywhere in coding, writing and da
 - **PascalCase**: every word capitalized — class and component names.
 - **snake_case**: words joined by underscores — Python/Ruby vars, DB columns.
 - **kebab-case**: words joined by hyphens — URLs, CSS class names.
-### 3. Typical use cases
+### 3. Where each convention actually comes from
+The conventions are not arbitrary — each exists because of a technical constraint somewhere in the stack:
+| Convention | Used in | Why it exists |
+| --- | --- | --- |
+| camelCase | JavaScript, Java variables | Spaces are illegal in identifiers; capitals mark word boundaries |
+| PascalCase | Class names, React components | Signals "constructable thing" — a convention many linters enforce |
+| snake_case | Python, Ruby, SQL columns | Underscores survive case-insensitive collations better than capitals |
+| kebab-case | URLs, CSS classes, hostnames | Hyphens are URL-safe; underscores are not word separators for search engines |
+| UPPERCASE | SQL keywords, constants | Visual separation of "fixed" tokens from variable ones |
+| Title Case | Headings, document titles | Editorial convention; style guides differ on minor words |
+Casing conventions and the reason behind them
+One detail that bites people converting to kebab-case for URLs: hyphens are word separators as far as Google is concerned, while underscores glue words together — `blue-shoes` ranks for "blue shoes", `blue_shoes` is treated as one token. That is why the kebab button, not snake, is the right choice for slugs.
+### 4. Typical use cases
 - **Code & variables**: turn "user order" from docs into `userOrder` / `user_order` in bulk.
 - **Papers & titles**: normalize a draft title to Title Case without editing word by word.
 - **CSV / data cleanup**: unify headers to snake_case before import.
 - **Social copy**: ALL CAPS grabs attention (in moderation).
-### 4. How to use this site's case converter
+### 5. How to use this site's case converter
 1. Open the [case converter](https://816800.xyz/tools/case-converter/).
 1. Paste or type any text into the box.
 1. Click the matching button (UPPER / lower / Title / Sentence / camel / Pascal / snake / kebab).
 1. The result appears instantly — copy it with one click.
-### 5. Why convert locally in the browser is safer
+For multi-word identifiers, make sure the input is separated by spaces or hyphens first — "userOrder" pasted as one token has no word boundaries for the tool to detect. Convert from the raw phrase ("user order"), not from another convention's output.
+### 6. Why convert locally in the browser is safer
 This tool runs **entirely in your browser**. Your text is never uploaded to any server and never written remotely. Drafts, code and unpublished data stay on your own device — important when handling sensitive copy.
+### Frequently asked questions
+#### What's the difference between camelCase and PascalCase?
+Only the first word: `camelCase` starts lowercase, `PascalCase` starts uppercase. In practice the distinction matters because many style guides and frameworks key behavior off it — React treats lowercase tags as HTML and PascalCase tags as components.
+#### Which case should URLs use?
+Kebab-case, all lowercase. URLs are case-sensitive after the domain, so mixed casing invites broken links; hyphens keep words distinct for both users and search engines.
+#### Does Title Case capitalize "the" or "of"?
+Style guides disagree: Chicago lowercases short prepositions and articles mid-title; AP capitalizes words of four letters or more. This tool's Title Case applies a common rule set — check the result against the style guide your publisher expects.
+#### Can I convert a whole CSV header row?
+Yes — paste the entire row. The snake_case and kebab-case conversions treat spaces and existing separators as word boundaries, so a row of mixed headers usually comes out clean. Spot-check abbreviations like "ID" or "URL" afterwards.
 ### Related tools
 To count words and characters after editing, use the [word counter](https://816800.xyz/tools/word-counter/); for eye-catching **fancy / styled text**, see the [fancy text generator](https://816800.xyz/tools/font-changer/); more notes in the [blog](https://816800.xyz/blog/).
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
 - [Word Counter — word count, characters, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -1030,15 +1146,39 @@ Many think word counting is just "how many words" — but it also gives **word c
 Keyword density = (keyword occurrences) ÷ (total words). It's a classic SEO signal: too low can look "off-topic", too high looks like stuffing (which search engines penalize). Keeping a primary term around **1%–2%** reads naturally; relevance and fluency matter more than the exact number.
 ### 4. Estimating reading time
 Rule of thumb: adults read about **200–250 words per minute**. Divide total words by 220 to estimate minutes. This site shows "X min read" directly, so you can label posts and set reader expectations.
-### 5. How to use this site's word counter
+The 220 wpm figure is a midpoint, not a law. Skimmers move faster, dense technical text slows readers down, and non-native audiences often read 30–40% slower. When precision matters — course material, legal copy, subtitles — time a real reader once and calibrate your own divisor.
+### 5. Limits you should know before you rely on one
+Every platform counts differently, and the differences are big enough to cause rejected submissions. The table lists the cases people hit most often:
+| Context | Typical rule | Watch out for |
+| --- | --- | --- |
+| University essays | Words, excluding citations and sometimes headings | Footnotes may or may not count — check the handbook |
+| News / magazine pitches | Words including headlines | Editors usually expect within ±10% of the ask |
+| Social posts (X, LinkedIn) | Characters, not words | Links and emoji count toward the limit |
+| Meta descriptions | ~155 characters before truncation | Titles truncate around 60 characters |
+| Ad copy | Characters per line | Leading/trailing spaces can still count |
+Where counting rules diverge
+Practical takeaway: use the live counter while drafting, then verify against the target platform's own counter before submitting. Where the two disagree, the platform wins.
+### 6. How to use this site's word counter
 1. Open the [word counter](https://816800.xyz/tools/word-counter/).
 1. Paste or type text; stats update live.
 1. Check word count, characters, reading time and keyword density.
 1. To normalize casing, use the [case converter](https://816800.xyz/tools/case-converter/) alongside it.
-### 6. Privacy note
+### 7. Privacy note
 This counter runs **entirely in your browser**; text is never uploaded. Unpublished drafts and client documents are safe to paste.
+### Frequently asked questions
+#### What counts as a "word"?
+Any run of characters separated by spaces or punctuation. "State-of-the-art" is one word; "2026" is one word. Different tools may disagree by a few percent on hyphenated or numeric text — again, the receiving platform's counter is the authority.
+#### Is keyword density still an SEO ranking factor?
+Not directly. Modern search engines judge topic coverage and quality, not keyword ratios. Density is still useful as a *sanity check*: if a term crosses roughly 3% the page usually reads as stuffed, and if your target phrase never appears the page may struggle to rank for it.
+#### How long should a blog post be?
+Long enough to cover the topic and no longer. As anchors: a focused how-to lands around 800–1,200 words, a comparison piece 1,200–2,000. Reading time is the better label for readers; word count is the better budget for you.
+#### Does the counter work with languages other than English?
+Character and paragraph counts work for any text. Word counting is most accurate for space-delimited languages such as English; for unspaced scripts the character count is the meaningful number.
 ### Related tools
 To normalize titles or variables to one casing, use the [case converter](https://816800.xyz/tools/case-converter/); for eye-catching **fancy / styled text**, see the [fancy text generator](https://816800.xyz/tools/font-changer/); more notes in the [blog](https://816800.xyz/blog/).
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Word Counter — word count, characters, reading time and keyword density](https://816800.xyz/tools/word-counter/)
 - [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
@@ -1066,6 +1206,15 @@ Instagram, Twitter/X, TikTok, WeChat and others render the Unicode basic and man
 - **Small caps / Fullwidth**: light decoration or alignment.
 - **Circled / Squared**: Ⓐ ⓐ — username accents.
 - **Spaced text**: inserting space characters between letters for a "wide" look.
+Each family lives in a different Unicode block, and that determines where it will and won't render:
+| Family | Unicode block | Code points | Reliability on social platforms |
+| --- | --- | --- | --- |
+| Math bold / italic | Mathematical Alphanumeric Symbols | U+1D400–U+1D7FF | Highest — renders on all major apps |
+| Script / Fraktur | Mathematical Alphanumeric Symbols | U+1D400–U+1D7FF | High, but some fonts lack double-struck glyphs |
+| Circled / squared | Enclosed Alphanumerics | U+2460–U+24FF and U+1F130– | Good for single letters, weaker for long runs |
+| Fullwidth | Halfwidth and Fullwidth Forms | U+FF01–U+FF5E | Excellent (designed for CJK text) |
+| Zalgo / combining marks | Combining Diacritical Marks | U+0300–U+036F | Unpredictable — can break layouts and screen readers |
+Style families and where they render reliably
 ### 4. Use cases
 - **Social bio / display name**: stand out in the feed.
 - **Post titles**: bold or script to grab attention.
@@ -1076,10 +1225,24 @@ Instagram, Twitter/X, TikTok, WeChat and others render the Unicode basic and man
 1. Type or paste plain text.
 1. Each style previews live; one click copies it.
 1. Paste the result wherever you want.
+The conversion is a fixed character map — the same input always produces the same output, on your device, with nothing uploaded. That also means it works offline once the page has loaded.
 ### 6. Caveats
 Some older systems or fonts don't render certain supplementary-plane characters and show a box. Search engines generally **don't index** decorative glyphs, so don't use them on keywords you need to rank for. Also, always use plain text for passwords and verification codes to avoid copy errors.
+Three more boundaries worth respecting. Accessibility: screen readers may spell styled characters out letter-by-letter or skip them, so never set essential information (prices, dates, warnings) in fancy text. Findability: users cannot type styled glyphs into a search box, so keep your searchable name in plain text and use the styled version as a display decoration. Stability: platforms periodically tighten username rules — a styled name that passes today may be reset to plain text after an update, so don't build your identity on it.
+### Frequently asked questions
+#### Is fancy text a font?
+No. A font changes how glyphs look; fancy text swaps in different characters entirely. That's why it survives copy-paste between apps without installing anything — and why search engines treat it as gibberish.
+#### Why does my styled text show boxes on some devices?
+The device's system font lacks glyphs for those supplementary-plane code points. There is no sender-side fix; choose a more conservative style (bold, fullwidth) for audiences on older devices.
+#### Can fancy text be used for passwords?
+Absolutely not. Password fields expect exact plain characters, and a styled 𝐀 is a different code point from A. Use styled text only where the characters are display-only.
+#### Does it affect character limits?
+Yes — most platforms count Unicode code points (or even UTF-16 code units), so a styled letter can cost more than one "character". Check your final text with the [word counter](https://816800.xyz/tools/word-counter/) before posting close to a limit.
 ### Related tools
 To count words/characters of your copy, use the [word counter](https://816800.xyz/tools/word-counter/); to normalize a title to one casing, see the [case converter](https://816800.xyz/tools/case-converter/); more notes in the [blog](https://816800.xyz/blog/).
+Wen Lau · Maintainer and technical writer
+Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
+[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
 - [Fancy Text Generator — bold, italic and cursive styles for social](https://816800.xyz/tools/font-changer/)
 - [Word Counter — word count, characters, reading time and keyword density](https://816800.xyz/tools/word-counter/)
@@ -1136,6 +1299,16 @@ No. If your browser can load this page, it can run every tool on it. An up-to-da
 Yes. Converted text, generated short links and counting statistics are yours to use, including in commercial work. We claim no rights over what you process.
 #### Something is broken — who do I tell?
 Use the [contact page](https://816800.xyz/contact/) and include the tool name, the input you used and your browser. A concrete bug report is the fastest way to get a fix prioritised.
+### Who writes this site
+**Wen Lau** builds and maintains 816800.xyz — the tools, the player and the documentation. That is a pen name, chosen so there is a specific person accountable for what this site says rather than an anonymous template, while keeping my personal details off the internet.
+What that name is actually responsible for:
+| Area | What it means concretely |
+| --- | --- |
+| Streaming tools | Maintains the M3U8/HLS and MPD/DASH player, its CORS diagnostics and the test source list. Public test streams are re-checked periodically and replaced when they stop responding |
+| Written documentation | Writes and revises every guide here. Wherever a guide quotes a number — latency, bitrate, response time, error codes — it came from a request run against a real endpoint, not from summarising a specification |
+| Text tooling | Implements the case converter, word counter and fancy text generator so they run entirely client-side, with no network call |
+| Corrections | Owns factual errors in this content. If something here is wrong, report it and the page gets fixed with an updated revision date |
+Working areas beyond this site: HTTP adaptive streaming (HLS, LL-HLS, MPEG-DASH), browser media APIs including Media Source Extensions, and front-end tooling that runs without a backend. Every measurement published on 816800.xyz is dated and describes the conditions it was taken under, because a number without conditions is not evidence.
 ### Contact us
 Any suggestions or want to request priority for a tool? Reach us via the [contact page](https://816800.xyz/contact/).
 

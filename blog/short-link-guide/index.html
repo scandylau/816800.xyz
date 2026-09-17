@@ -6,7 +6,7 @@
   <title>What Is a Short Link? Why You Need a URL Shortener</title>
   <meta name="description" content="A short link maps a long URL to a compact address. Learn how URL shorteners work, their uses and risks, and why they are handy for sharing long stream links." />
   <meta name="keywords" content="what is a short link, url shortener, how url shorteners work, short url guide" />
-  <meta name="author" content="816800.xyz" />
+  <meta name="author" content="Wen Lau" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/blog/short-link-guide/" />
   <link rel="alternate" hreflang="en" href="https://816800.xyz/blog/short-link-guide/" />
@@ -34,12 +34,20 @@
       "headline": "What Is a Short Link? Why You Need a URL Shortener",
       "description": "Learn how URL shorteners work, their uses and risks, and why they help with long stream links.",
       "datePublished": "2026-08-28",
-      "dateModified": "2026-08-28",
+      "dateModified": "2026-09-17",
       "inLanguage": "zh-CN",
-      "author": {
-        "@type": "Organization",
-        "name": "816800.xyz",
-        "url": "https://816800.xyz/"
+"author": {
+        "@type": "Person",
+        "name": "Wen Lau",
+        "url": "https://816800.xyz/about/#author",
+        "jobTitle": "Maintainer and technical writer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "816800.xyz",
+          "url": "https://816800.xyz/"
+        },
+        "knowsAbout": ["HLS streaming", "MPEG-DASH", "m3u8 playlists", "CORS", "Browser media APIs", "Static web tooling"],
+        "description": "Builds and maintains the browser-based tools on 816800.xyz and writes their documentation. Focus areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server."
       },
       "publisher": {
         "@type": "Organization",
@@ -81,6 +89,7 @@
 }
   </script>
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -195,10 +204,24 @@
           </ul>
 
           <h2>3. Build vs use a service</h2>
-          <ul>
-            <li><strong>Public services</strong>: quick, but links depend on a third party, may expire, and carry the provider's domain.</li>
-            <li><strong>Self-hosted (this site)</strong>: static, no backend, no maintenance, your own <code>816800.xyz</code> domain, full control of the code. Trade-off: no click stats (intentionally omitted).</li>
-          </ul>
+          <p>The trade-offs are wider than "free vs paid". The table sums up what changes between the three common routes:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Three ways to run short links, compared</caption>
+              <thead>
+                <tr><th>Dimension</th><th>Hosted service (Bitly &amp; co)</th><th>Self-hosted database</th><th>Static redirect (this site)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Setup effort</td><td>None — sign up and go</td><td>A server, a database, an admin panel</td><td>One HTML file per redirect scheme</td></tr>
+                <tr><td>Who controls uptime</td><td>The provider</td><td>You</td><td>Your static CDN (Cloudflare Pages here)</td></tr>
+                <tr><td>Click analytics</td><td>Built in, often paid tiers</td><td>Whatever you log</td><td>None — deliberately omitted</td></tr>
+                <tr><td>Link longevity</td><td>Until the provider changes terms or shuts down</td><td>As long as your server runs</td><td>As long as your domain resolves</td></tr>
+                <tr><td>Data sent to third parties</td><td>Every click passes their servers</td><td>Only what you log</td><td>Nothing — the target URL is encoded in the link itself</td></tr>
+                <tr><td>Cost</td><td>Free tier, then monthly</td><td>Server + your time</td><td>Zero marginal cost</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>The static route works because the destination is <em>encoded into the link</em> rather than looked up in a database: the generator packs the target URL into the <code>go.html#...</code> fragment, and the redirect page reads the fragment and forwards the browser. Nothing is stored anywhere, which is why there are no click statistics — and also why there is no link database to leak, expire or migrate.</p>
 
           <h2>4. How to use this site's short link</h2>
           <ol>
@@ -207,14 +230,31 @@
             <li>Click generate to  get a <code>816800.xyz/go/xxxx</code> code.</li>
             <li>Copy and share it.</li>
           </ol>
+          <p>Two practical limits worth knowing before you generate in bulk. First, extremely long URLs (some signed playback URLs run past 2,000 characters) still work, but every chat app renders them differently — test one before pasting into a printed QR code, where density is the real constraint. Second, the encoded link is <strong>not secret</strong>: anyone holding it can decode the target, so never use it to disguise a URL you wouldn't publish anyway.</p>
 
           <h2>5. Caveats</h2>
           <p>A short link is a redirect; if the original changes, regenerate. Also, any short link can be abused for phishing — only generate and share links you trust. This site reviews nothing and stores everything locally in your browser.</p>
+
+          <h2>Frequently asked questions</h2>
+          <h3>Do short links hurt SEO?</h3>
+          <p>Search engines follow redirects and credit the destination. What matters is using a permanent redirect (301) and keeping the destination stable. Since this tool's links carry the target inside the fragment, there is no lookup step that can rot.</p>
+          <h3>Why are there no click statistics?</h3>
+          <p>Because there is no server recording clicks — that is the trade-off that buys zero maintenance, zero cost and zero third-party data. If you need analytics, wrap the destination URL with UTM parameters and read them in your own analytics tool.</p>
+          <h3>Can I edit the destination later?</h3>
+          <p>No. The target is baked into the link when you generate it. Generate a new one if the destination changes; that is the price of the static design.</p>
+          <h3>Is there a length limit?</h3>
+          <p>Nothing enforced by this tool. Browsers handle fragments of many thousands of characters, but long links get unwieldy in chat and increase QR code density — under a few hundred characters is the practical sweet spot.</p>
 
           <h2>Related tools</h2>
           <p>For playback testing, use the <a href="/m3u8-player/">M3U8 / HLS online player</a>; more notes in the <a href="/blog/">blog</a>.</p>
         </div>
       </article>
+
+      <aside class="author-box">
+        <p class="author-name">Wen Lau <span class="author-role">· Maintainer and technical writer</span></p>
+        <p class="author-bio">Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.</p>
+        <p class="author-links"><a class="link" href="/about/#author">About the author</a> · <a class="link" href="/contact/">Report an error in this page</a></p>
+      </aside>
 
       <div class="related-tools">
         <h3 data-zh="相关工具" data-en="Related tools">Related tools</h3>
@@ -270,6 +310,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">

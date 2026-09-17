@@ -6,7 +6,7 @@
   <title>Fancy Text Generator: Bold, Italic, Cursive Unicode Styles</title>
   <meta name="description" content="Turn plain text into bold, italic, cursive and other Unicode styles that work on Instagram, Twitter/X and more. Copy with one click, no app, no sign-up." />
   <meta name="keywords" content="fancy text generator, stylish text, bold text generator, italic text, small caps, unicode text, instagram fonts, twitter fonts" />
-  <meta name="author" content="816800.xyz" />
+  <meta name="author" content="Wen Lau" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/blog/fancy-text-guide/" />
   <link rel="alternate" hreflang="en" href="https://816800.xyz/blog/fancy-text-guide/" />
@@ -34,12 +34,20 @@
       "headline": "Fancy Text Generator — Bold, Italic & Cursive Unicode Styles for Social",
       "description": "Turn plain text into bold, italic, cursive and other Unicode styles that work on Instagram, Twitter/X and more. Copy with one click, no app, no sign-up.",
       "datePublished": "2026-09-01",
-      "dateModified": "2026-09-01",
+      "dateModified": "2026-09-17",
       "inLanguage": "zh-CN",
-      "author": {
-        "@type": "Organization",
-        "name": "816800.xyz",
-        "url": "https://816800.xyz/"
+"author": {
+        "@type": "Person",
+        "name": "Wen Lau",
+        "url": "https://816800.xyz/about/#author",
+        "jobTitle": "Maintainer and technical writer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "816800.xyz",
+          "url": "https://816800.xyz/"
+        },
+        "knowsAbout": ["HLS streaming", "MPEG-DASH", "m3u8 playlists", "CORS", "Browser media APIs", "Static web tooling"],
+        "description": "Builds and maintains the browser-based tools on 816800.xyz and writes their documentation. Focus areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server."
       },
       "publisher": {
         "@type": "Organization",
@@ -81,6 +89,7 @@
 }
   </script>
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -203,6 +212,22 @@
             <li><strong>Circled / Squared</strong>: Ⓐ ⓐ — username accents.</li>
             <li><strong>Spaced text</strong>: inserting space characters between letters for a "wide" look.</li>
           </ul>
+          <p>Each family lives in a different Unicode block, and that determines where it will and won't render:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Style families and where they render reliably</caption>
+              <thead>
+                <tr><th>Family</th><th>Unicode block</th><th>Code points</th><th>Reliability on social platforms</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Math bold / italic</td><td>Mathematical Alphanumeric Symbols</td><td>U+1D400–U+1D7FF</td><td>Highest — renders on all major apps</td></tr>
+                <tr><td>Script / Fraktur</td><td>Mathematical Alphanumeric Symbols</td><td>U+1D400–U+1D7FF</td><td>High, but some fonts lack double-struck glyphs</td></tr>
+                <tr><td>Circled / squared</td><td>Enclosed Alphanumerics</td><td>U+2460–U+24FF and U+1F130–</td><td>Good for single letters, weaker for long runs</td></tr>
+                <tr><td>Fullwidth</td><td>Halfwidth and Fullwidth Forms</td><td>U+FF01–U+FF5E</td><td>Excellent (designed for CJK text)</td></tr>
+                <tr><td>Zalgo / combining marks</td><td>Combining Diacritical Marks</td><td>U+0300–U+036F</td><td>Unpredictable — can break layouts and screen readers</td></tr>
+              </tbody>
+            </table>
+          </div>
 
           <h2>4. Use cases</h2>
           <ul>
@@ -219,14 +244,32 @@
             <li>Each style previews live; one click copies it.</li>
             <li>Paste the result wherever you want.</li>
           </ol>
+          <p>The conversion is a fixed character map — the same input always produces the same output, on your device, with nothing uploaded. That also means it works offline once the page has loaded.</p>
 
           <h2>6. Caveats</h2>
           <p>Some older systems or fonts don't render certain supplementary-plane characters and show a box. Search engines generally <strong>don't index</strong> decorative glyphs, so don't use them on keywords you need to rank for. Also, always use plain text for passwords and verification codes to avoid copy errors.</p>
+          <p>Three more boundaries worth respecting. Accessibility: screen readers may spell styled characters out letter-by-letter or skip them, so never set essential information (prices, dates, warnings) in fancy text. Findability: users cannot type styled glyphs into a search box, so keep your searchable name in plain text and use the styled version as a display decoration. Stability: platforms periodically tighten username rules — a styled name that passes today may be reset to plain text after an update, so don't build your identity on it.</p>
+
+          <h2>Frequently asked questions</h2>
+          <h3>Is fancy text a font?</h3>
+          <p>No. A font changes how glyphs look; fancy text swaps in different characters entirely. That's why it survives copy-paste between apps without installing anything — and why search engines treat it as gibberish.</p>
+          <h3>Why does my styled text show boxes on some devices?</h3>
+          <p>The device's system font lacks glyphs for those supplementary-plane code points. There is no sender-side fix; choose a more conservative style (bold, fullwidth) for audiences on older devices.</p>
+          <h3>Can fancy text be used for passwords?</h3>
+          <p>Absolutely not. Password fields expect exact plain characters, and a styled 𝐀 is a different code point from A. Use styled text only where the characters are display-only.</p>
+          <h3>Does it affect character limits?</h3>
+          <p>Yes — most platforms count Unicode code points (or even UTF-16 code units), so a styled letter can cost more than one "character". Check your final text with the <a href="/tools/word-counter/">word counter</a> before posting close to a limit.</p>
 
           <h2>Related tools</h2>
           <p>To count words/characters of your copy, use the <a href="/tools/word-counter/">word counter</a>; to normalize a title to one casing, see the <a href="/tools/case-converter/">case converter</a>; more notes in the <a href="/blog/">blog</a>.</p>
         </div>
       </article>
+
+      <aside class="author-box">
+        <p class="author-name">Wen Lau <span class="author-role">· Maintainer and technical writer</span></p>
+        <p class="author-bio">Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.</p>
+        <p class="author-links"><a class="link" href="/about/#author">About the author</a> · <a class="link" href="/contact/">Report an error in this page</a></p>
+      </aside>
 
       <div class="related-tools">
         <h3 data-zh="相关工具" data-en="Related tools">Related tools</h3>
@@ -281,6 +324,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">

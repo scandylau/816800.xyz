@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
@@ -220,6 +221,25 @@
           <h3>Something is broken — who do I tell?</h3>
           <p>Use the <a class="link" href="/contact/">contact page</a> and include the tool name, the input you used and your browser. A concrete bug report is the fastest way to get a fix prioritised.</p>
 
+          <h2 id="author">Who writes this site</h2>
+          <p><strong>Wen Lau</strong> builds and maintains 816800.xyz — the tools, the player and the documentation. That is a pen name, chosen so there is a specific person accountable for what this site says rather than an anonymous template, while keeping my personal details off the internet.</p>
+          <p>What that name is actually responsible for:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>What the author is accountable for on 816800.xyz</caption>
+              <thead>
+                <tr><th>Area</th><th>What it means concretely</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Streaming tools</td><td>Maintains the M3U8/HLS and MPD/DASH player, its CORS diagnostics and the test source list. Public test streams are re-checked periodically and replaced when they stop responding</td></tr>
+                <tr><td>Written documentation</td><td>Writes and revises every guide here. Wherever a guide quotes a number — latency, bitrate, response time, error codes — it came from a request run against a real endpoint, not from summarising a specification</td></tr>
+                <tr><td>Text tooling</td><td>Implements the case converter, word counter and fancy text generator so they run entirely client-side, with no network call</td></tr>
+                <tr><td>Corrections</td><td>Owns factual errors in this content. If something here is wrong, report it and the page gets fixed with an updated revision date</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Working areas beyond this site: HTTP adaptive streaming (HLS, LL-HLS, MPEG-DASH), browser media APIs including Media Source Extensions, and front-end tooling that runs without a backend. Every measurement published on 816800.xyz is dated and describes the conditions it was taken under, because a number without conditions is not evidence.</p>
+
           <h2>Contact us</h2>
           <p>Any suggestions or want to request priority for a tool? Reach us via the <a class="link" href="/contact/">contact page</a>.</p>
         </div>
@@ -258,6 +278,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">

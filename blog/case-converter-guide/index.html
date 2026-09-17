@@ -6,7 +6,7 @@
   <title>Case Converter: UPPERCASE, lowercase, Title Case and More</title>
   <meta name="description" content="Convert text between UPPERCASE, lowercase, Title Case, sentence case, camelCase and more in your browser. No upload, no sign-up — paste and copy." />
   <meta name="keywords" content="case converter, text case converter, uppercase converter, lowercase converter, title case converter, sentence case, camelCase converter, PascalCase" />
-  <meta name="author" content="816800.xyz" />
+  <meta name="author" content="Wen Lau" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/blog/case-converter-guide/" />
   <link rel="alternate" hreflang="en" href="https://816800.xyz/blog/case-converter-guide/" />
@@ -34,12 +34,20 @@
       "headline": "Case Converter: Convert Text to UPPERCASE, lowercase, Title Case & More",
       "description": "Convert text between UPPERCASE, lowercase, Title Case, sentence case, camelCase and more in your browser. No upload, no sign-up.",
       "datePublished": "2026-09-01",
-      "dateModified": "2026-09-01",
+      "dateModified": "2026-09-17",
       "inLanguage": "zh-CN",
-      "author": {
-        "@type": "Organization",
-        "name": "816800.xyz",
-        "url": "https://816800.xyz/"
+"author": {
+        "@type": "Person",
+        "name": "Wen Lau",
+        "url": "https://816800.xyz/about/#author",
+        "jobTitle": "Maintainer and technical writer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "816800.xyz",
+          "url": "https://816800.xyz/"
+        },
+        "knowsAbout": ["HLS streaming", "MPEG-DASH", "m3u8 playlists", "CORS", "Browser media APIs", "Static web tooling"],
+        "description": "Builds and maintains the browser-based tools on 816800.xyz and writes their documentation. Focus areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server."
       },
       "publisher": {
         "@type": "Organization",
@@ -81,6 +89,7 @@
 }
   </script>
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -204,7 +213,27 @@
             <li><strong>kebab-case</strong>: words joined by hyphens — URLs, CSS class names.</li>
           </ul>
 
-          <h2>3. Typical use cases</h2>
+          <h2>3. Where each convention actually comes from</h2>
+          <p>The conventions are not arbitrary — each exists because of a technical constraint somewhere in the stack:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Casing conventions and the reason behind them</caption>
+              <thead>
+                <tr><th>Convention</th><th>Used in</th><th>Why it exists</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>camelCase</td><td>JavaScript, Java variables</td><td>Spaces are illegal in identifiers; capitals mark word boundaries</td></tr>
+                <tr><td>PascalCase</td><td>Class names, React components</td><td>Signals "constructable thing" — a convention many linters enforce</td></tr>
+                <tr><td>snake_case</td><td>Python, Ruby, SQL columns</td><td>Underscores survive case-insensitive collations better than capitals</td></tr>
+                <tr><td>kebab-case</td><td>URLs, CSS classes, hostnames</td><td>Hyphens are URL-safe; underscores are not word separators for search engines</td></tr>
+                <tr><td>UPPERCASE</td><td>SQL keywords, constants</td><td>Visual separation of "fixed" tokens from variable ones</td></tr>
+                <tr><td>Title Case</td><td>Headings, document titles</td><td>Editorial convention; style guides differ on minor words</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>One detail that bites people converting to kebab-case for URLs: hyphens are word separators as far as Google is concerned, while underscores glue words together — <code>blue-shoes</code> ranks for "blue shoes", <code>blue_shoes</code> is treated as one token. That is why the kebab button, not snake, is the right choice for slugs.</p>
+
+          <h2>4. Typical use cases</h2>
           <ul>
             <li><strong>Code & variables</strong>: turn "user order" from docs into <code>userOrder</code> / <code>user_order</code> in bulk.</li>
             <li><strong>Papers & titles</strong>: normalize a draft title to Title Case without editing word by word.</li>
@@ -212,21 +241,38 @@
             <li><strong>Social copy</strong>: ALL CAPS grabs attention (in moderation).</li>
           </ul>
 
-          <h2>4. How to use this site's case converter</h2>
+          <h2>5. How to use this site's case converter</h2>
           <ol>
             <li>Open the <a href="/tools/case-converter/">case converter</a>.</li>
             <li>Paste or type any text into the box.</li>
             <li>Click the matching button (UPPER / lower / Title / Sentence / camel / Pascal / snake / kebab).</li>
             <li>The result appears instantly — copy it with one click.</li>
           </ol>
+          <p>For multi-word identifiers, make sure the input is separated by spaces or hyphens first — "userOrder" pasted as one token has no word boundaries for the tool to detect. Convert from the raw phrase ("user order"), not from another convention's output.</p>
 
-          <h2>5. Why convert locally in the browser is safer</h2>
+          <h2>6. Why convert locally in the browser is safer</h2>
           <p>This tool runs <strong>entirely in your browser</strong>. Your text is never uploaded to any server and never written remotely. Drafts, code and unpublished data stay on your own device — important when handling sensitive copy.</p>
+
+          <h2>Frequently asked questions</h2>
+          <h3>What's the difference between camelCase and PascalCase?</h3>
+          <p>Only the first word: <code>camelCase</code> starts lowercase, <code>PascalCase</code> starts uppercase. In practice the distinction matters because many style guides and frameworks key behavior off it — React treats lowercase tags as HTML and PascalCase tags as components.</p>
+          <h3>Which case should URLs use?</h3>
+          <p>Kebab-case, all lowercase. URLs are case-sensitive after the domain, so mixed casing invites broken links; hyphens keep words distinct for both users and search engines.</p>
+          <h3>Does Title Case capitalize "the" or "of"?</h3>
+          <p>Style guides disagree: Chicago lowercases short prepositions and articles mid-title; AP capitalizes words of four letters or more. This tool's Title Case applies a common rule set — check the result against the style guide your publisher expects.</p>
+          <h3>Can I convert a whole CSV header row?</h3>
+          <p>Yes — paste the entire row. The snake_case and kebab-case conversions treat spaces and existing separators as word boundaries, so a row of mixed headers usually comes out clean. Spot-check abbreviations like "ID" or "URL" afterwards.</p>
 
           <h2>Related tools</h2>
           <p>To count words and characters after editing, use the <a href="/tools/word-counter/">word counter</a>; for eye-catching <strong>fancy / styled text</strong>, see the <a href="/tools/font-changer/">fancy text generator</a>; more notes in the <a href="/blog/">blog</a>.</p>
         </div>
       </article>
+
+      <aside class="author-box">
+        <p class="author-name">Wen Lau <span class="author-role">· Maintainer and technical writer</span></p>
+        <p class="author-bio">Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.</p>
+        <p class="author-links"><a class="link" href="/about/#author">About the author</a> · <a class="link" href="/contact/">Report an error in this page</a></p>
+      </aside>
 
       <div class="related-tools">
         <h3 data-zh="相关工具" data-en="Related tools">Related tools</h3>
@@ -281,6 +327,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">

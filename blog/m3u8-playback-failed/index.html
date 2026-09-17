@@ -6,7 +6,7 @@
   <title>M3U8 Playback Failed? Fix CORS and Dead Links Step by Step</title>
   <meta name="description" content="M3U8 not playing, black screen, or a CORS error? Diagnose expired URLs and blocked cross-origin requests with actionable fixes and a one-click tester." />
   <meta name="keywords" content="m3u8 not playing, m3u8 playback failed, hls cors error, m3u8 black screen, fix m3u8" />
-  <meta name="author" content="816800.xyz" />
+  <meta name="author" content="Wen Lau" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/blog/m3u8-playback-failed/" />
   <link rel="alternate" hreflang="en" href="https://816800.xyz/blog/m3u8-playback-failed/" />
@@ -34,12 +34,20 @@
       "headline": "M3U8 Playback Failed? Fix CORS and Dead Links Step by Step",
       "description": "Diagnose the two root causes of M3U8 playback failure, expired URLs and blocked cross-origin requests, with actionable fixes.",
       "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
+      "dateModified": "2026-09-17",
       "inLanguage": "zh-CN",
-      "author": {
-        "@type": "Organization",
-        "name": "816800.xyz",
-        "url": "https://816800.xyz/"
+"author": {
+        "@type": "Person",
+        "name": "Wen Lau",
+        "url": "https://816800.xyz/about/#author",
+        "jobTitle": "Maintainer and technical writer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "816800.xyz",
+          "url": "https://816800.xyz/"
+        },
+        "knowsAbout": ["HLS streaming", "MPEG-DASH", "m3u8 playlists", "CORS", "Browser media APIs", "Static web tooling"],
+        "description": "Builds and maintains the browser-based tools on 816800.xyz and writes their documentation. Focus areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server."
       },
       "publisher": {
         "@type": "Organization",
@@ -81,6 +89,7 @@
 }
   </script>
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -206,6 +215,10 @@
           <h2>4. How to tell it's a CORS block</h2>
           <p>The console shows <code>Cross-Origin Request Blocked</code> or <code>No 'Access-Control-Allow-Origin' header</code>, while <code>curl</code> fetches the content fine but the browser reports a cross-origin error — that's a classic CORS issue. In essence, the streaming server didn't send the "allow cross-origin" response header to the page.</p>
           <p class="note">Fixes: ① if you control the server / CDN, add <code>Access-Control-Allow-Origin: *</code> (or a stricter allow-list) and make sure OPTIONS preflight passes; ② if you can't change the origin, put a <strong>same-origin reverse proxy</strong> in front to forward the stream and bypass the browser's cross-origin limit; ③ for local checks, just use this site's quick test sources — they all ship standard CORS.</p>
+          <figure class="shot">
+            <img src="/assets/img/player-cors-error.png" alt="Screenshot of the M3U8 player's diagnostic panel reporting that the Apple BipBop test stream has no CORS permission configured, with the Access-Control-Allow-Origin header name highlighted" loading="lazy" width="1080" height="362">
+            <figcaption>A real diagnosis captured while writing this article: Apple's public BipBop test stream returned no <code>Access-Control-Allow-Origin</code> header, and the player named the exact cause instead of showing a generic failure.</figcaption>
+          </figure>
 
           <h2>5. One-click diagnosis with this tool</h2>
           <p>Open the <a href="/m3u8-player/">M3U8 / HLS online player</a>, paste the URL and hit play. On failure it auto-diagnoses: ① probes reachability with <code>no-cors</code>; ② verifies the CORS permission with a <code>cors</code> request. If the server is reachable but blocked by CORS, you get a precise message instead of mistaking it for a dead URL.</p>
@@ -320,6 +333,12 @@
         </div>
       </article>
 
+      <aside class="author-box">
+        <p class="author-name">Wen Lau <span class="author-role">· Maintainer and technical writer</span></p>
+        <p class="author-bio">Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.</p>
+        <p class="author-links"><a class="link" href="/about/#author">About the author</a> · <a class="link" href="/contact/">Report an error in this page</a></p>
+      </aside>
+
       <div class="related-tools">
         <h3 data-zh="相关工具" data-en="Related tools">Related tools</h3>
         <ul>
@@ -374,6 +393,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">

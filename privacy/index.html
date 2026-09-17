@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
@@ -136,7 +137,8 @@
           <p>托管方（Cloudflare Pages）可能记录标准访问日志（如 IP、User-Agent、访问时间）用于安全防护与流量统计。这些数据由托管方按行业惯例处理，我们不以此识别个人身份。</p>
 
           <h2>4. Cookie 与追踪</h2>
-          <p>本站<strong>不设置追踪 Cookie</strong>，不接入第三方行为分析脚本。若未来启用广告（如 Google AdSense），我们将仅以手动方式在指定位置放置广告单元，并尽最大努力保护你的浏览体验。</p>
+          <p>本站自身<strong>不设置追踪 Cookie</strong>。首次访问会出现同意横幅，提供「接受」与「拒绝」两个并列选项：<strong>在你作出选择之前，不加载任何统计脚本、不写入 Cookie、不发送请求</strong>；选择「拒绝」则永久不加载。选择结果记录在浏览器本地，清除本站数据即可撤回。</p>
+          <p>Google Analytics 4（衡量 ID：<code>G-JEMKSVKD32</code>）<strong>仅在你点击「接受」后</strong>才加载，用于统计访问量与页面使用情况。若未来启用广告（如 Google AdSense），第三方厂商可能使用 Cookie 投放广告；我们将仅以手动方式在指定位置放置广告单元，并尽最大努力保护你的浏览体验。</p>
 
           <h2>5. 第三方内容</h2>
           <p>当你使用 M3U8 播放器加载外部流地址时，视频数据由该流媒体服务器直接提供，其隐私实践由其运营方负责，请自行确认所加载来源的合规性。</p>
@@ -186,7 +188,26 @@
 
           <h2>5. Cookies, advertising and opting out</h2>
           <p>The Site sets no tracking cookies of its own. Third parties that appear on the Site may set their own:</p>
+
+          <h3>Your choice comes first</h3>
+          <p>On your first visit, a consent banner gives you two equally prominent options — <strong>Accept</strong> or <strong>Reject</strong>. Until you choose, nothing is measured: no analytics script is loaded, no cookie is written and no request is sent.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>What happens for each choice</caption>
+              <thead>
+                <tr><th>Your choice</th><th>What loads</th><th>What is stored</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Accept</strong></td><td>Google Analytics 4 loads, and advertising cookies may load once ads are live</td><td>Analytics cookies, plus your consent choice</td></tr>
+                <tr><td><strong>Reject</strong></td><td>No analytics, no advertising cookies</td><td>Only a single local record of your refusal, so the banner does not reappear</td></tr>
+                <tr><td><strong>No choice yet</strong></td><td>Nothing measurement-related</td><td>Nothing</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Your decision is stored locally in your browser and applies to every page on this Site. You can change it at any time by clearing site data for 816800.xyz in your browser settings, which removes the stored choice and brings the banner back on your next visit.</p>
+
           <h3>Google Analytics</h3>
+          <p>Google Analytics 4 (Measurement ID <code>G-JEMKSVKD32</code>) is loaded only after you accept. We use it to count visits and see which pages get used. Before any consent is given, analytics is technically blocked rather than merely opted out — the script is never requested.</p>
           <p>You can block analytics across all sites by installing the Google Analytics opt-out browser add-on, or by refusing cookies in your browser.</p>
           <h3>Third-party advertising</h3>
           <p>When advertising is enabled on the Site, third-party vendors — including Google — may use cookies to serve ads based on your prior visits to this and other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this Site and/or other sites on the internet.</p>
@@ -297,6 +318,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">

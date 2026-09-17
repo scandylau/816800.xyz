@@ -6,7 +6,7 @@
   <title>Free M3U8 Player - Online HLS Stream Tester | 816800.xyz</title>
   <meta name="description" content="Play and test .m3u8 or .mpd streams free. Validate HLS/DASH URLs, auto-diagnose CORS, keep last 5 test links locally. No upload, no signup." />
   <meta name="keywords" content="m3u8 player, hls player online, m3u8 stream tester, dash player, test m3u8 url, hls online player, cors checker" />
-  <meta name="author" content="816800.xyz" />
+  <meta name="author" content="Wen Lau" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/m3u8-player/" />
   <link rel="alternate" hreflang="en" href="https://816800.xyz/m3u8-player/" />
@@ -157,6 +157,7 @@
 }
   </script>
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -316,6 +317,14 @@
             <li>If playback fails, read the on-screen diagnosis — it separates "URL unreachable" from "blocked by CORS" so you don't chase the wrong fix.</li>
             <li>Not sure whether the problem is your URL? Use one of the quick test sources below the input to confirm the player itself is working.</li>
           </ol>
+          <figure class="shot">
+            <img src="/assets/img/player-idle.png" alt="The M3U8 player input panel with the URL field empty and four quick test source buttons: Apple Official BipBop, Mux Test Stream, Tears of Steel, Big Buck Bunny (MPD)" loading="lazy" width="1056" height="276">
+            <figcaption data-zh="实际界面：粘贴地址前，输入框与 4 个快捷测试源。" data-en="The actual interface, captured from this page: the URL field before anything is pasted, with the four quick test sources underneath.">The actual interface, captured from this page: the URL field before anything is pasted, with the four quick test sources underneath.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="/assets/img/player-playback.png" alt="The M3U8 player loading the Mux Tears of Steel test stream: video frame with a play button, timeline showing a 12:14 duration, and the status line Playlist parsed, starting playback" loading="lazy" width="1080" height="880">
+            <figcaption data-zh="实际播放状态：加载 Mux 测试流后解析出 12:14 的时长。" data-en="Playback state captured live: after loading the Mux test stream, the playlist resolved to a 12:14 duration and the status line confirms parsing succeeded.">Playback state captured live: after loading the Mux test stream, the playlist resolved to a 12:14 duration and the status line confirms parsing succeeded.</figcaption>
+          </figure>
 
           <h3>How does HLS streaming work?</h3>
           <p>HLS cuts a video into short chunks, usually 2–10 seconds long, and describes them in a playlist. A <strong>master playlist</strong> lists every available quality level; each level has its own <strong>media playlist</strong> pointing at the <code>.ts</code> or fMP4 segments. The player measures your bandwidth, picks a media playlist, and switches between them mid-playback — that is what <strong>adaptive bitrate</strong> means. Most browsers ship no built-in HLS decoder, so a JavaScript library such as hls.js fetches the playlists, joins the segments through Media Source Extensions, and feeds them to the video element.</p>
@@ -355,6 +364,56 @@
             </table>
           </div>
 
+          <h3>Measured, not assumed: what public test streams actually returned</h3>
+          <p>Everything above is what publishers <em>aim</em> for. Below is what the four public streams linked on this page actually answered with when we requested them — three rounds each, cold cache, every number taken from a real response. Measured <strong>17/09/2026, 04:31:53 (UTC+8)</strong> from a single residential connection.</p>
+
+          <div class="table-scroll">
+            <table>
+              <caption>Playlist responses measured across three rounds</caption>
+              <thead>
+                <tr><th>Stream</th><th>Type</th><th>Status</th><th>Playlist fetch time</th><th>Size</th><th>Content-Type</th><th>CORS header</th><th>Structure</th></tr>
+              </thead>
+              <tbody>
+                                <tr><td>Mux · Tears of Steel</td><td>HLS</td><td>200</td><td>227.3–822.6 ms (avg 427)</td><td>918 B</td><td><code>audio/mpegurl</code></td><td>*</td><td>VOD, 123 segments</td></tr>
+                <tr><td>Mux · Big Buck Bunny</td><td>HLS</td><td>200</td><td>226–238.6 ms (avg 231.4)</td><td>752 B</td><td><code>audio/mpegurl</code></td><td>*</td><td>VOD, 64 segments</td></tr>
+                <tr><td>Apple · BipBop 16×9</td><td>HLS</td><td>200</td><td>25.4–324.3 ms (avg 160.1)</td><td>3286 B</td><td><code>application/x-mpegURL</code></td><td><strong>none</strong></td><td>VOD, 181 segments</td></tr>
+                <tr><td>Akamai · Envivio DASH</td><td>DASH</td><td>200</td><td>63.9–227.7 ms (avg 118.7)</td><td>2726 B</td><td><code>application/dash+xml</code></td><td>*</td><td>10 representations</td></tr>
+                <tr><td>Akamai · Sintel</td><td>HLS</td><td><strong>403</strong></td><td>243.8 ms</td><td>—</td><td>—</td><td><strong>fetch failed</strong></td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">Min–max spans come from the three rounds; large gaps are normal because none of these responses were cached. Source URLs: <a href="https://test-streams.mux.dev/tos_ismc/main.m3u8">test-streams.mux.dev</a>, <a href="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">test-streams.mux.dev</a>, <a href="https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8">devstreaming-cdn.apple.com</a>, <a href="https://dash.akamaized.net/envivio/EnvivioDash3/manifest.mpd">dash.akamaized.net</a>, <a href="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8">bitdash-a.akamaihd.net</a>.</p>
+
+          <div class="table-scroll">
+            <table>
+              <caption>First three segments of each stream, downloaded for real</caption>
+              <thead>
+                <tr><th>Stream</th><th>Addressing</th><th>Segment</th><th>Declared duration</th><th>Bytes</th><th>Download time</th><th>Throughput</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                                <tr><td>Mux · Tears of Steel</td><td>one file per segment</td><td>#1</td><td>6 s</td><td>78 KB</td><td>231.6 ms</td><td>2.79 Mbps</td><td>200</td></tr>
+                <tr><td>Mux · Tears of Steel</td><td>one file per segment</td><td>#2</td><td>6.67 s</td><td>3016 KB</td><td>294.6 ms</td><td>83.87 Mbps</td><td>200</td></tr>
+                <tr><td>Mux · Tears of Steel</td><td>one file per segment</td><td>#3</td><td>5.75 s</td><td>4467 KB</td><td>337.2 ms</td><td>108.54 Mbps</td><td>200</td></tr>
+                <tr><td>Mux · Big Buck Bunny</td><td>one file per segment</td><td>#1</td><td>10 s</td><td>1870 KB</td><td>270 ms</td><td>56.75 Mbps</td><td>200</td></tr>
+                <tr><td>Mux · Big Buck Bunny</td><td>one file per segment</td><td>#2</td><td>10 s</td><td>4084 KB</td><td>323.7 ms</td><td>103.38 Mbps</td><td>200</td></tr>
+                <tr><td>Mux · Big Buck Bunny</td><td>one file per segment</td><td>#3</td><td>10 s</td><td>2352 KB</td><td>294 ms</td><td>65.56 Mbps</td><td>200</td></tr>
+                <tr><td>Apple · BipBop 16×9</td><td>byte range on one file</td><td>#1</td><td>9.98 s</td><td>319 KB</td><td>577.8 ms</td><td>4.52 Mbps</td><td>206</td></tr>
+                <tr><td>Apple · BipBop 16×9</td><td>byte range on one file</td><td>#2</td><td>9.98 s</td><td>318 KB</td><td>416.3 ms</td><td>6.27 Mbps</td><td>206</td></tr>
+                <tr><td>Apple · BipBop 16×9</td><td>byte range on one file</td><td>#3</td><td>10.01 s</td><td>319 KB</td><td>105.6 ms</td><td>24.79 Mbps</td><td>206</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Four things stand out once you stop reading the spec and start reading responses:</p>
+          <ul>
+            <li><strong>The retired Sintel stream still answers — with 403.</strong> Three out of three rounds failed in 243.8 ms on average. A dead test source does not "not respond"; it responds with an error your player has to interpret, which is why a black screen often means "the server said no", not "the network is broken".</li>
+            <li><strong>Segment length is a choice, not a constant.</strong> Big Buck Bunny ships exactly 10 s segments; Tears of Steel averages 6.14 s even though its playlist declares <code>EXT-X-TARGETDURATION:7</code>. Target duration is a ceiling, not a promise — players buffer against the declared value, but the actual segments are whatever the packager produced.</li>
+            <li><strong>Not every playlist points at separate files.</strong> Apple's BipBop uses <code>EXT-X-BYTERANGE</code>: all 181 segments live in a single <code>main.ts</code>, addressed by offset. Our range requests came back <code>206 Partial Content</code> at roughly 319 KB per segment. If you write your own parser, handle byte ranges or this stream will look empty to you.</li>
+            <li><strong>CORS headers are inconsistent even inside one stream.</strong> Apple returned no <code>access-control-allow-origin</code> on either playlist, yet individual segment requests came back with it on some responses and without it on others. Both Mux streams and the Akamai DASH manifest returned <code>*</code> on everything. Never assume a stream is playable in a browser just because one request had the header.</li>
+          </ul>
+          <p>This is exactly why the diagnostics panel exists: rather than telling you "playback failed", it surfaces the status code and the header the server actually sent, so you can tell a dead source from a misconfigured one in about five seconds.</p>
+          <p><strong>Caveat, stated plainly:</strong> these figures describe one network at one moment. Your own numbers will differ — rerun them from your infrastructure before drawing conclusions about capacity.</p>
+
           <h3>M3U8 vs HLS: what's the difference?</h3>
           <p>They are not competing formats. <strong>HLS</strong> is the streaming protocol — the set of rules for chopping up and delivering video. <strong>M3U8</strong> is the playlist file format HLS uses: a UTF-8 text index that lists the segments. In everyday usage people say "M3U8 player" and "HLS player" interchangeably, and they mean exactly the same thing.</p>
 
@@ -383,6 +442,10 @@
           <h3>The most common error: blocked by CORS</h3>
           <p>When you see an "online m3u8 playback error", a black screen, or <code>Cross-Origin Request Blocked</code> in the console, it is almost never a broken browser. The usual cause is that the <strong>streaming server does not return an <code>Access-Control-Allow-Origin</code> header</strong>. The browser's same-origin policy forbids web pages from reading cross-origin resources, so the player cannot fetch the segment data.</p>
           <div class="note">When playback fails, this tool auto-diagnoses: it first probes reachability with <code>no-cors</code>, then verifies the CORS permission with a <code>cors</code> request. If the server is reachable but blocked by CORS, we show a precise message so you don't mistake it for a dead URL.</div>
+          <figure class="shot">
+            <img src="/assets/img/player-cors-error.png" alt="The player's real CORS diagnosis: playback of the Apple BipBop test stream failed with the message that the streaming server has no CORS permission configured, advising to check Access-Control-Allow-Origin" loading="lazy" width="1080" height="362">
+            <figcaption data-zh="真实报错截图：Apple 测试流在实测中未返回 CORS 头，诊断面板给出精确原因。" data-en="A real failure captured on this page: the Apple BipBop stream returned no CORS header during our own testing, and the diagnostic panel names the exact cause instead of a generic error.">A real failure captured on this page: the Apple BipBop stream returned no CORS header during our own testing, and the diagnostic panel names the exact cause instead of a generic error.</figcaption>
+          </figure>
 
           <h3>How to fix the CORS issue?</h3>
           <ul>
@@ -555,6 +618,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">

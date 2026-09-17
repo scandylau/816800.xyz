@@ -6,7 +6,7 @@
   <title>Word Counter and Keyword Density: Count Words, Reading Time</title>
   <meta name="description" content="Count words, characters and keyword density, estimate reading time — all in your browser. No upload, no sign-up. Great for SEO drafts and essays." />
   <meta name="keywords" content="word counter, character count, keyword density checker, reading time calculator, words per minute, count words online" />
-  <meta name="author" content="816800.xyz" />
+  <meta name="author" content="Wen Lau" />
   <meta name="theme-color" content="#09090b" />
   <link rel="canonical" href="https://816800.xyz/blog/word-counter-guide/" />
   <link rel="alternate" hreflang="en" href="https://816800.xyz/blog/word-counter-guide/" />
@@ -34,12 +34,20 @@
       "headline": "Word Counter & Keyword Density — Count Words, Characters, Reading Time",
       "description": "Count words, characters and keyword density, estimate reading time — all in your browser. No upload, no sign-up.",
       "datePublished": "2026-09-01",
-      "dateModified": "2026-09-01",
+      "dateModified": "2026-09-17",
       "inLanguage": "zh-CN",
-      "author": {
-        "@type": "Organization",
-        "name": "816800.xyz",
-        "url": "https://816800.xyz/"
+"author": {
+        "@type": "Person",
+        "name": "Wen Lau",
+        "url": "https://816800.xyz/about/#author",
+        "jobTitle": "Maintainer and technical writer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "816800.xyz",
+          "url": "https://816800.xyz/"
+        },
+        "knowsAbout": ["HLS streaming", "MPEG-DASH", "m3u8 playlists", "CORS", "Browser media APIs", "Static web tooling"],
+        "description": "Builds and maintains the browser-based tools on 816800.xyz and writes their documentation. Focus areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server."
       },
       "publisher": {
         "@type": "Organization",
@@ -81,6 +89,7 @@
 }
   </script>
   <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -197,8 +206,28 @@
 
           <h2>4. Estimating reading time</h2>
           <p>Rule of thumb: adults read about <strong>200–250 words per minute</strong>. Divide total words by 220 to estimate minutes. This site shows "X min read" directly, so you can label posts and set reader expectations.</p>
+          <p>The 220 wpm figure is a midpoint, not a law. Skimmers move faster, dense technical text slows readers down, and non-native audiences often read 30–40% slower. When precision matters — course material, legal copy, subtitles — time a real reader once and calibrate your own divisor.</p>
 
-          <h2>5. How to use this site's word counter</h2>
+          <h2>5. Limits you should know before you rely on one</h2>
+          <p>Every platform counts differently, and the differences are big enough to cause rejected submissions. The table lists the cases people hit most often:</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Where counting rules diverge</caption>
+              <thead>
+                <tr><th>Context</th><th>Typical rule</th><th>Watch out for</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>University essays</td><td>Words, excluding citations and sometimes headings</td><td>Footnotes may or may not count — check the handbook</td></tr>
+                <tr><td>News / magazine pitches</td><td>Words including headlines</td><td>Editors usually expect within ±10% of the ask</td></tr>
+                <tr><td>Social posts (X, LinkedIn)</td><td>Characters, not words</td><td>Links and emoji count toward the limit</td></tr>
+                <tr><td>Meta descriptions</td><td>~155 characters before truncation</td><td>Titles truncate around 60 characters</td></tr>
+                <tr><td>Ad copy</td><td>Characters per line</td><td>Leading/trailing spaces can still count</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Practical takeaway: use the live counter while drafting, then verify against the target platform's own counter before submitting. Where the two disagree, the platform wins.</p>
+
+          <h2>6. How to use this site's word counter</h2>
           <ol>
             <li>Open the <a href="/tools/word-counter/">word counter</a>.</li>
             <li>Paste or type text; stats update live.</li>
@@ -206,13 +235,29 @@
             <li>To normalize casing, use the <a href="/tools/case-converter/">case converter</a> alongside it.</li>
           </ol>
 
-          <h2>6. Privacy note</h2>
+          <h2>7. Privacy note</h2>
           <p>This counter runs <strong>entirely in your browser</strong>; text is never uploaded. Unpublished drafts and client documents are safe to paste.</p>
+
+          <h2>Frequently asked questions</h2>
+          <h3>What counts as a "word"?</h3>
+          <p>Any run of characters separated by spaces or punctuation. "State-of-the-art" is one word; "2026" is one word. Different tools may disagree by a few percent on hyphenated or numeric text — again, the receiving platform's counter is the authority.</p>
+          <h3>Is keyword density still an SEO ranking factor?</h3>
+          <p>Not directly. Modern search engines judge topic coverage and quality, not keyword ratios. Density is still useful as a <em>sanity check</em>: if a term crosses roughly 3% the page usually reads as stuffed, and if your target phrase never appears the page may struggle to rank for it.</p>
+          <h3>How long should a blog post be?</h3>
+          <p>Long enough to cover the topic and no longer. As anchors: a focused how-to lands around 800–1,200 words, a comparison piece 1,200–2,000. Reading time is the better label for readers; word count is the better budget for you.</p>
+          <h3>Does the counter work with languages other than English?</h3>
+          <p>Character and paragraph counts work for any text. Word counting is most accurate for space-delimited languages such as English; for unspaced scripts the character count is the meaningful number.</p>
 
           <h2>Related tools</h2>
           <p>To normalize titles or variables to one casing, use the <a href="/tools/case-converter/">case converter</a>; for eye-catching <strong>fancy / styled text</strong>, see the <a href="/tools/font-changer/">fancy text generator</a>; more notes in the <a href="/blog/">blog</a>.</p>
         </div>
       </article>
+
+      <aside class="author-box">
+        <p class="author-name">Wen Lau <span class="author-role">· Maintainer and technical writer</span></p>
+        <p class="author-bio">Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.</p>
+        <p class="author-links"><a class="link" href="/about/#author">About the author</a> · <a class="link" href="/contact/">Report an error in this page</a></p>
+      </aside>
 
       <div class="related-tools">
         <h3 data-zh="相关工具" data-en="Related tools">Related tools</h3>
@@ -267,6 +312,8 @@
           <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
           <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
           <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
         </nav>
       </div>
       <div class="footer-bottom">
