@@ -154,6 +154,7 @@
           <span class="zh">m3u8 播放失败/黑屏？一步步排查 CORS 与地址失效</span>
           <span class="en">M3U8 Playback Failed or Black Screen? Troubleshoot CORS &amp; Dead URLs</span>
         </h1>
+        <p class="updated"><span data-zh="最后更新：" data-en="Last updated: ">Last updated: </span><time datetime="2026-09-19" data-zh="2026 年 9 月 19 日" data-en="September 19, 2026">September 19, 2026</time></p>
         <p data-zh="2026-08-19 · 约 6 分钟阅读" data-en="2026-08-19 · 6 min read">2026-08-19 · 6 min read</p>
       </div>
 
@@ -213,7 +214,7 @@
           </ol>
 
           <h2>4. How to tell it's a CORS block</h2>
-          <p>The console shows <code>Cross-Origin Request Blocked</code> or <code>No 'Access-Control-Allow-Origin' header</code>, while <code>curl</code> fetches the content fine but the browser reports a cross-origin error — that's a classic CORS issue. In essence, the streaming server didn't send the "allow cross-origin" response header to the page.</p>
+          <p>The console shows <code>Cross-Origin Request Blocked</code> or <code>No 'Access-Control-Allow-Origin' header</code>, while <code>curl</code> fetches the content fine but the browser reports a cross-origin error — that's a classic CORS issue. In essence, the streaming server didn't send the "allow cross-origin" response header to the page. <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">MDN's CORS reference</a> describes the handshake in detail; for playback you only need one rule — the manifest and every <code>.ts</code> or fMP4 segment must answer with that header, or none of them will load.</p>
           <p class="note">Fixes: ① if you control the server / CDN, add <code>Access-Control-Allow-Origin: *</code> (or a stricter allow-list) and make sure OPTIONS preflight passes; ② if you can't change the origin, put a <strong>same-origin reverse proxy</strong> in front to forward the stream and bypass the browser's cross-origin limit; ③ for local checks, just use this site's quick test sources — they all ship standard CORS.</p>
           <figure class="shot">
             <img src="/assets/img/player-cors-error.png" alt="Screenshot of the M3U8 player's diagnostic panel reporting that the Apple BipBop test stream has no CORS permission configured, with the Access-Control-Allow-Origin header name highlighted" loading="lazy" width="1080" height="362">

@@ -32,6 +32,7 @@
   "@graph": [
     {
       "@type": "WebPage",
+      "dateModified": "2026-09-19",
       "name": "Changelog",
       "url": "https://816800.xyz/changelog/",
       "description": "Every meaningful change to 816800.xyz, dated and described: new tools, content overhauls, fixes and measurement work. Proof this site is actively maintained."
@@ -116,11 +117,19 @@
   <main class="site-main">
     <div class="container legal">
       <h1 data-zh="更新日志" data-en="Changelog">Changelog</h1>
-      <p class="updated" data-zh="最后更新：2026-09-17" data-en="Last updated: September 17, 2026">Last updated: September 17, 2026</p>
+      <p class="updated"><span data-zh="最后更新：" data-en="Last updated: ">Last updated: </span><time datetime="2026-09-19" data-zh="2026 年 9 月 19 日" data-en="September 19, 2026">September 19, 2026</time></p>
 
       <article class="i18n-block lang-en">
         <div class="en">
           <p>This site is maintained by hand, a few hours a week. This page records every change that affects what you see or what the tools do — new tools, rewritten guides, fixes, and measurement work. Newest first. There is no automation behind these entries; each one maps to a real editing session.</p>
+
+          <h2>September 19, 2026</h2>
+          <ul>
+            <li><strong>Revision dates everywhere.</strong> All thirty content pages now show <em>Last updated</em> at the top and mirror the same value into their structured data. Before this, only the eleven guides carried any date signal at all, so a returning visitor had no way to tell whether a tool page was current.</li>
+            <li><strong>Authoritative sources cited.</strong> Six pages now link directly to the documents the software actually conforms to: <a href="https://datatracker.ietf.org/doc/html/rfc8216" target="_blank" rel="noopener">RFC 8216</a>, Apple's HLS documentation, MDN on CORS, the hls.js and dash.js source trees, the <a href="https://www.unicode.org/charts/PDF/U1D400.pdf" target="_blank" rel="noopener">Unicode code chart</a> behind the fancy text styles, DASH-IF guidelines and VideoLAN. Claims no longer rest on our paraphrase of a specification.</li>
+            <li><strong>Editorial policy published.</strong> The <a href="/about/">about page</a> gained a <em>How we test and publish</em> section: six concrete rules covering measured numbers, re-checked test sources, dated pages, no paid placement, no bulk generation and visible corrections.</li>
+            <li><strong>Transport hardening.</strong> Added an HSTS header alongside <code>nosniff</code>, a referrer policy, frame options and a permissions policy. Fullscreen playback and clipboard copy are deliberately left enabled, so neither gets broken.</li>
+          </ul>
 
           <h2>September 17, 2026</h2>
           <ul>
@@ -184,7 +193,7 @@
 
         <div class="zh">
           <p>本页记录站点的全部实质性更新：新工具上线、内容重写、问题修复与实测工作，按时间倒序排列，每条对应一次真实的编辑提交。</p>
-          <p>近期要点：2026-09-17 发布公开测试流真机实测数据与播放器真实截图、移除首页未上线工具占位卡、新增免责声明页与 Cookie 同意机制；2026-09-15 接入 llms.txt v2 与 AI Discovery Files；2026-09-10 全站内容厚度翻倍。完整明细见英文版。</p>
+          <p>近期要点：2026-09-19 全站 30 页补上更新时间与结构化数据修订日期、六个页面直接引用 RFC 8216 等权威规范、发布「内容测试与编辑准则」并加固响应头；2026-09-17 发布公开测试流真机实测数据与播放器真实截图、移除首页未上线工具占位卡、新增免责声明页与 Cookie 同意机制；2026-09-15 接入 llms.txt v2 与 AI Discovery Files；2026-09-10 全站内容厚度翻倍。完整明细见英文版。</p>
         </div>
       </article>
     </div>

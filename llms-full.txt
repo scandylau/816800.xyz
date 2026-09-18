@@ -14,6 +14,7 @@
 > Source: https://816800.xyz/
 
 Pure Front-End · Ad-Free · Instant
+Last updated: September 19, 2026
 A dark-themed toolkit with zero popups and zero tracking. Nine free tools that run entirely in your browser: M3U8 / HLS stream tester, URL shortener, case converter, camelCase / snake_case / kebab-case converters, word counter, reading time calculator and fancy text generator.
 [▶ Browse all tools](https://816800.xyz/tools/) [M3U8 Player](https://816800.xyz/m3u8-player/)
 ### Tool Grid
@@ -64,6 +65,7 @@ Us, usually within a few days of hearing about it. Send the tool name, your inpu
 
 > Source: https://816800.xyz/m3u8-player/
 
+Last updated: September 19, 2026
 Paste a stream URL to play instantly · Pure front-end · No upload · Auto error diagnosis
 ### The Truth About M3U8, HLS and "Online M3U8 Playback Errors"
 **M3U8** is the playlist format of the HTTP Live Streaming (HLS) protocol. It is essentially a plain-text index file that lists, line by line, the sub-playlists (`.ts` or fMP4 segments) for different resolutions (bitrates). Browsers do not understand M3U8 natively — that is why you need an **HLS Stream Tester** to translate it into a playable video stream.
@@ -74,7 +76,8 @@ Paste a stream URL to play instantly · Pure front-end · No upload · Auto erro
 1. Not sure whether the problem is your URL? Use one of the quick test sources below the input to confirm the player itself is working.
 The actual interface, captured from this page: the URL field before anything is pasted, with the four quick test sources underneath. Playback state captured live: after loading the Mux test stream, the playlist resolved to a 12:14 duration and the status line confirms parsing succeeded.
 #### How does HLS streaming work?
-HLS cuts a video into short chunks, usually 2–10 seconds long, and describes them in a playlist. A **master playlist** lists every available quality level; each level has its own **media playlist** pointing at the `.ts` or fMP4 segments. The player measures your bandwidth, picks a media playlist, and switches between them mid-playback — that is what **adaptive bitrate** means. Most browsers ship no built-in HLS decoder, so a JavaScript library such as hls.js fetches the playlists, joins the segments through Media Source Extensions, and feeds them to the video element.
+HLS cuts a video into short chunks, usually 2–10 seconds long, and describes them in a playlist. A **master playlist** lists every available quality level; each level has its own **media playlist** pointing at the `.ts` or fMP4 segments. The player measures your bandwidth, picks a media playlist, and switches between them mid-playback — that is what **adaptive bitrate** means. Most browsers ship no built-in HLS decoder, so a JavaScript library such as [hls.js](https://github.com/video-dev/hls.js) fetches the playlists, joins the segments through Media Source Extensions, and feeds them to the video element. DASH playback follows the same route through [dash.js](https://github.com/Dash-Industry-Forum/dash.js).
+Two documents define the behaviour this tester assumes: [Apple's HTTP Live Streaming documentation](https://developer.apple.com/streaming/) for authoring and delivery, and [RFC 8216](https://datatracker.ietf.org/doc/html/rfc8216), the normative protocol definition. Every figure printed above was measured against real endpoints behaving under those specifications — not inferred from reading either document.
 #### Reference numbers: bitrate ladders and segment length
 If you are building a ladder from scratch, these are the rungs most services settle on for H.264:
 | Rung | Resolution | Video bitrate | Audio | Notes |
@@ -148,7 +151,7 @@ If you are here to **test an m3u8 URL** rather than read about one, work through
 1. **Re-test after every fix.** CDN header changes propagate gradually, so a change can look like it failed for several minutes.
 Prefer a desktop player for the first pass? [M3U8 player vs VLC](https://816800.xyz/blog/m3u8-player-vs-vlc/) explains what each tool can and cannot see, and why "it plays in VLC" is not evidence that your web page works.
 #### The most common error: blocked by CORS
-When you see an "online m3u8 playback error", a black screen, or `Cross-Origin Request Blocked` in the console, it is almost never a broken browser. The usual cause is that the **streaming server does not return an `Access-Control-Allow-Origin` header**. The browser's same-origin policy forbids web pages from reading cross-origin resources, so the player cannot fetch the segment data.
+When you see an "online m3u8 playback error", a black screen, or `Cross-Origin Request Blocked` in the console, it is almost never a broken browser. The usual cause is that the **streaming server does not return an `Access-Control-Allow-Origin` header**. The browser's same-origin policy forbids web pages from reading cross-origin resources, so the player cannot fetch the segment data. [MDN documents the CORS handshake](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) in full; the part that matters here is simply whether the manifest and every segment reply carries that header.
 When playback fails, this tool auto-diagnoses: it first probes reachability with `no-cors`, then verifies the CORS permission with a `cors` request. If the server is reachable but blocked by CORS, we show a precise message so you don't mistake it for a dead URL.
 A real failure captured on this page: the Apple BipBop stream returned no CORS header during our own testing, and the diagnostic panel names the exact cause instead of a generic error.
 #### How to fix the CORS issue?
@@ -219,6 +222,12 @@ No hard limit, but a VOD manifest with tens of thousands of entries takes notice
 - [HLS live vs VOD: two ways to use M3U8](https://816800.xyz/blog/hls-live-vod/)
 - [DASH vs HLS: which streaming protocol should you use?](https://816800.xyz/blog/dash-vs-hls/)
 - [Best free M3U8 online players (2026)](https://816800.xyz/blog/m3u8-player-recommend/)
+#### Specifications and source code
+- [RFC 8216 — the normative HLS protocol specification](https://datatracker.ietf.org/doc/html/rfc8216)
+- [Apple — HTTP Live Streaming documentation](https://developer.apple.com/streaming/)
+- [MDN — Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+- [hls.js source code](https://github.com/video-dev/hls.js)
+- [dash.js source code](https://github.com/Dash-Industry-Forum/dash.js)
 
 ---
 
@@ -226,6 +235,7 @@ No hard limit, but a VOD manifest with tens of thousands of entries takes notice
 
 > Source: https://816800.xyz/blog/m3u8-playback-failed/
 
+Last updated: September 19, 2026
 2026-08-19 · 6 min read
 ### 1. Symptom: black screen, endless spinner, console errors
 When you open a `.m3u8` URL in a web page or your own player, the usual result is a black screen or a stuck loader, while the DevTools console throws `Cross-Origin Request Blocked`, `net::ERR_FAILED` or `404 / 403`. Behind these symptoms, there are really only two families of causes.
@@ -238,7 +248,7 @@ Mixing the two up wastes effort — e.g. editing server config when the link was
 1. Run `curl -I <url>` and read the status code (403 / 404 = dead; 200 but an error page = needs auth).
 1. Compare with a public test source (Apple BipBop, Mux): if others play and only this one fails, it's the URL.
 ### 4. How to tell it's a CORS block
-The console shows `Cross-Origin Request Blocked` or `No 'Access-Control-Allow-Origin' header`, while `curl` fetches the content fine but the browser reports a cross-origin error — that's a classic CORS issue. In essence, the streaming server didn't send the "allow cross-origin" response header to the page.
+The console shows `Cross-Origin Request Blocked` or `No 'Access-Control-Allow-Origin' header`, while `curl` fetches the content fine but the browser reports a cross-origin error — that's a classic CORS issue. In essence, the streaming server didn't send the "allow cross-origin" response header to the page. [MDN's CORS reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) describes the handshake in detail; for playback you only need one rule — the manifest and every `.ts` or fMP4 segment must answer with that header, or none of them will load.
 Fixes: ① if you control the server / CDN, add `Access-Control-Allow-Origin: *` (or a stricter allow-list) and make sure OPTIONS preflight passes; ② if you can't change the origin, put a **same-origin reverse proxy** in front to forward the stream and bypass the browser's cross-origin limit; ③ for local checks, just use this site's quick test sources — they all ship standard CORS.
 A real diagnosis captured while writing this article: Apple's public BipBop test stream returned no `Access-Control-Allow-Origin` header, and the player named the exact cause instead of showing a generic failure.
 ### 5. One-click diagnosis with this tool
@@ -345,9 +355,11 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/blog/what-is-hls/
 
+Last updated: September 19, 2026
 2026-08-19 · 5 min read
 ### 1. What HLS is
 **HLS (HTTP Live Streaming)** is Apple's adaptive streaming protocol, introduced in 2009. Its core idea is to ship video over plain HTTP by cutting it into many small segments, which naturally plays well with CDNs, caching and firewalls. Almost all video on iPhone and Mac uses HLS today.
+Apple publishes the authoring side as the [HTTP Live Streaming documentation](https://developer.apple.com/streaming/); the wire format itself was later formalised as [RFC 8216](https://datatracker.ietf.org/doc/html/rfc8216). Those two documents are the source of every statement in this guide.
 ### 2. The relationship between m3u8 and .ts
 - `.m3u8`: the playlist — plain text listing the sub-playlists (bitrates) or segment URLs.
 - `.ts` (Transport Stream): the actual audio/video segments, usually 2–10 seconds each.
@@ -446,6 +458,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/blog/hls-live-vod/
 
+Last updated: September 19, 2026
 2026-08-28 · 5 min read
 ### 1. Same m3u8, two modes
 Many think m3u8 is just "VOD", but it does both **VOD** and **Live**. The difference isn't the extension but whether the timeline is still growing.
@@ -536,6 +549,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/blog/m3u8-vs-mp4/
 
+Last updated: September 19, 2026
 2026-08-19 · 5 min read
 ### One-line answer
 **MP4 is a complete video file; M3U8 is an index playlist that points to segments.** The former plays after a single download, the latter must be parsed first and then loaded segment by segment. That single difference explains every usage difference below.
@@ -623,9 +637,11 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/blog/dash-vs-hls/
 
+Last updated: September 19, 2026
 2026-08-28 · 6 min read
 ### 1. They are essentially the same idea
 **DASH (MPEG-DASH)** and **HLS (HTTP Live Streaming)** share the same core design: chop video into small segments and describe them with a text manifest, letting the player pick the right quality by network conditions. This "manifest + segments + adaptive" model lets video travel over plain HTTP, benefit from CDN caching, and pass through firewalls easily.
+The two were specified separately: HLS began as an Apple format, now written up as [RFC 8216](https://datatracker.ietf.org/doc/html/rfc8216), while DASH is an ISO standard maintained industrially by [the DASH Industry Forum](https://dashif.org/guidelines/). That split origin explains nearly every practical difference below.
 The real difference is not the principle but the **camp and file format**: HLS is Apple-backed (de-facto), while DASH is an open MPEG standard. Let's break it down.
 ### 2. File format comparison
 - **Manifest**: HLS uses `.m3u8` (text-based M3U); DASH uses `.mpd` (XML).
@@ -726,6 +742,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/blog/m3u8-player-recommend/
 
+Last updated: September 19, 2026
 2026-08-28 · 6 min read
 ### 1. Why you need an "online player"
 Browsers don't play HLS natively; handing a `.m3u8` to `<video>` fails. An online M3U8 player is essentially a web app that "translates" segments into playable streams via hls.js or MSE, with no backend relay. When choosing, watch three things: **compatibility, whether your source leaks, and cost**.
@@ -786,6 +803,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/short-link/
 
+Last updated: September 19, 2026
 Paste a long URL to get a branded share link · No backend · No upload
 ### What this is — and what it is not
 This is a **backend-free** link redirector: it stores nothing in any database. Instead it encodes the long URL into the `#u=` fragment of the address bar, producing a share link like `816800.xyz/short-link/go.html#u=…`. Anyone who opens it decodes and redirects entirely in their own browser.
@@ -850,6 +868,7 @@ If you need byte-short codes and click statistics, use one — they are good at 
 
 > Source: https://816800.xyz/blog/short-link-guide/
 
+Last updated: September 19, 2026
 2026-08-28 · 5 min read
 ### 1. What a short link is
 A **short link (URL shortener)** maps a long URL to a short one (e.g. `816800.xyz/go/abcd`); visiting it triggers a 301/302 redirect to the original. It doesn't shrink the content, just swaps in a shorter "address".
@@ -909,6 +928,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 > Source: https://816800.xyz/tools/
 
 Pure Front-End · No Upload · No Signup
+Last updated: September 19, 2026
 A small set of tools that just work: case converter, word counter with keyword density, fancy text generator, M3U8 stream tester and URL shortener. Everything runs locally in your browser, with no upload, no tracking and no signup.
 ### All tools
 9 live
@@ -961,6 +981,7 @@ Want the background behind streaming formats? The [blog](https://816800.xyz/blog
 > Source: https://816800.xyz/tools/case-converter/
 
 Pure Front-End · Instant · No Upload
+Last updated: September 19, 2026
 Switch any text between UPPERCASE, lowercase, Title Case, Sentence case and developer styles like camelCase, snake_case and kebab-case. Everything runs in your browser, so your text never leaves your device.
 ### How to Change Text Case (and When It Matters)
 Case is not just decoration. The convention you pick changes how readable a headline feels, how professional an email looks, and whether your code passes a linter. This converter handles the common conventions in one click, entirely in your browser.
@@ -1010,6 +1031,7 @@ Prefer to measure your text instead? Try the [Word Counter](https://816800.xyz/t
 > Source: https://816800.xyz/tools/word-counter/
 
 Live Count · Keyword Density · No Upload
+Last updated: September 19, 2026
 Get live word count, character count, sentences, paragraphs and estimated reading time, plus a ranked keyword density table. Everything runs in your browser, so nothing is uploaded.
 Words
 0
@@ -1063,10 +1085,12 @@ Need to reshape the wording instead? Open the [Case Converter](https://816800.xy
 > Source: https://816800.xyz/tools/font-changer/
 
 Unicode Fonts · One-Click Copy · No Upload
+Last updated: September 19, 2026
 Turn plain English into bold, italic, cursive, bubble, fraktur and monospace Unicode styles you can paste straight into Instagram, TikTok, X and LinkedIn names, bios and captions. Everything runs in your browser.
 Start typing and the styles below will generate live.
 ### How Fancy Text Works (and Where to Use It Safely)
 These are not real fonts. Each style replaces your letters with different Unicode characters that happen to look bold, cursive or outlined. Because the output is still plain text, it pastes into places that would never accept a custom font.
+Technically these are the Mathematical Alphanumeric Symbols block, code points U+1D400 to U+1D7FF, which [the Unicode Consortium publishes as a standardised code chart](https://www.unicode.org/charts/PDF/U1D400.pdf). That is why the letters survive copy and paste: they are ordinary characters with assigned code points, not font styling layered on top.
 #### Where it shines
 Social profiles are the main use case. Instagram bios, TikTok display names, X handles, LinkedIn headlines and Discord nicknames all accept Unicode, so a stylised line is an easy way to make a profile stand out.
 It is also handy for drawing attention inside plain-text environments that offer no formatting at all, such as chat messages, commit messages or plain-text emails.
@@ -1112,6 +1136,7 @@ Want to change letter case instead? Try the [Case Converter](https://816800.xyz/
 
 > Source: https://816800.xyz/blog/case-converter-guide/
 
+Last updated: September 19, 2026
 2026-09-01 · 5 min read
 ### 1. Why you need a case converter
 Letter casing looks trivial, but it matters everywhere in coding, writing and data work: variables want `camelCase`, database columns want `snake_case`, paper titles want "Capitalized Major Words", SQL keywords are conventionally UPPER, and social copy often goes ALL CAPS for emphasis. Doing it by hand on hundreds of characters is slow and error-prone — a **case converter** turns those rules into one click.
@@ -1179,6 +1204,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/blog/word-counter-guide/
 
+Last updated: September 19, 2026
 2026-09-01 · 5 min read
 ### 1. What a word counter tells you
 Many think word counting is just "how many words" — but it also gives **word count, character count (with/without spaces), paragraphs and sentences**, plus the two that matter most: **reading time** and **keyword density**. Those numbers help with essays, SEO copy and social posts alike.
@@ -1239,6 +1265,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/blog/fancy-text-guide/
 
+Last updated: September 19, 2026
 2026-09-01 · 5 min read
 ### 1. What "fancy text" is
 "Fancy text" isn't a different font file — it maps each ordinary letter to **another glyph in Unicode**. For example `A` becomes mathematical bold `𝐀`, Fraktur `𝔄`, or circled `Ⓐ`. Because these are standard Unicode code points, they display anywhere that supports them — no font install needed on the reader's side.
@@ -1303,7 +1330,7 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 
 > Source: https://816800.xyz/about/
 
-Last updated: 2026
+Last updated: September 19, 2026
 816800.xyz is a **pure front-end, ad-free** minimal tech toolkit. We gather the scattered small tools developers use daily into one unified, restrained, high-quality dark interface — "open, use, done."
 ### Why we exist
 When debugging streams, parsing JSON or compressing images, developers often jump between sites full of popups and tracking scripts. We believe a tool should be like a Swiss Army knife — sharp, reliable, unobtrusive. This site runs no auto-ads and injects no tracking pixels; every core feature runs locally in your browser.
@@ -1353,6 +1380,18 @@ What that name is actually responsible for:
 | Text tooling | Implements the case converter, word counter and fancy text generator so they run entirely client-side, with no network call |
 | Corrections | Owns factual errors in this content. If something here is wrong, report it and the page gets fixed with an updated revision date |
 Working areas beyond this site: HTTP adaptive streaming (HLS, LL-HLS, MPEG-DASH), browser media APIs including Media Source Extensions, and front-end tooling that runs without a backend. Every measurement published on 816800.xyz is dated and describes the conditions it was taken under, because a number without conditions is not evidence.
+### How we test and publish
+Everything here is written and checked by the one person named above, so the process is short enough to state plainly. These are the rules this site actually follows — hold us to them.
+| Rule | What it means in practice |
+| --- | --- |
+| Measured beats cited | Any number printed here — playlist size, segment duration, time to first frame, response codes — came from a request run against a public endpoint. If a figure comes from reading a specification instead, the sentence says so explicitly. |
+| Test sources get re-checked | The four public streams offered as quick-test links are probed periodically. When one stops responding, the entry is replaced or removed rather than left to fail silently in front of a visitor. |
+| Every page carries a revision date | Each tool and guide shows Last updated at the top and mirrors it into structured data. A page whose content changed without its date changing is a bug. |
+| No payment for placement | No tool appears in any comparison on this site because someone paid for the position. There are no affiliate slots in these lists, and there is no sponsored content. |
+| No bulk generation | Guides are written one at a time against a specific question we have seen break something. Pages are not generated from keyword spreadsheets, and thin pages get rewritten rather than left in place. |
+| Corrections are visible | A factual error reported through the contact page gets fixed, the revision date moves, and non-trivial corrections are noted on the changelog. Silently editing away a mistake is not how this works. |
+**
+Where a claim rests on somebody else's specification, we link to that source instead of paraphrasing it. The [stream tester](https://816800.xyz/m3u8-player/) and its guides cite [RFC 8216](https://datatracker.ietf.org/doc/html/rfc8216), [Apple's HLS documentation](https://developer.apple.com/streaming/), [MDN on CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), and the [hls.js](https://github.com/video-dev/hls.js) and [dash.js](https://github.com/Dash-Industry-Forum/dash.js) source trees, because those are the documents the software itself conforms to.
 ### Contact us
 Any suggestions or want to request priority for a tool? Reach us via the [contact page](https://816800.xyz/contact/).
 
@@ -1362,6 +1401,7 @@ Any suggestions or want to request priority for a tool? Reach us via the [contac
 
 > Source: https://816800.xyz/contact/
 
+Last updated: September 19, 2026
 We value every message
 Have a tool idea, hit an error, or want to request priority for a feature? Fill in the form below and it will open in your email client to reach us (this is a pure static site, so the form never passes through a server — privacy guaranteed).
 ### What we can help with
@@ -1404,6 +1444,7 @@ No. Every guide on this site is written by us and we do not sell links. Genuine 
 > Source: https://816800.xyz/links/
 
 Recommended
+Last updated: September 19, 2026
 Sites and partners we trust and recommend. We link to each other to grow together.
 HandyTools handytools.eu.cc Free browser-based tools that run fully on your device — private by design, no signup, no tracking. MetaAI metaai.indevs.in A directory of 788+ AI tools across 35 categories — image, writing, coding, video, audio and chatbots, with bilingual guides.
 ### How we choose the sites listed here

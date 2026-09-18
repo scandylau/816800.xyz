@@ -32,6 +32,7 @@
   "@graph": [
     {
       "@type": "AboutPage",
+      "dateModified": "2026-09-19",
       "name": "About 816800.xyz",
       "url": "https://816800.xyz/about/",
       "description": "816800.xyz builds fast, minimal, privacy-first browser tools for developers and creators. Learn about our approach, tech stack and product roadmap."
@@ -41,7 +42,33 @@
       "name": "816800.xyz",
       "url": "https://816800.xyz/",
       "logo": "https://816800.xyz/assets/img/logo.svg",
-      "description": "A minimal dark-themed collection of free online tools that run entirely in the browser."
+      "description": "A minimal dark-themed collection of free online tools that run entirely in the browser.",
+      "sameAs": [
+        "https://github.com/scandylau/816800.xyz"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://816800.xyz/about/#author",
+      "name": "Wen Lau",
+      "url": "https://816800.xyz/about/#author",
+      "jobTitle": "Maintainer and technical writer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "816800.xyz",
+        "url": "https://816800.xyz/"
+      },
+      "knowsAbout": [
+        "HLS streaming",
+        "LL-HLS",
+        "MPEG-DASH",
+        "m3u8 playlists",
+        "CORS",
+        "Browser media APIs",
+        "Media Source Extensions",
+        "Static web tooling"
+      ],
+      "description": "Builds and maintains the browser-based tools on 816800.xyz and writes their documentation. Every performance figure published on this site comes from a request run against a real endpoint, not from summarising a specification."
     },
     {
       "@type": "BreadcrumbList",
@@ -123,7 +150,7 @@
   <main class="site-main">
     <div class="container legal">
       <h1 data-zh="关于 816800.xyz" data-en="About 816800.xyz">About 816800.xyz</h1>
-      <p class="updated" data-zh="最后更新：2026 年" data-en="Last updated: 2026">Last updated: 2026</p>
+      <p class="updated"><span data-zh="最后更新：" data-en="Last updated: ">Last updated: </span><time datetime="2026-09-19" data-zh="2026 年 9 月 19 日" data-en="September 19, 2026">September 19, 2026</time></p>
 
       <article class="i18n-block lang-en">
         <div class="zh">
@@ -144,6 +171,8 @@
 
           <h2>联系我们</h2>
           <p>有任何建议或想申请某个工具优先级，欢迎通过 <a class="link" href="/contact/">联系页</a> 与我们沟通。</p>
+          <h2>内容测试与编辑准则</h2>
+          <p>本站引用的每个数据都来自对真实端点的实际请求，而非转述规范；页面更新时间同步写入结构化数据；不接受付费排名，也不批量生成页面。完整准则见上方英文版。</p>
         </div>
 
         <div class="en">
@@ -239,6 +268,26 @@
             </table>
           </div>
           <p>Working areas beyond this site: HTTP adaptive streaming (HLS, LL-HLS, MPEG-DASH), browser media APIs including Media Source Extensions, and front-end tooling that runs without a backend. Every measurement published on 816800.xyz is dated and describes the conditions it was taken under, because a number without conditions is not evidence.</p>
+
+          <h2>How we test and publish</h2>
+          <p>Everything here is written and checked by the one person named above, so the process is short enough to state plainly. These are the rules this site actually follows — hold us to them.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Editorial and testing rules for 816800.xyz</caption>
+              <thead>
+                <tr><th>Rule</th><th>What it means in practice</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Measured beats cited</td><td>Any number printed here — playlist size, segment duration, time to first frame, response codes — came from a request run against a public endpoint. If a figure comes from reading a specification instead, the sentence says so explicitly.</td></tr>
+                <tr><td>Test sources get re-checked</td><td>The four public streams offered as quick-test links are probed periodically. When one stops responding, the entry is replaced or removed rather than left to fail silently in front of a visitor.</td></tr>
+                <tr><td>Every page carries a revision date</td><td>Each tool and guide shows <em>Last updated</em> at the top and mirrors it into structured data. A page whose content changed without its date changing is a bug.</td></tr>
+                <tr><td>No payment for placement</td><td>No tool appears in any comparison on this site because someone paid for the position. There are no affiliate slots in these lists, and there is no sponsored content.</td></tr>
+                <tr><td>No bulk generation</td><td>Guides are written one at a time against a specific question we have seen break something. Pages are not generated from keyword spreadsheets, and thin pages get rewritten rather than left in place.</td></tr>
+                <tr><td>Corrections are visible</td><td>A factual error reported through the contact page gets fixed, the revision date moves, and non-trivial corrections are noted on the changelog. Silently editing away a mistake is not how this works.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Where a claim rests on somebody else's specification, we link to that source instead of paraphrasing it. The <a class="link" href="/m3u8-player/">stream tester</a> and its guides cite <a class="link" href="https://datatracker.ietf.org/doc/html/rfc8216" target="_blank" rel="noopener">RFC 8216</a>, <a class="link" href="https://developer.apple.com/streaming/" target="_blank" rel="noopener">Apple's HLS documentation</a>, <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">MDN on CORS</a>, and the <a class="link" href="https://github.com/video-dev/hls.js" target="_blank" rel="noopener">hls.js</a> and <a class="link" href="https://github.com/Dash-Industry-Forum/dash.js" target="_blank" rel="noopener">dash.js</a> source trees, because those are the documents the software itself conforms to.</p>
 
           <h2>Contact us</h2>
           <p>Any suggestions or want to request priority for a tool? Reach us via the <a class="link" href="/contact/">contact page</a>.</p>

@@ -154,6 +154,7 @@
           <span class="zh">DASH 与 HLS 怎么选？流媒体协议全方位对比</span>
           <span class="en">DASH vs HLS: How to Choose a Streaming Protocol</span>
         </h1>
+        <p class="updated"><span data-zh="最后更新：" data-en="Last updated: ">Last updated: </span><time datetime="2026-09-19" data-zh="2026 年 9 月 19 日" data-en="September 19, 2026">September 19, 2026</time></p>
         <p data-zh="2026-08-28 · 约 6 分钟阅读" data-en="2026-08-28 · 6 min read">2026-08-28 · 6 min read</p>
       </div>
 
@@ -198,6 +199,7 @@
         <div class="en">
           <h2>1. They are essentially the same idea</h2>
           <p><strong>DASH (MPEG-DASH)</strong> and <strong>HLS (HTTP Live Streaming)</strong> share the same core design: chop video into small segments and describe them with a text manifest, letting the player pick the right quality by network conditions. This "manifest + segments + adaptive" model lets video travel over plain HTTP, benefit from CDN caching, and pass through firewalls easily.</p>
+          <p>The two were specified separately: HLS began as an Apple format, now written up as <a class="link" href="https://datatracker.ietf.org/doc/html/rfc8216" target="_blank" rel="noopener">RFC 8216</a>, while DASH is an ISO standard maintained industrially by <a class="link" href="https://dashif.org/guidelines/" target="_blank" rel="noopener">the DASH Industry Forum</a>. That split origin explains nearly every practical difference below.</p>
           <p>The real difference is not the principle but the <strong>camp and file format</strong>: HLS is Apple-backed (de-facto), while DASH is an open MPEG standard. Let's break it down.</p>
 
           <h2>2. File format comparison</h2>
