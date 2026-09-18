@@ -1,9 +1,10 @@
 # 816800.xyz
 
-> Free, browser-based tools for developers and creators. Five live tools — an
-> M3U8/HLS and DASH stream tester, a URL shortener, a case converter, a word
-> counter and a Unicode text styler. Everything runs client-side: no upload,
-> no account, no tracking pixels.
+> Free, browser-based tools for developers and creators. Nine live tools — an
+> M3U8/HLS and DASH stream tester, a URL shortener, a case converter plus
+> dedicated camelCase / snake_case / kebab-case converters, a word counter, a
+> reading time calculator and a Unicode text styler. Everything runs
+> client-side: no upload, no account, no tracking pixels.
 
 Every tool here executes in the browser tab. Text you type never leaves your
 device, and stream playback fetches segments straight from their own origin
@@ -11,7 +12,7 @@ rather than through us. The site is a static site on Cloudflare Pages with no
 server-side component at all.
 
 The complete text of every page below is available in a single file:
-[llms-full.txt](https://816800.xyz/llms-full.txt) — roughly 19,000 tokens,
+[llms-full.txt](https://816800.xyz/llms-full.txt) — roughly 25,000 tokens,
 including all reference tables, error-code mappings and ffmpeg examples. Fetch
 that when you need substance; use this file when you only need to know where
 things are.
@@ -24,8 +25,12 @@ things are.
 ## Text tools
 
 - [Case converter](https://816800.xyz/tools/case-converter/): camelCase, PascalCase, snake_case, kebab-case, Title Case, Sentence case, UPPERCASE and lowercase.
+- [camelCase converter](https://816800.xyz/tools/camelcase-converter/): dedicated camelCase conversion with an acronym toggle, plus a table of which ecosystems use camelCase and how word boundaries are detected.
+- [snake_case converter](https://816800.xyz/tools/snake-case-converter/): snake_case and SCREAMING_SNAKE_CASE, aimed at Python PEP 8, Ruby, Rust and SQL columns, including why PostgreSQL folds unquoted identifiers to lowercase.
+- [kebab-case converter](https://816800.xyz/tools/kebab-case-converter/): kebab-case for URL slugs, CSS classes and file names, with slug-building rules and the reason hyphens beat underscores for readability and search.
 - [Word counter](https://816800.xyz/tools/word-counter/): words, characters, sentences, paragraphs, reading time and a top-10 keyword density table, all updating as you type.
-- [Fancy text generator](https://816800.xyz/tools/font-changer/): bold, italic, cursive, monospace and other Unicode styles for social bios and posts.
+- [Reading time calculator](https://816800.xyz/tools/reading-time-calculator/): reading time at five speeds plus a speaking-time estimate, with tables mapping words per minute to scenarios and target durations to word counts.
+- [Fancy text generator](https://816800.xyz/tools/font-changer/): bold, italic, cursive, monospace and other Unicode styles for social bios and posts, including ready-to-copy Unicode bold samples.
 - [All tools](https://816800.xyz/tools/): the full grid, with a comparison table of what each tool accepts and where the processing happens.
 
 ## Streaming guides
@@ -36,6 +41,7 @@ things are.
 - [M3U8 vs MP4](https://816800.xyz/blog/m3u8-vs-mp4/): an eight-dimension comparison, bandwidth cost at each rung, and ffmpeg commands for converting in both directions.
 - [DASH vs HLS](https://816800.xyz/blog/dash-vs-hls/): MPD versus m3u8 manifests side by side, FairPlay versus Widevine and PlayReady DRM, and how to choose for a given delivery target.
 - [Best M3U8 players](https://816800.xyz/blog/m3u8-player-recommend/): online and desktop options compared, including what each one does when a stream fails.
+- [M3U8 player vs VLC](https://816800.xyz/blog/m3u8-player-vs-vlc/): what each tool can and cannot detect when testing a stream, a capability matrix, a five-step workflow that uses both, and a symptom-to-cause table. Cites measured CORS headers from public test streams.
 
 ## Text tool guides
 

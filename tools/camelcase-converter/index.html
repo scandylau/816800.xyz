@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>camelCase Converter - Free Online Text Tool | 816800.xyz</title>
+  <meta name="description" content="Convert any text to camelCase instantly in your browser. Handles acronyms, digits and word boundaries. Free, private, no upload, no sign-up." />
+  <meta name="keywords" content="camelcase converter, camel case converter, convert to camelcase online, camelcase generator, javascript naming convention, pascalcase converter" />
+  <meta name="author" content="Wen Lau" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/tools/camelcase-converter/" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/tools/camelcase-converter/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/tools/camelcase-converter/" />
+  <meta property="og:title" content="camelCase Converter - Free Online Text Tool" />
+  <meta property="og:description" content="Convert any text to camelCase instantly in your browser. Handles acronyms, digits and word boundaries. Free, private, no upload, no sign-up." />
+  <meta property="og:url" content="https://816800.xyz/tools/camelcase-converter/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="camelCase Converter - Free Online Text Tool" />
+  <meta name="twitter:description" content="Convert any text to camelCase instantly in your browser. Handles acronyms, digits and word boundaries. Free, private, no upload, no sign-up." />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "camelCase Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://816800.xyz/tools/camelcase-converter/",
+      "description": "Free online camelCase converter that rewrites any text into camelCase, PascalCase, snake_case, kebab-case or SCREAMING_SNAKE_CASE, with optional acronym handling. Runs entirely in the browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://816800.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://816800.xyz/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "camelCase Converter",
+          "item": "https://816800.xyz/tools/camelcase-converter/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is camelCase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "camelCase is a naming convention that writes multi-word identifiers without spaces, capitalizing every word except the first, as in totalItemCount or getUserById. The capital letters in the middle are said to resemble a camel's humps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is camelCase the same as lowerCamelCase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. lowerCamelCase is the formal name for camelCase with a lowercase first letter, used to distinguish it from UpperCamelCase, which is another name for PascalCase. In everyday use people say camelCase and mean lowerCamelCase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this camelCase converter upload my text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is pure client-side JavaScript. Your text stays inside your browser tab and never reaches a server, which matters when you are converting proprietary identifiers or unannounced API shapes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I convert a whole list of identifiers at once?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Paste one identifier per line. Newlines and other separators are treated as word boundaries, so each line becomes its own converted value."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did my output lose the numbers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It should not. Digits are kept as part of the word they sit in. If a result looks wrong, the input probably contained a separator that was read as a word boundary; converting to lowercase first usually cleans it up."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should acronyms stay uppercase in camelCase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on your style guide. Google's Java Style Guide treats an acronym as an ordinary word, giving parseHttpResponse. Apple's Swift guidance and much JavaScript code keep it uppercase, giving parseHTTPResponse. Use the checkbox above to match your project."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 home">
+        <img class="brand-mark" src="/assets/img/logo.svg" alt="" width="26" height="26" />
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">中文</button>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="/" data-zh="首页" data-en="Home">Home</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/tools/case-converter/" class="active" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <div class="nav-dropdown">
+            <a href="/tools/" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false"><span data-zh="更多" data-en="More">More</span><span class="caret" aria-hidden="true">▾</span></a>
+            <div class="nav-dropdown-menu">
+              <div class="dd-group" data-zh="工具" data-en="Tools">Tools</div>
+              <a href="/tools/font-changer/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="花体字生成" data-en="Fancy Text Generator">Fancy Text Generator</span>
+                  <span class="dd-desc" data-zh="社媒可用的 Unicode 样式" data-en="Unicode styles for social">Unicode styles for social</span>
+                </span>
+              </a>
+              <a href="/tools/reading-time-calculator/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="阅读时长计算器" data-en="Reading Time Calculator">Reading Time Calculator</span>
+                  <span class="dd-desc" data-zh="估算阅读与演讲时长" data-en="Estimate read and speech time">Estimate read and speech time</span>
+                </span>
+              </a>
+              <a href="/tools/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="全部工具" data-en="All tools">All tools</span>
+                  <span class="dd-desc" data-zh="浏览全部 9 个工具" data-en="Browse all 9 tools">Browse all 9 tools</span>
+                </span>
+              </a>
+              <div class="divider"></div>
+              <div class="dd-group" data-zh="站点" data-en="Site">Site</div>
+              <a href="/about/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="关于" data-en="About">About</span>
+                  <span class="dd-desc" data-zh="关于本站与工具路线" data-en="Who we are">Who we are</span>
+                </span>
+              </a>
+              <a href="/contact/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="联系" data-en="Contact">Contact</span>
+                  <span class="dd-desc" data-zh="提交建议或反馈" data-en="Get in touch">Get in touch</span>
+                </span>
+              </a>
+            </div></div>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="tool-wrap">
+        <section class="hero">
+          <span class="eyebrow" data-zh="纯前端 · 即时转换 · 不上传" data-en="Pure Front-End · Instant · No Upload">Pure Front-End · Instant · No Upload</span>
+          <h1 class="i18n-block lang-en">
+            <span class="en">Free Online <span class="grad">camelCase Converter</span></span>
+            <span class="zh">免费在线 <span class="grad">camelCase 转换</span></span>
+          </h1>
+          <p data-zh="一键把任意文本转成 camelCase。自动识别空格、下划线、连字符和已有的驼峰边界，数字与缩略语按预期保留。全部处理在你的浏览器内完成，文本不会离开你的设备。"
+             data-en="Turn any text into camelCase in one click. It splits on spaces, underscores, hyphens and existing camelCase boundaries, and it keeps digits and acronyms where you expect them. Everything runs in your browser, so your text never leaves your device.">Turn any text into camelCase in one click. It splits on spaces, underscores, hyphens and existing camelCase boundaries, and it keeps digits and acronyms where you expect them. Everything runs in your browser, so your text never leaves your device.</p>
+        </section>
+
+        <div class="tool-panel">
+          <div class="field">
+            <label for="ncInput" data-zh="输入文本" data-en="Your text">Your text</label>
+            <textarea id="ncInput" data-zh-ph="在此粘贴或输入文本…" data-en-ph="Paste or type your text here…" placeholder="Paste or type your text here…"></textarea>
+          </div>
+
+          <div class="seg" id="ncSeg" data-default="camel">
+            <button class="seg-btn active" data-case="camel" type="button" data-zh="小驼峰" data-en="camelCase">camelCase</button>
+            <button class="seg-btn" data-case="pascal" type="button" data-zh="大驼峰" data-en="PascalCase">PascalCase</button>
+            <button class="seg-btn" data-case="snake" type="button" data-zh="下划线" data-en="snake_case">snake_case</button>
+            <button class="seg-btn" data-case="screaming" type="button" data-zh="常量式" data-en="SCREAMING_SNAKE">SCREAMING_SNAKE</button>
+            <button class="seg-btn" data-case="kebab" type="button" data-zh="连字符" data-en="kebab-case">kebab-case</button>
+            <button class="seg-btn" data-case="train" type="button" data-zh="首字母连字符" data-en="Train-Case">Train-Case</button>
+            <button class="seg-btn" data-case="flat" type="button" data-zh="全小写无分隔" data-en="flatcase">flatcase</button>
+          </div>
+
+          <div class="controls">
+            <label class="hint"><input type="checkbox" id="ncAcr" checked /> <span data-zh="把连续大写视为缩略语（HTTP → HTTP）" data-en="Treat consecutive capitals as one acronym (HTTP stays HTTP)">Treat consecutive capitals as one acronym (HTTP stays HTTP)</span></label>
+          </div>
+
+          <div class="field">
+            <label for="ncOutput" data-zh="转换结果" data-en="Result">Result</label>
+            <textarea id="ncOutput" readonly data-zh-ph="转换后的文本会显示在这里…" data-en-ph="Your converted text appears here…" placeholder="Your converted text appears here…"></textarea>
+          </div>
+
+          <div class="tool-actions">
+            <button class="btn btn-primary" id="ncCopy" type="button" data-zh="复制结果" data-en="Copy result">Copy result</button>
+            <button class="btn btn-ghost" id="ncSwap" type="button" data-zh="用结果替换输入" data-en="Use result as input">Use result as input</button>
+            <button class="btn btn-ghost" id="ncClear" type="button" data-zh="清空" data-en="Clear">Clear</button>
+          </div>
+          <div class="status" id="ncStatus"></div>
+        </div>
+
+        <article class="prose i18n-block lang-en">
+          <div class="en">
+
+            <h2>What camelCase Is and When You Should Use It</h2>
+            <p class="lead">camelCase joins words without separators and capitalizes every word after the first: <code>userName</code>, <code>parseHttpResponse</code>, <code>totalItemCount</code>. It is the default naming style for JavaScript and the convention most JSON APIs use for their keys. This page converts any text into camelCase in one click, entirely inside your browser.</p>
+
+            <h3>camelCase vs PascalCase vs the rest</h3>
+            <p>The difference between camelCase and PascalCase is only the first letter. camelCase starts lowercase and is used for variables, functions and object keys. PascalCase starts uppercase and is reserved for things that define a type or a component: classes, React components, TypeScript interfaces and C# methods.</p>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Convention</th><th>Shape</th><th>Typical use</th></tr></thead>
+                <tbody>
+                  <tr><td>camelCase</td><td><code>getUserById</code></td><td>JavaScript variables, functions, JSON keys</td></tr>
+                  <tr><td>PascalCase</td><td><code>GetUserById</code></td><td>Classes, React components, types</td></tr>
+                  <tr><td>snake_case</td><td><code>get_user_by_id</code></td><td>Python, Ruby, database columns</td></tr>
+                  <tr><td>kebab-case</td><td><code>get-user-by-id</code></td><td>CSS classes, HTML attributes, URL slugs</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Where camelCase is the house style</h3>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Ecosystem</th><th>What uses camelCase</th><th>Example</th></tr></thead>
+                <tbody>
+                  <tr><td>JavaScript / TypeScript</td><td>Variables, functions, object properties</td><td><code>const maxRetryCount = 3</code></td></tr>
+                  <tr><td>Java</td><td>Fields, methods and local variables; classes stay PascalCase</td><td><code>getUserName()</code></td></tr>
+                  <tr><td>Swift</td><td>Variables and argument labels in modern APIs</td><td><code>var userName: String</code></td></tr>
+                  <tr><td>REST / JSON APIs</td><td>Most public payload keys</td><td><code>{"userName": "ada"}</code></td></tr>
+                  <tr><td>C#</td><td>Parameters and local variables; methods are PascalCase</td><td><code>string userName</code></td></tr>
+                  <tr><td>Dart / Flutter</td><td>Variables and functions</td><td><code>final userName = '';</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>How the conversion actually works</h3>
+            <p>A converter has to decide where one word ends and the next begins. This one splits on three signals: spaces and punctuation, an existing underscore or hyphen, and a lowercase-to-uppercase transition inside a word. Every word is then lowercased except the first letter of each word after the first.</p>
+            <pre><code>user name             → userName
+User Name             → userName
+user_name             → userName
+user-name             → userName
+USER NAME             → userName
+getUserById()         → getUserById
+2 fast 2 furious      → 2Fast2Furious</code></pre>
+            <p>Note the last line. Many converters drop digits or push them somewhere odd, because a number is not a word. Keeping digits attached to the word they sit in is what makes the result usable as a real identifier — though since most languages forbid a name that starts with a digit, you will want to rename that one.</p>
+
+            <h3>Acronyms: the part most converters get wrong</h3>
+            <p>Given <code>parse HTTP response</code>, should the result be <code>parseHTTPResponse</code> or <code>parseHttpResponse</code>? Both appear in production code, and the major style guides disagree. Google's Java Style Guide treats an acronym as an ordinary word, which yields <code>parseHttpResponse</code>. Apple's Swift guidance and a large amount of JavaScript keep the run of capitals intact, giving <code>parseHTTPResponse</code>.</p>
+            <p>The checkbox above lets you choose. Leave it on to keep consecutive capitals together; turn it off to spread them into separate words. If your project runs a linter, match whatever the linter enforces.</p>
+
+            <h3>Converting camelCase back out</h3>
+            <p>camelCase is rarely the final form. You convert out of it whenever a value crosses an ecosystem boundary:</p>
+            <ul>
+              <li><strong>To kebab-case</strong> when the value becomes a URL slug or a CSS class.</li>
+              <li><strong>To snake_case</strong> when a JSON key lands in Python, Ruby or a SQL column.</li>
+              <li><strong>To SCREAMING_SNAKE_CASE</strong> when it becomes an environment variable.</li>
+            </ul>
+            <pre><code>getUserById   → get-user-by-id    (URL slug)
+getUserById   → get_user_by_id    (Python attribute)
+getUserById   → GET_USER_BY_ID    (environment variable)</code></pre>
+            <p>Both are one click away on the <a href="/tools/snake-case-converter/">snake_case converter</a> and the <a href="/tools/kebab-case-converter/">kebab-case converter</a>.</p>
+
+            <h3>Frequently asked questions</h3>
+            <h4>What is camelCase?</h4>
+            <p>camelCase writes multi-word identifiers without spaces and capitalizes every word except the first, as in <code>totalItemCount</code>. The capitals in the middle are said to look like a camel's humps.</p>
+            <h4>Is camelCase the same as lowerCamelCase?</h4>
+            <p>Yes. lowerCamelCase is the formal term for camelCase with a lowercase first letter, used to distinguish it from UpperCamelCase (PascalCase). In practice people say camelCase and mean lowerCamelCase.</p>
+            <h4>Does this converter upload my text?</h4>
+            <p>No. It is pure client-side JavaScript. Your text stays inside your browser tab and never reaches a server.</p>
+            <h4>Can I convert a whole list of identifiers at once?</h4>
+            <p>Yes. Paste one per line. Newlines are treated as word boundaries, so each line becomes its own converted value.</p>
+            <h4>Why did my output lose the numbers?</h4>
+            <p>It should not. Digits stay attached to the word they sit in. If a result looks wrong, the input probably contained a separator that was read as a boundary; converting to lowercase first usually fixes it.</p>
+            <h4>Should acronyms stay uppercase?</h4>
+            <p>Match your style guide. Google's Java guide gives <code>parseHttpResponse</code>; Apple's Swift guidance and much JavaScript use <code>parseHTTPResponse</code>. The checkbox above switches between the two.</p>
+
+            <p>Working in Python or SQL instead? Use the <a href="/tools/snake-case-converter/">snake_case converter</a>. Building URLs? Use the <a href="/tools/kebab-case-converter/">kebab-case converter</a>. Every convention in one place lives on the <a href="/tools/case-converter/">Case Converter</a>.</p>
+
+          </div>
+          <div class="zh">
+            <h2>camelCase 转换工具</h2>
+            <p class="lead">把任意文本一键转成 camelCase，自动识别空格、下划线、连字符与已有驼峰边界，数字与缩略语按预期保留。</p>
+            <p>本页为英文优先内容，中文版正在补齐中。工具本身完全可用，且不受语言影响。你可以先查看<a href="/tools/case-converter/">大小写转换总览</a>，或回到<a href="/tools/">工具总览页</a>。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/">
+            <img src="/assets/img/logo.svg" alt="" width="22" height="22" />
+            <span class="footer-logo-text">816800.xyz</span>
+          </a>
+          <p class="footer-tagline" data-zh="极简暗黑风技术工具箱，为开发者而做。" data-en="Minimal dark tech toolkit for developers.">Minimal dark tech toolkit for developers.</p>
+          <a class="footer-cta" href="/tools/" data-zh="全部工具" data-en="All tools">All tools</a>
+        </div>
+        <nav class="footer-col" aria-label="Tools">
+          <span class="footer-group-title" data-zh="工具" data-en="Tools">Tools</span>
+          <a href="/tools/case-converter/" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/camelcase-converter/" data-zh="camelCase 转换" data-en="camelCase Converter">camelCase Converter</a>
+          <a href="/tools/snake-case-converter/" data-zh="snake_case 转换" data-en="snake_case Converter">snake_case Converter</a>
+          <a href="/tools/kebab-case-converter/" data-zh="kebab-case 转换" data-en="kebab-case Converter">kebab-case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+        </nav>
+        <nav class="footer-col" aria-label="Site">
+          <span class="footer-group-title" data-zh="站点" data-en="Site">Site</span>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/tools/" data-zh="工具总览" data-en="All tools">All tools</a>
+          <a href="/llms.txt" data-zh="llms.txt" data-en="llms.txt" title="AI-readable site index">llms.txt</a>
+        </nav>
+        <nav class="footer-col" aria-label="Legal">
+          <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
+          <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+          <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 816800.xyz</span>
+        <span class="footer-mini" data-zh="无需注册 · 浏览器本地运行" data-en="No sign-up · Runs in your browser">No sign-up · Runs in your browser</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/naming-converter.js" defer></script>
+  <script src="/assets/js/i18n.js" defer></script>
+</body>
+</html>

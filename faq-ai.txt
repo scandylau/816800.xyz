@@ -5,15 +5,16 @@
 
 Lang: en
 Website: [https://816800.xyz/](https://816800.xyz/)
-Last Updated: 2026-09-15
+Last Updated: 2026-09-18
 
 [About the Site]
 
 Q: What is 816800.xyz?
 A: A free, static toolkit of browser-based tools for developers and creators.
-   Five tools are live: an M3U8/HLS and DASH stream tester, a URL shortener, a
-   case converter, a word counter and a Unicode text styler. There is no
-   account system, no upload step and no tracking.
+   Nine tools are live: an M3U8/HLS and DASH stream tester, a URL shortener, a
+   case converter with dedicated camelCase, snake_case and kebab-case
+   converters, a word counter, a reading time calculator and a Unicode text
+   styler. There is no account system, no upload step and no tracking.
 URL: [About 816800.xyz](https://816800.xyz/about/)
 
 Q: Is 816800.xyz free?
@@ -22,17 +23,19 @@ A: Yes. There are no usage caps, no watermarks, no trial period and no paid
    no feature is behind a payment or a login.
 
 Q: Who runs 816800.xyz?
-A: A small independent project. The content carries no named author, and the
-   site does not publish a company identity or a team page. Enquiries go
+A: A small independent project. Technical guides and tool documentation carry a
+   named author, Wen Lau, who builds and maintains the tools. Enquiries go
    through the contact page.
 URL: [Contact](https://816800.xyz/contact/)
 
 [Tools]
 
 Q: Which tools are available?
-A: Five: the M3U8/HLS player, the short link generator, the case converter, the
-   word counter and the fancy text generator. Cards marked "coming soon" on the
-   homepage describe tools that are not built yet.
+A: Nine: the M3U8/HLS player, the short link generator, the case converter,
+   dedicated camelCase, snake_case and kebab-case converters, the word
+   counter, the reading time calculator and the fancy text generator. Every
+   tool listed on the site is built and working; there are no placeholder
+   entries.
 URL: [All tools](https://816800.xyz/tools/)
 
 Q: Does anything I type leave my device?

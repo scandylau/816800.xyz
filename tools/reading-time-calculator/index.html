@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading Time Calculator - Read & Speech Time | 816800.xyz</title>
+  <meta name="description" content="Calculate reading time at five speeds plus speaking time at conversational pace. Adjustable words-per-minute, live results, runs entirely in your browser." />
+  <meta name="keywords" content="reading time calculator, reading time estimator, words per minute, speaking time calculator, how long to read, word count to minutes" />
+  <meta name="author" content="Wen Lau" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/tools/reading-time-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/tools/reading-time-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/tools/reading-time-calculator/" />
+  <meta property="og:title" content="Reading Time Calculator - Read & Speech Time" />
+  <meta property="og:description" content="Calculate reading time at five speeds plus speaking time at conversational pace. Adjustable words-per-minute, live results, runs entirely in your browser." />
+  <meta property="og:url" content="https://816800.xyz/tools/reading-time-calculator/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Reading Time Calculator - Estimate Read and Speech Time" />
+  <meta name="twitter:description" content="Calculate reading time at five speeds plus speaking time at conversational pace. Adjustable words-per-minute, live results, runs entirely in your browser." />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Reading Time Calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://816800.xyz/tools/reading-time-calculator/",
+      "description": "Free online reading time calculator that estimates reading time at five different speeds and speaking time at conversational pace, with an adjustable words-per-minute setting. Runs entirely in the browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://816800.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://816800.xyz/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Reading Time Calculator",
+          "item": "https://816800.xyz/tools/reading-time-calculator/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is reading time calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reading time is the word count divided by a reading speed expressed in words per minute. At the common default of 200 words per minute, a 1,000-word article takes about five minutes. Most calculators round up to the nearest minute for display."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do most sites use 200 words per minute?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Studies of silent reading in English usually land between 200 and 250 words per minute for general prose. Two hundred is a conservative middle value, which is why it became the default in most blogging platforms and plugins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Medium's read time different?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Medium divides by roughly 265 words per minute and adds extra seconds per inline image, so its estimates run shorter than a plain word-count calculation for the same article."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the formula work for Chinese or Japanese?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Those scripts have no spaces, so a word count is meaningless. Reading speed in Chinese is measured in characters per minute, typically 300 to 500 for silent reading, and Japanese adds the complication of mixed kanji and kana."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many words do I need for a five-minute video?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At a conversational speaking rate of about 130 words per minute, roughly 650 words. At a faster 150 words per minute you would need about 750. Reading the same script silently would take closer to three minutes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this for presentation timing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Set the speed slider to 130 words per minute, which is a normal conversational pace. Rehearse once against a stopwatch, because individual delivery pace varies more than any formula can capture."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this calculator upload my text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is pure client-side JavaScript. Your draft never leaves your browser tab, so it is safe for unpublished manuscripts and internal documents."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 home">
+        <img class="brand-mark" src="/assets/img/logo.svg" alt="" width="26" height="26" />
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">中文</button>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="/" data-zh="首页" data-en="Home">Home</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/tools/case-converter/" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/word-counter/" class="active" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <div class="nav-dropdown">
+            <a href="/tools/" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false"><span data-zh="更多" data-en="More">More</span><span class="caret" aria-hidden="true">▾</span></a>
+            <div class="nav-dropdown-menu">
+              <div class="dd-group" data-zh="工具" data-en="Tools">Tools</div>
+              <a href="/tools/font-changer/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="花体字生成" data-en="Fancy Text Generator">Fancy Text Generator</span>
+                  <span class="dd-desc" data-zh="社媒可用的 Unicode 样式" data-en="Unicode styles for social">Unicode styles for social</span>
+                </span>
+              </a>
+              <a href="/tools/reading-time-calculator/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="阅读时长计算器" data-en="Reading Time Calculator">Reading Time Calculator</span>
+                  <span class="dd-desc" data-zh="估算阅读与演讲时长" data-en="Estimate read and speech time">Estimate read and speech time</span>
+                </span>
+              </a>
+              <a href="/tools/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="全部工具" data-en="All tools">All tools</span>
+                  <span class="dd-desc" data-zh="浏览全部 9 个工具" data-en="Browse all 9 tools">Browse all 9 tools</span>
+                </span>
+              </a>
+              <div class="divider"></div>
+              <div class="dd-group" data-zh="站点" data-en="Site">Site</div>
+              <a href="/about/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="关于" data-en="About">About</span>
+                  <span class="dd-desc" data-zh="关于本站与工具路线" data-en="Who we are">Who we are</span>
+                </span>
+              </a>
+              <a href="/contact/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="联系" data-en="Contact">Contact</span>
+                  <span class="dd-desc" data-zh="提交建议或反馈" data-en="Get in touch">Get in touch</span>
+                </span>
+              </a>
+            </div></div>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="tool-wrap">
+        <section class="hero">
+          <span class="eyebrow" data-zh="纯前端 · 实时计算 · 不上传" data-en="Pure Front-End · Live · No Upload">Pure Front-End · Live · No Upload</span>
+          <h1 class="i18n-block lang-en">
+            <span class="en">Free Online <span class="grad">Reading Time Calculator</span></span>
+            <span class="zh">免费在线 <span class="grad">阅读时长计算器</span></span>
+          </h1>
+          <p data-zh="粘贴文章、讲稿或脚本，立刻得到不同阅读速度下的阅读时长，以及按口语速度估算的演讲时长。可调速，全部在你的浏览器内完成。"
+             data-en="Paste an article, a talk script or a draft and get the reading time at five different speeds, plus a speaking-time estimate at conversational pace. Adjustable, instant, and entirely inside your browser.">Paste an article, a talk script or a draft and get the reading time at five different speeds, plus a speaking-time estimate at conversational pace. Adjustable, instant, and entirely inside your browser.</p>
+        </section>
+
+        <div class="tool-panel">
+          <div class="field">
+            <label for="rtInput" data-zh="粘贴或输入文本" data-en="Paste or type your text">Paste or type your text</label>
+            <textarea id="rtInput" data-zh-ph="在此粘贴文章、讲稿或任意文本…" data-en-ph="Paste an article, a script or any text here…" placeholder="Paste an article, a script or any text here…"></textarea>
+          </div>
+
+          <div class="controls">
+            <label class="hint" for="rtWpm" data-zh="阅读速度（词/分钟）" data-en="Reading speed (words per minute)">Reading speed (words per minute)</label>
+            <input type="range" id="rtWpm" min="100" max="500" step="10" value="200" style="width:100%;accent-color:#22d3ee;" />
+            <span class="hint"><strong id="rtWpmOut">200</strong> wpm</span>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-label" data-zh="词数" data-en="Words">Words</div>
+              <div class="stat-value grad" id="rtWords">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label" data-zh="字符数" data-en="Characters">Characters</div>
+              <div class="stat-value" id="rtChars">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label" data-zh="句数" data-en="Sentences">Sentences</div>
+              <div class="stat-value" id="rtSentences">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label" data-zh="段落数" data-en="Paragraphs">Paragraphs</div>
+              <div class="stat-value" id="rtParagraphs">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label" data-zh="阅读时长（当前速度）" data-en="Reading time">Reading time</div>
+              <div class="stat-value" id="rtRead">0s</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label" data-zh="朗读 / 演讲时长" data-en="Speaking time">Speaking time</div>
+              <div class="stat-value" id="rtSpeak">0s</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label" data-zh="中日文字符数" data-en="CJK characters">CJK characters</div>
+              <div class="stat-value" id="rtCjk">0</div>
+            </div>
+          </div>
+
+          <div id="rtTableWrap" style="display:none;">
+            <div class="section-head" style="margin-top:26px;">
+              <h2 data-zh="不同速度下的时长" data-en="Time at each reading speed">Time at each reading speed</h2>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th data-zh="速度" data-en="Speed">Speed</th><th data-zh="场景" data-en="Scenario">Scenario</th><th data-zh="时长" data-en="Time">Time</th></tr></thead>
+                <tbody id="rtRows"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tool-actions">
+            <button class="btn btn-ghost" id="rtClear" type="button" data-zh="清空" data-en="Clear">Clear</button>
+          </div>
+          <p class="empty-hint" id="rtEmpty" data-zh="开始输入，时长会实时更新。" data-en="Start typing and the numbers update live.">Start typing and the numbers update live.</p>
+        </div>
+
+        <article class="prose i18n-block lang-en">
+          <div class="en">
+            <h2>How Reading Time Is Actually Calculated</h2>
+            <p class="lead">Every "5 min read" badge on the web comes from the same arithmetic: divide the word count by a reading speed expressed in words per minute. The interesting part is not the division, it is the speed you pick, because that single number decides whether the badge is honest.</p>
+
+            <h3>The formula</h3>
+            <pre><code>reading time (minutes) = word count / words per minute
+
+1,000 words / 200 wpm = 5 minutes
+1,000 words / 130 wpm = 7.7 minutes   (spoken aloud)
+1,000 words / 400 wpm = 2.5 minutes   (skimmed)</code></pre>
+            <p>Most platforms round up to the nearest whole minute, so a 4.2 minute article displays as "5 min read". Rounding up is the safe direction: a reader who finishes early is pleasantly surprised, a reader who is misled stops trusting the badge.</p>
+
+            <h3>Which speed is realistic?</h3>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Speed</th><th>Scenario</th><th>1,000 words takes</th></tr></thead>
+                <tbody>
+                  <tr><td>100–130 wpm</td><td>Reading aloud, presenting, recording narration</td><td>8–10 min</td></tr>
+                  <tr><td>150 wpm</td><td>Careful reading of dense or technical material</td><td>6.7 min</td></tr>
+                  <tr><td>200 wpm</td><td>Average silent reading, the usual default</td><td>5 min</td></tr>
+                  <tr><td>250 wpm</td><td>Fast reader, familiar topic, plain prose</td><td>4 min</td></tr>
+                  <tr><td>400 wpm</td><td>Skimming for a specific fact</td><td>2.5 min</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Research on silent reading in English typically lands between 200 and 250 words per minute for general prose. Two hundred has become the default in blogging platforms because it is a conservative middle value: it flatters neither the author nor the reader.</p>
+
+            <h3>Why badges disagree between sites</h3>
+            <p>Two sites publishing the identical article can show different read times, and neither is broken. Medium divides by roughly 265 words per minute and adds seconds for each inline image. WordPress plugins commonly use 200 or 250. Some count headings and captions as words, others do not. The honest move is to pick one convention and apply it consistently across your own site.</p>
+
+            <h3>Speaking time is a different number</h3>
+            <p>People speak far more slowly than they read. A conversational pace is around 130 words per minute, and conference talks often run slower because of pauses, demos and slides. If you are writing for the ear rather than the eye, use the speaking column and not the reading one.</p>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Target length</th><th>Words at 130 wpm (spoken)</th><th>Words at 200 wpm (read)</th></tr></thead>
+                <tbody>
+                  <tr><td>1 minute</td><td>130</td><td>200</td></tr>
+                  <tr><td>3 minutes</td><td>390</td><td>600</td></tr>
+                  <tr><td>5 minutes</td><td>650</td><td>1,000</td></tr>
+                  <tr><td>10 minutes</td><td>1,300</td><td>2,000</td></tr>
+                  <tr><td>20 minutes</td><td>2,600</td><td>4,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Where the formula breaks</h3>
+            <ul>
+              <li><strong>Chinese, Japanese and Korean.</strong> These scripts have no spaces, so a word count is meaningless. Silent reading speed in Chinese is measured in characters per minute, commonly 300 to 500. This calculator shows a separate CJK character count for that reason.</li>
+              <li><strong>Code, tables and equations.</strong> A page that is half code blocks is not read at prose speed. Nobody reads 200 words of SQL per minute.</li>
+              <li><strong>Images and video.</strong> A word count cannot see them. If your page leads with a two-minute video, add it yourself.</li>
+              <li><strong>Scanning, not reading.</strong> Many visitors never read linearly at all. A badge is a promise about the committed reader, nothing more.</li>
+            </ul>
+
+            <div class="note">Practical tip: measure one of your own articles with a stopwatch once. Whatever number you get, use it as your site-wide speed instead of the default, and your badges will be more honest than most.</div>
+
+            <h3>Frequently asked questions</h3>
+            <h4>How is reading time calculated?</h4>
+            <p>The word count divided by a reading speed in words per minute. At 200 wpm, a 1,000-word article takes about five minutes.</p>
+            <h4>Why 200 words per minute?</h4>
+            <p>Silent reading in English is usually measured between 200 and 250 wpm for general prose. Two hundred is the conservative middle value most platforms adopted.</p>
+            <h4>Is Medium's read time different?</h4>
+            <p>Yes. It uses roughly 265 wpm and adds time for inline images, so its numbers come out shorter than a plain word-count estimate.</p>
+            <h4>Does it work for Chinese or Japanese?</h4>
+            <p>No. Those scripts have no spaces. Use characters per minute instead, typically 300 to 500 for Chinese.</p>
+            <h4>How many words for a five-minute video?</h4>
+            <p>About 650 words at a conversational 130 wpm, or about 750 at 150 wpm.</p>
+            <h4>Can I use this for presentation timing?</h4>
+            <p>Yes. Set the slider to 130 wpm and rehearse once against a stopwatch, because individual pace varies more than any formula captures.</p>
+            <h4>Does this upload my text?</h4>
+            <p>No. It is pure client-side JavaScript and your draft never leaves your browser tab.</p>
+
+            <p>Need word counts and keyword density instead? Use the <a href="/tools/word-counter/">Word Counter</a>, or browse every utility on the <a href="/tools/">Tools</a> page.</p>
+          </div>
+          <div class="zh">
+            <h2>阅读时长是怎么算出来的</h2>
+            <p class="lead">网页上每一个「5 分钟阅读」的角标，都来自同一个算式：词数 ÷ 每分钟阅读词数。真正有讲究的不是除法，而是你选的速度。</p>
+            <p>本页为英文优先内容，中文版正在补齐中。工具本身完全可用，且不受语言影响。你可以先查看<a href="/tools/word-counter/">字数统计工具</a>，或回到<a href="/tools/">工具总览页</a>。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/">
+            <img src="/assets/img/logo.svg" alt="" width="22" height="22" />
+            <span class="footer-logo-text">816800.xyz</span>
+          </a>
+          <p class="footer-tagline" data-zh="极简暗黑风技术工具箱，为开发者而做。" data-en="Minimal dark tech toolkit for developers.">Minimal dark tech toolkit for developers.</p>
+          <a class="footer-cta" href="/tools/" data-zh="全部工具" data-en="All tools">All tools</a>
+        </div>
+        <nav class="footer-col" aria-label="Tools">
+          <span class="footer-group-title" data-zh="工具" data-en="Tools">Tools</span>
+          <a href="/tools/case-converter/" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/camelcase-converter/" data-zh="camelCase 转换" data-en="camelCase Converter">camelCase Converter</a>
+          <a href="/tools/snake-case-converter/" data-zh="snake_case 转换" data-en="snake_case Converter">snake_case Converter</a>
+          <a href="/tools/kebab-case-converter/" data-zh="kebab-case 转换" data-en="kebab-case Converter">kebab-case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+        </nav>
+        <nav class="footer-col" aria-label="Site">
+          <span class="footer-group-title" data-zh="站点" data-en="Site">Site</span>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/tools/" data-zh="工具总览" data-en="All tools">All tools</a>
+          <a href="/llms.txt" data-zh="llms.txt" data-en="llms.txt" title="AI-readable site index">llms.txt</a>
+        </nav>
+        <nav class="footer-col" aria-label="Legal">
+          <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
+          <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+          <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 816800.xyz</span>
+        <span class="footer-mini" data-zh="无需注册 · 浏览器本地运行" data-en="No sign-up · Runs in your browser">No sign-up · Runs in your browser</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/reading-time.js" defer></script>
+  <script src="/assets/js/i18n.js" defer></script>
+</body>
+</html>

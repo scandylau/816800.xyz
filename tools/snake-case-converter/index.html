@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>snake_case Converter - Free Online Generator | 816800.xyz</title>
+  <meta name="description" content="Convert text to snake_case or SCREAMING_SNAKE_CASE instantly in your browser. Built for Python PEP 8, Ruby, Rust and SQL column names. Free and private." />
+  <meta name="keywords" content="snake case converter, snake case generator, screaming snake case, convert camelcase to snake case, python naming convention, pep 8 naming" />
+  <meta name="author" content="Wen Lau" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/tools/snake-case-converter/" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/tools/snake-case-converter/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/tools/snake-case-converter/" />
+  <meta property="og:title" content="snake_case Converter - Free Online Generator" />
+  <meta property="og:description" content="Convert text to snake_case or SCREAMING_SNAKE_CASE instantly in your browser. Built for Python PEP 8, Ruby, Rust and SQL column names. Free and private." />
+  <meta property="og:url" content="https://816800.xyz/tools/snake-case-converter/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="snake_case Converter - Free Online Generator" />
+  <meta name="twitter:description" content="Convert text to snake_case or SCREAMING_SNAKE_CASE instantly in your browser. Built for Python PEP 8, Ruby, Rust and SQL column names. Free and private." />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "snake_case Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "url": "https://816800.xyz/tools/snake-case-converter/",
+      "description": "Free online snake_case converter and generator that rewrites text into snake_case or SCREAMING_SNAKE_CASE, including conversion from camelCase API keys to Python attribute names. Runs entirely in the browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://816800.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://816800.xyz/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "snake_case Converter",
+          "item": "https://816800.xyz/tools/snake-case-converter/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is snake_case?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "snake_case writes multi-word identifiers in lowercase with underscores between words, as in get_user_by_id. It is the naming convention recommended by PEP 8 for Python and is common in Ruby, Rust and SQL column names."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between snake_case and SCREAMING_SNAKE_CASE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They use the same underscore separator. snake_case is lowercase and used for variables, functions and columns. SCREAMING_SNAKE_CASE is all uppercase and reserved for constants, environment variables and enum members that should never change."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does PostgreSQL lowercase my snake_case column?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PostgreSQL folds unquoted identifiers to lowercase, so a column created as UserName is stored as username. snake_case avoids the problem entirely because it is already lowercase, which is one reason it is the safe default for database schemas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can this converter turn camelCase JSON keys into Python attributes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Paste the camelCase key into the box and pick snake_case. The converter splits on the lowercase-to-uppercase transition, so getUserById becomes get_user_by_id without any manual editing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this snake_case generator upload my text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is pure client-side JavaScript. Nothing leaves your browser tab, so it is safe for schema names from private projects."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is snake_case valid in JSON?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. JSON keys are plain strings, so any naming convention is valid. snake_case is widely used by APIs that expect Python or Ruby clients, while JavaScript-heavy APIs tend to prefer camelCase."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 home">
+        <img class="brand-mark" src="/assets/img/logo.svg" alt="" width="26" height="26" />
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">中文</button>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="/" data-zh="首页" data-en="Home">Home</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/tools/case-converter/" class="active" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <div class="nav-dropdown">
+            <a href="/tools/" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false"><span data-zh="更多" data-en="More">More</span><span class="caret" aria-hidden="true">▾</span></a>
+            <div class="nav-dropdown-menu">
+              <div class="dd-group" data-zh="工具" data-en="Tools">Tools</div>
+              <a href="/tools/font-changer/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="花体字生成" data-en="Fancy Text Generator">Fancy Text Generator</span>
+                  <span class="dd-desc" data-zh="社媒可用的 Unicode 样式" data-en="Unicode styles for social">Unicode styles for social</span>
+                </span>
+              </a>
+              <a href="/tools/reading-time-calculator/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="阅读时长计算器" data-en="Reading Time Calculator">Reading Time Calculator</span>
+                  <span class="dd-desc" data-zh="估算阅读与演讲时长" data-en="Estimate read and speech time">Estimate read and speech time</span>
+                </span>
+              </a>
+              <a href="/tools/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="全部工具" data-en="All tools">All tools</span>
+                  <span class="dd-desc" data-zh="浏览全部 9 个工具" data-en="Browse all 9 tools">Browse all 9 tools</span>
+                </span>
+              </a>
+              <div class="divider"></div>
+              <div class="dd-group" data-zh="站点" data-en="Site">Site</div>
+              <a href="/about/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="关于" data-en="About">About</span>
+                  <span class="dd-desc" data-zh="关于本站与工具路线" data-en="Who we are">Who we are</span>
+                </span>
+              </a>
+              <a href="/contact/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="联系" data-en="Contact">Contact</span>
+                  <span class="dd-desc" data-zh="提交建议或反馈" data-en="Get in touch">Get in touch</span>
+                </span>
+              </a>
+            </div></div>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="tool-wrap">
+        <section class="hero">
+          <span class="eyebrow" data-zh="纯前端 · 即时转换 · 不上传" data-en="Pure Front-End · Instant · No Upload">Pure Front-End · Instant · No Upload</span>
+          <h1 class="i18n-block lang-en">
+            <span class="en">Free Online <span class="grad">snake_case Converter</span></span>
+            <span class="zh">免费在线 <span class="grad">snake_case 转换</span></span>
+          </h1>
+          <p data-zh="一键把任意文本转成 snake_case，或转为常量与环境变量常用的 SCREAMING_SNAKE_CASE。支持 camelCase 输入、缩略语与数字，全程在浏览器内完成。"
+             data-en="Turn any text into snake_case in one click, or into SCREAMING_SNAKE_CASE for constants and environment variables. It handles camelCase input, acronyms and digits, all inside your browser.">Turn any text into snake_case in one click, or into SCREAMING_SNAKE_CASE for constants and environment variables. It handles camelCase input, acronyms and digits, all inside your browser.</p>
+        </section>
+
+        <div class="tool-panel">
+          <div class="field">
+            <label for="ncInput" data-zh="输入文本" data-en="Your text">Your text</label>
+            <textarea id="ncInput" data-zh-ph="在此粘贴或输入文本…" data-en-ph="Paste or type your text here…" placeholder="Paste or type your text here…"></textarea>
+          </div>
+
+          <div class="seg" id="ncSeg" data-default="snake">
+            <button class="seg-btn active" data-case="snake" type="button" data-zh="下划线" data-en="snake_case">snake_case</button>
+            <button class="seg-btn" data-case="screaming" type="button" data-zh="常量式" data-en="SCREAMING_SNAKE">SCREAMING_SNAKE</button>
+            <button class="seg-btn" data-case="camel" type="button" data-zh="小驼峰" data-en="camelCase">camelCase</button>
+            <button class="seg-btn" data-case="pascal" type="button" data-zh="大驼峰" data-en="PascalCase">PascalCase</button>
+            <button class="seg-btn" data-case="kebab" type="button" data-zh="连字符" data-en="kebab-case">kebab-case</button>
+            <button class="seg-btn" data-case="flat" type="button" data-zh="全小写无分隔" data-en="flatcase">flatcase</button>
+          </div>
+
+          <div class="controls">
+            <label class="hint"><input type="checkbox" id="ncAcr" checked /> <span data-zh="把连续大写视为缩略语（HTTP → HTTP）" data-en="Treat consecutive capitals as one acronym (HTTP stays HTTP)">Treat consecutive capitals as one acronym (HTTP stays HTTP)</span></label>
+          </div>
+
+          <div class="field">
+            <label for="ncOutput" data-zh="转换结果" data-en="Result">Result</label>
+            <textarea id="ncOutput" readonly data-zh-ph="转换后的文本会显示在这里…" data-en-ph="Your converted text appears here…" placeholder="Your converted text appears here…"></textarea>
+          </div>
+
+          <div class="tool-actions">
+            <button class="btn btn-primary" id="ncCopy" type="button" data-zh="复制结果" data-en="Copy result">Copy result</button>
+            <button class="btn btn-ghost" id="ncSwap" type="button" data-zh="用结果替换输入" data-en="Use result as input">Use result as input</button>
+            <button class="btn btn-ghost" id="ncClear" type="button" data-zh="清空" data-en="Clear">Clear</button>
+          </div>
+          <div class="status" id="ncStatus"></div>
+        </div>
+
+        <article class="prose i18n-block lang-en">
+          <div class="en">
+
+            <h2>What snake_case Is and Why Python Uses It</h2>
+            <p class="lead">snake_case writes multi-word identifiers in lowercase with an underscore between words: <code>get_user_by_id</code>, <code>max_retry_count</code>, <code>created_at</code>. It is the style PEP 8 recommends for Python, and it is the safe default for SQL column names. This generator converts any text into snake_case in one click, inside your browser.</p>
+
+            <h3>The three variants of snake_case</h3>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Variant</th><th>Shape</th><th>Used for</th></tr></thead>
+                <tbody>
+                  <tr><td>snake_case</td><td><code>get_user_by_id</code></td><td>Variables, functions, columns, file names</td></tr>
+                  <tr><td>SCREAMING_SNAKE_CASE</td><td><code>MAX_RETRY_COUNT</code></td><td>Module constants, environment variables, enums</td></tr>
+                  <tr><td>dunder (magic)</td><td><code>__init__</code></td><td>Python special methods you should not invent yourself</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The separator is the same in every case. What changes is the letter case, and the letter case signals whether the value is expected to change: lowercase means it can, uppercase means it should not.</p>
+
+            <h3>Where snake_case is the default</h3>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Ecosystem</th><th>Convention source</th><th>Example</th></tr></thead>
+                <tbody>
+                  <tr><td>Python</td><td>PEP 8 for functions, variables and module names</td><td><code>def get_user_by_id(user_id):</code></td></tr>
+                  <tr><td>Ruby</td><td>Community style guide for methods and symbols</td><td><code>def user_full_name</code></td></tr>
+                  <tr><td>Rust</td><td>Compiler warns on non-snake-case variables</td><td><code>let max_retry_count = 3;</code></td></tr>
+                  <tr><td>PostgreSQL / MySQL</td><td>Unquoted identifiers fold to lowercase, so lowercase names are safest</td><td><code>SELECT created_at FROM users;</code></td></tr>
+                  <tr><td>Environment variables</td><td>POSIX convention, uppercase form</td><td><code>DATABASE_URL=...</code></td></tr>
+                  <tr><td>File names</td><td>Readable across case-insensitive filesystems</td><td><code>user_profile_service.py</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>A detail that bites people: identifier folding</h3>
+            <p>PostgreSQL folds unquoted identifiers to lowercase. Create a column as <code>UserName</code> and it is stored as <code>username</code>; query it as <code>UserName</code> and it still resolves, because the unquoted reference folds too. The trouble starts when you quote it: <code>SELECT "UserName"</code> fails, because the stored name is lowercase. MySQL has its own variant of the same surprise on case-insensitive filesystems.</p>
+            <p>snake_case sidesteps all of it. If every identifier is already lowercase and underscore-separated, there is nothing to fold and nothing to quote.</p>
+
+            <h3>How the conversion works</h3>
+            <p>The converter splits on spaces, punctuation, existing hyphens and dots, and on a lowercase-to-uppercase transition inside a word. Every word is then lowercased and joined with a single underscore.</p>
+            <pre><code>user name             → user_name
+User Name             → user_name
+userName              → user_name
+user-name             → user_name
+GetUserById()         → get_user_by_id
+parse HTTP response   → parse_http_response
+Max Retry Count       → MAX_RETRY_COUNT   (uppercase variant)</code></pre>
+            <p>The acronym checkbox decides how a run of capitals such as <code>HTTP</code> is treated: with it on, the run stays intact and uppercase, with it off it is treated as an ordinary word. It only changes the output when the target style keeps capitals, so it affects camelCase and PascalCase; the underscore styles lowercase everything either way.</p>
+
+            <h3>Converting JSON keys to Python names</h3>
+            <p>This is the most common real use. A REST API returns camelCase keys, your Python client wants snake_case attributes, and doing it by hand for forty fields is misery. Paste the keys in, pick snake_case, paste the result back.</p>
+            <pre><code>userName        → user_name
+createdAt       → created_at
+isActive        → is_active
+profileImageURL → profile_image_url</code></pre>
+            <p>Going the other way, from Python to a JavaScript front end, is the same operation in reverse on the <a href="/tools/camelcase-converter/">camelCase converter</a>.</p>
+
+            <h3>Frequently asked questions</h3>
+            <h4>What is snake_case?</h4>
+            <p>snake_case writes multi-word identifiers in lowercase with underscores between words, as in <code>get_user_by_id</code>. PEP 8 recommends it for Python, and it is common in Ruby, Rust and SQL.</p>
+            <h4>How is SCREAMING_SNAKE_CASE different?</h4>
+            <p>Same separator, uppercase letters. It marks values that should not change: module constants, environment variables and enum members.</p>
+            <h4>Why does PostgreSQL lowercase my column?</h4>
+            <p>Because unquoted identifiers are folded to lowercase. snake_case is already lowercase, so nothing folds and nothing needs quoting.</p>
+            <h4>Can it convert camelCase JSON keys?</h4>
+            <p>Yes. Paste the camelCase key and pick snake_case. The split happens on the lowercase-to-uppercase transition, so <code>getUserById</code> becomes <code>get_user_by_id</code>.</p>
+            <h4>Does this upload my text?</h4>
+            <p>No. It is pure client-side JavaScript and nothing leaves your browser tab.</p>
+            <h4>Is snake_case valid in JSON?</h4>
+            <p>Yes. JSON keys are strings, so any convention works. snake_case is preferred by APIs aimed at Python and Ruby clients; camelCase dominates where JavaScript clients are the norm.</p>
+
+            <p>Need the opposite direction? Use the <a href="/tools/camelcase-converter/">camelCase converter</a>, or build URL slugs with the <a href="/tools/kebab-case-converter/">kebab-case converter</a>. All conventions in one place: <a href="/tools/case-converter/">Case Converter</a>.</p>
+
+          </div>
+          <div class="zh">
+            <h2>snake_case 转换工具</h2>
+            <p class="lead">把任意文本一键转成 snake_case 或 SCREAMING_SNAKE_CASE，支持 camelCase 输入、缩略语与数字。</p>
+            <p>本页为英文优先内容，中文版正在补齐中。工具本身完全可用，且不受语言影响。你可以先查看<a href="/tools/case-converter/">大小写转换总览</a>，或回到<a href="/tools/">工具总览页</a>。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/">
+            <img src="/assets/img/logo.svg" alt="" width="22" height="22" />
+            <span class="footer-logo-text">816800.xyz</span>
+          </a>
+          <p class="footer-tagline" data-zh="极简暗黑风技术工具箱，为开发者而做。" data-en="Minimal dark tech toolkit for developers.">Minimal dark tech toolkit for developers.</p>
+          <a class="footer-cta" href="/tools/" data-zh="全部工具" data-en="All tools">All tools</a>
+        </div>
+        <nav class="footer-col" aria-label="Tools">
+          <span class="footer-group-title" data-zh="工具" data-en="Tools">Tools</span>
+          <a href="/tools/case-converter/" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/camelcase-converter/" data-zh="camelCase 转换" data-en="camelCase Converter">camelCase Converter</a>
+          <a href="/tools/snake-case-converter/" data-zh="snake_case 转换" data-en="snake_case Converter">snake_case Converter</a>
+          <a href="/tools/kebab-case-converter/" data-zh="kebab-case 转换" data-en="kebab-case Converter">kebab-case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+        </nav>
+        <nav class="footer-col" aria-label="Site">
+          <span class="footer-group-title" data-zh="站点" data-en="Site">Site</span>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/tools/" data-zh="工具总览" data-en="All tools">All tools</a>
+          <a href="/llms.txt" data-zh="llms.txt" data-en="llms.txt" title="AI-readable site index">llms.txt</a>
+        </nav>
+        <nav class="footer-col" aria-label="Legal">
+          <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
+          <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+          <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 816800.xyz</span>
+        <span class="footer-mini" data-zh="无需注册 · 浏览器本地运行" data-en="No sign-up · Runs in your browser">No sign-up · Runs in your browser</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/naming-converter.js" defer></script>
+  <script src="/assets/js/i18n.js" defer></script>
+</body>
+</html>

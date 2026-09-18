@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M3U8 Player vs VLC: Which Should You Use to Test a Stream?</title>
+  <meta name="description" content="VLC proves a stream exists; a browser HLS player proves it plays on the web. What each can and cannot detect, with measured CORS examples." />
+  <meta name="keywords" content="m3u8 player vs vlc, online vs desktop stream tester, browser hls player comparison, test hls stream, vlc m3u8, hls stream testing" />
+  <meta name="author" content="Wen Lau" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="canonical" href="https://816800.xyz/blog/m3u8-player-vs-vlc/" />
+  <link rel="alternate" hreflang="en" href="https://816800.xyz/blog/m3u8-player-vs-vlc/" />
+  <link rel="alternate" hreflang="x-default" href="https://816800.xyz/blog/m3u8-player-vs-vlc/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:title" content="M3U8 Player vs VLC: Which Should You Use to Test a Stream?" />
+  <meta property="og:description" content="VLC proves a stream exists; a browser HLS player proves it plays on the web. What each can and cannot detect, with measured CORS examples." />
+  <meta property="og:url" content="https://816800.xyz/blog/m3u8-player-vs-vlc/" />
+  <meta property="og:site_name" content="816800.xyz" />
+  <meta property="og:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="M3U8 Player vs VLC: Which Should You Use to Test a Stream?" />
+  <meta name="twitter:description" content="VLC proves a stream exists; a browser HLS player proves it plays on the web. What each can and cannot detect." />
+  <meta name="twitter:image" content="https://816800.xyz/assets/img/og-image.png" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="icon" href="/assets/img/logo.svg" type="image/svg+xml" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "M3U8 Player vs VLC: Which Should You Use to Test a Stream?",
+      "description": "VLC proves a stream exists. A browser HLS tester proves it plays under web rules. What each one can and cannot see, with measured examples.",
+      "datePublished": "2026-09-18",
+      "dateModified": "2026-09-18",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "Wen Lau",
+        "url": "https://816800.xyz/about/#author",
+        "jobTitle": "Maintainer and technical writer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "816800.xyz",
+          "url": "https://816800.xyz/"
+        },
+        "knowsAbout": [
+          "HLS streaming",
+          "MPEG-DASH",
+          "m3u8 playlists",
+          "CORS",
+          "Browser media APIs",
+          "Static web tooling"
+        ],
+        "description": "Builds and maintains the browser-based tools on 816800.xyz and writes their documentation. Focus areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server."
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "816800.xyz",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://816800.xyz/assets/img/logo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://816800.xyz/blog/m3u8-player-vs-vlc/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://816800.xyz/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://816800.xyz/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "M3U8 Player vs VLC",
+          "item": "https://816800.xyz/blog/m3u8-player-vs-vlc/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need an online M3U8 player if I already have VLC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, if the stream is meant to play on a web page. VLC ignores CORS and uses its own codecs, so a stream can open perfectly in VLC and still fail for every visitor in Chrome. A browser-based tester runs the same code path your users run."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does a stream play in VLC but not in my browser?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most often CORS. A browser blocks a cross-origin fetch when the response has no Access-Control-Allow-Origin header, while VLC has no such restriction. Wrong Content-Type on the manifest, mixed content and unsupported codecs cause the same split."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does a stream play in Safari but not in Chrome?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Safari plays HLS natively through its own media stack, while Chrome needs Media Source Extensions via a library such as hls.js. The two paths enforce different rules, so native playback can succeed where MSE fails, and the reverse also happens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can VLC test DASH streams too?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Partly. VLC can open many MPD manifests, but its DASH support is less complete than its HLS support and it will not exercise a browser DASH library such as dash.js. For DASH, test with the same library you ship."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is an online M3U8 player private enough for work URLs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the architecture. A pure client-side player fetches segments directly from the origin to your browser, so there is no relay server to log your URL. A server-side tester necessarily sees every URL you submit. Check which design a tool uses before pasting anything confidential."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script src="/assets/js/analytics.js" defer></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="816800 home">
+        <img class="brand-mark" src="/assets/img/logo.svg" alt="" width="26" height="26" />
+        <span class="num">816800</span><span class="dot">.xyz</span>
+      </a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button">EN</button>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="/" data-zh="首页" data-en="Home">Home</a>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/tools/case-converter/" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <div class="nav-dropdown">
+            <a href="/tools/" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false"><span data-zh="更多" data-en="More">More</span><span class="caret" aria-hidden="true">▾</span></a>
+            <div class="nav-dropdown-menu">
+              <div class="dd-group" data-zh="工具" data-en="Tools">Tools</div>
+              <a href="/tools/font-changer/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="花体字生成" data-en="Fancy Text Generator">Fancy Text Generator</span>
+                  <span class="dd-desc" data-zh="社媒可用的 Unicode 样式" data-en="Unicode styles for social">Unicode styles for social</span>
+                </span>
+              </a>
+              <a href="/tools/reading-time-calculator/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="阅读时长计算器" data-en="Reading Time Calculator">Reading Time Calculator</span>
+                  <span class="dd-desc" data-zh="估算阅读与演讲时长" data-en="Estimate read and speech time">Estimate read and speech time</span>
+                </span>
+              </a>
+              <a href="/tools/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="全部工具" data-en="All tools">All tools</span>
+                  <span class="dd-desc" data-zh="浏览全部 9 个工具" data-en="Browse all 9 tools">Browse all 9 tools</span>
+                </span>
+              </a>
+              <div class="divider"></div>
+              <div class="dd-group" data-zh="站点" data-en="Site">Site</div>
+              <a href="/about/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="关于" data-en="About">About</span>
+                  <span class="dd-desc" data-zh="关于本站与工具路线" data-en="Who we are">Who we are</span>
+                </span>
+              </a>
+              <a href="/contact/" class="dd-item">
+                <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                <span class="dd-text">
+                  <span class="dd-name" data-zh="联系" data-en="Contact">Contact</span>
+                  <span class="dd-desc" data-zh="提交建议或反馈" data-en="Get in touch">Get in touch</span>
+                </span>
+              </a>
+            </div></div>
+          <a href="/blog/" class="active" data-zh="博客" data-en="Blog">Blog</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      <div class="page-title">
+        <h1 class="i18n-block lang-en">
+          <span class="en">M3U8 Player vs VLC: Which Should You Use to Test a Stream?</span>
+          <span class="zh">在线 M3U8 播放器 vs VLC：测流该用哪个？</span>
+        </h1>
+        <p data-zh="2026-09-18 · 约 6 分钟阅读" data-en="2026-09-18 · 6 min read">2026-09-18 · 6 min read</p>
+      </div>
+
+      <article class="prose i18n-block lang-en">
+        <div class="en">
+            <h2>The Short Answer</h2>
+            <p class="lead">VLC and a browser HLS player are not competing tools, they answer different questions. VLC asks <em>does this stream exist and is it decodable?</em> A browser player asks <em>will this stream play for a real visitor on a real web page?</em> Streams fail the second question far more often than the first, which is why testing with only one of them gives false confidence.</p>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>If you want to know…</th><th>Use</th><th>Why</th></tr></thead>
+                <tbody>
+                  <tr><td>Whether the URL is alive and the manifest parses</td><td>Either</td><td>Both fetch the manifest and fail loudly on a 404 or a syntax error</td></tr>
+                  <tr><td>Whether the codecs are playable at all</td><td>VLC</td><td>It ships its own decoders and ignores what the OS supports</td></tr>
+                  <tr><td>Whether CORS will block your web page</td><td>Browser player</td><td>Only a browser enforces the same-origin policy</td></tr>
+                  <tr><td>Whether Safari and Chrome behave the same</td><td>Browser player</td><td>Two different playback paths, and VLC models neither</td></tr>
+                  <tr><td>Why a segment stalls or 403s mid-playback</td><td>VLC</td><td>Per-message logging shows each request and response</td></tr>
+                  <tr><td>Whether your production player config works</td><td>Browser player</td><td>Same library, same constraints as your site</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>What VLC Can See That a Browser Cannot</h2>
+            <p>VLC is a complete media engine built on libavcodec. When you open a network stream it downloads the manifest and segments over plain HTTP, with no browser sandbox in the way. Three consequences matter in practice.</p>
+            <p><strong>No same-origin policy.</strong> VLC never sends an <code>Origin</code> header and never checks for <code>Access-Control-Allow-Origin</code>. A stream that a browser refuses to touch will often play instantly in VLC. That is a feature for diagnosis and a trap for conclusions.</p>
+            <p><strong>Much wider codec coverage.</strong> HEVC, ProRes, DTS, E-AC3 and other formats that browsers either refuse or handle only with hardware support are routine for VLC. If a stream is HEVC-only, VLC will happily prove the file is fine while every Chrome user sees a black rectangle.</p>
+            <p><strong>Real diagnostics.</strong> <em>Tools → Codec Information</em> shows the actual container, codec, resolution and bitrate; <em>Tools → Messages</em> at verbosity 2 prints every request, every redirect and every parse error. You can also set a custom HTTP Referer and User-Agent in preferences, which is the only way to test hotlink-protected URLs, and tune network caching when a stream stutters on a slow link.</p>
+
+            <h2>What a Browser Player Can See That VLC Cannot</h2>
+            <p>A browser HLS tester runs the same code path your visitors run: either native HLS in Safari, or Media Source Extensions driven by a library such as hls.js in Chrome, Edge and Firefox. That single difference exposes an entire class of failures VLC is structurally unable to show you.</p>
+            <ul>
+              <li><strong>CORS.</strong> The single most common cause of "works in VLC, dead on the site".</li>
+              <li><strong>Wrong Content-Type.</strong> A manifest served as <code>application/octet-stream</code> instead of <code>application/vnd.apple.mpegurl</code> or <code>audio/mpegurl</code>.</li>
+              <li><strong>Mixed content.</strong> An <code>http://</code> stream inside an <code>https://</code> page is blocked outright.</li>
+              <li><strong>Autoplay policy.</strong> Audio is blocked without a user gesture, and no desktop player reproduces this.</li>
+              <li><strong>DRM and EME.</strong> Encrypted ladders fail in a browser and play in VLC, or the other way around.</li>
+              <li><strong>Engine divergence.</strong> Safari's native stack and Chrome's MSE path enforce different rules.</li>
+            </ul>
+
+            <div class="note"><strong>Measured, not assumed.</strong> When we fetched four public test streams on 17 September 2026, Apple's own BipBop sample returned <strong>no <code>Access-Control-Allow-Origin</code> header on its manifest</strong> in all three rounds, and used <code>#EXT-X-BYTERANGE</code> with 206 partial responses. Mux's Tears of Steel returned <code>*</code> on both the manifest and the media playlist. The practical result: BipBop opens immediately in VLC and fails in a Chrome-based browser player, while Tears of Steel plays in both. Same protocol, opposite verdicts — exactly the gap this article is about.</div>
+
+            <h2>Side-by-Side Capability Comparison</h2>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Capability</th><th>VLC (desktop)</th><th>Browser HLS player</th></tr></thead>
+                <tbody>
+                  <tr><td>Enforces CORS</td><td>No</td><td>Yes, exactly as production does</td></tr>
+                  <tr><td>Codec coverage</td><td>Very wide, self-contained</td><td>Limited by browser and hardware</td></tr>
+                  <tr><td>Manifest parse errors</td><td>Shown in the Messages window</td><td>Shown in the browser console</td></tr>
+                  <tr><td>Per-segment network log</td><td>Yes, verbose logging</td><td>Yes, via DevTools Network tab</td></tr>
+                  <tr><td>Custom Referer / User-Agent</td><td>Yes, in preferences</td><td>No, the browser controls headers</td></tr>
+                  <tr><td>DRM / EME</td><td>No</td><td>Yes, if the browser supports it</td></tr>
+                  <tr><td>Autoplay behaviour</td><td>N/A</td><td>Reproduced faithfully</td></tr>
+                  <tr><td>Safari vs Chrome differences</td><td>Cannot test</td><td>Test both engines directly</td></tr>
+                  <tr><td>Install required</td><td>Yes</td><td>No, a URL is enough</td></tr>
+                  <tr><td>Safe to share in a bug report</td><td>No, each person repeats it</td><td>Yes, send the URL</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>A Workflow That Uses Both</h2>
+            <p>Running them in the right order turns two tools into one diagnosis:</p>
+            <ol>
+              <li><strong>VLC first.</strong> Confirm the URL is alive, the manifest parses and the codecs decode. If VLC fails, the problem is upstream — a dead link, expired signature or broken playlist — and no browser test will help.</li>
+              <li><strong>Browser second.</strong> Paste the same URL into an <a href="/m3u8-player/">online M3U8 player</a>. If VLC worked and the browser fails, you have a web-delivery problem: CORS, content type, mixed content or codec.</li>
+              <li><strong>Check the headers.</strong> Look for <code>Access-Control-Allow-Origin</code> on both the manifest and the segment responses. They are separate responses and can differ.</li>
+              <li><strong>Test a second engine.</strong> Safari plays HLS natively while Chrome needs hls.js. A stream that fails in only one of them has an engine-specific cause.</li>
+              <li><strong>Re-test after every fix.</strong> CDN header changes propagate gradually; verify again once the cache has rolled.</li>
+            </ol>
+
+            <h2>Reading the Combination</h2>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>VLC</th><th>Browser</th><th>Most likely cause</th></tr></thead>
+                <tbody>
+                  <tr><td>Plays</td><td>Plays</td><td>Nothing to fix</td></tr>
+                  <tr><td>Plays</td><td>Fails</td><td>CORS, wrong Content-Type or mixed content — a delivery problem</td></tr>
+                  <tr><td>Fails</td><td>Fails</td><td>Dead URL, expired token or a malformed playlist</td></tr>
+                  <tr><td>Fails</td><td>Plays</td><td>Codec VLC lacks, or a VLC-specific fetch issue such as a missing Referer</td></tr>
+                  <tr><td>Plays</td><td>Plays in Safari only</td><td>An MSE or hls.js configuration issue in Chrome</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>That middle row — plays in VLC, fails in the browser — is the one that costs teams the most time, because "it works on my machine" is usually said about VLC.</p>
+
+            <h2>Frequently Asked Questions</h2>
+            <h3>Do I need an online M3U8 player if I already have VLC?</h3>
+            <p>Yes, if the stream is meant to play on a web page. VLC ignores CORS and uses its own codecs, so a stream can open perfectly in VLC and still fail for every visitor in Chrome. A browser-based tester runs the same code path your users run.</p>
+            <h3>Why does a stream play in VLC but not in my browser?</h3>
+            <p>Usually CORS. A browser blocks a cross-origin fetch when the response carries no <code>Access-Control-Allow-Origin</code> header, while VLC has no such restriction. Wrong Content-Type on the manifest, mixed content and unsupported codecs produce the same split.</p>
+            <h3>Why does a stream play in Safari but not in Chrome?</h3>
+            <p>Safari plays HLS natively through its own media stack, while Chrome needs Media Source Extensions through a library such as hls.js. The two paths enforce different rules, so one can succeed where the other fails.</p>
+            <h3>Can VLC test DASH streams too?</h3>
+            <p>Partly. VLC opens many MPD manifests, but its DASH support is thinner than its HLS support and it will not exercise a browser library such as dash.js. For DASH, test with the library you actually ship.</p>
+            <h3>Is an online M3U8 player private enough for work URLs?</h3>
+            <p>It depends on the architecture. A pure client-side player fetches segments directly from the origin into your browser, so no relay server logs your URL. A server-side tester necessarily sees every URL you submit. Check which design a tool uses before pasting anything confidential.</p>
+
+            <h2>Related Tools</h2>
+            <p>Test any HLS or DASH URL in your browser with the <a href="/m3u8-player/">M3U8 online player</a>. If a stream fails, work through <a href="/blog/m3u8-playback-failed/">the CORS and dead-link checklist</a>; for the fundamentals see <a href="/blog/what-is-hls/">What Is HLS</a> and <a href="/blog/dash-vs-hls/">DASH vs HLS</a>.</p>
+
+        </div>
+        <div class="zh">
+            <h2>在线播放器与 VLC：该怎么选</h2>
+            <p class="lead">VLC 回答的是「这条流是否存在、能否解码」，浏览器播放器回答的是「真实访客在网页上能不能播」。只用一个工具测试，很容易得出错误结论。</p>
+            <p>本页为英文优先内容，中文版正在补齐中。你可以直接使用<a href="/m3u8-player/">M3U8 在线播放器</a>自行验证，或阅读<a href="/blog/m3u8-playback-failed/">播放失败排查指南</a>。</p>
+
+        </div>
+      </article>
+
+      <aside class="author-box">
+        <p class="author-name">Wen Lau <span class="author-role">· Maintainer and technical writer</span></p>
+        <p class="author-bio">Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.</p>
+        <p class="author-links"><a class="link" href="/about/#author">About the author</a> · <a class="link" href="/contact/">Report an error in this page</a></p>
+      </aside>
+
+      <div class="related-tools">
+        <h3 data-zh="相关工具" data-en="Related tools">Related tools</h3>
+        <ul>
+          <li><a href="/m3u8-player/" data-zh="M3U8 / HLS 在线播放器 —— 直接在浏览器测试任意流地址" data-en="M3U8 Player — test any HLS or DASH URL right in your browser">M3U8 Player — test any HLS or DASH URL right in your browser</a></li>
+          <li><a href="/tools/case-converter/" data-zh="大小写转换 —— 一键切换 UPPERCASE、Title Case、camelCase 等规范" data-en="Case Converter — switch between UPPERCASE, Title Case, camelCase and more">Case Converter — switch between UPPERCASE, Title Case, camelCase and more</a></li>
+          <li><a href="/tools/word-counter/" data-zh="字数与关键词密度统计 —— 词数、阅读时长与 SEO 关键词占比" data-en="Word Counter — word count, reading time and keyword density">Word Counter — word count, reading time and keyword density</a></li>
+          <li><a href="/tools/" data-zh="浏览全部工具 →" data-en="Browse all tools →">Browse all tools →</a></li>
+        </ul>
+      </div>
+
+      <div class="related-articles">
+        <h3 data-zh="相关文章" data-en="Related articles">Related articles</h3>
+        <ul>
+          <li><a href="/blog/m3u8-playback-failed/" data-zh="m3u8 播放失败/黑屏？一步步排查 CORS 与地址失效" data-en="M3U8 Playback Failed? Fix CORS and Dead Links Step by Step">M3U8 Playback Failed? Fix CORS and Dead Links Step by Step</a></li>
+          <li><a href="/blog/what-is-hls/" data-zh="什么是 HLS？为什么浏览器不能直接播 m3u8" data-en="What Is HLS? Why Browsers Can't Play M3U8 Natively">What Is HLS? Why Browsers Can't Play M3U8 Natively</a></li>
+          <li><a href="/blog/m3u8-player-recommend/" data-zh="2026 好用的 M3U8 在线播放器推荐（含自测）" data-en="Best Free M3U8 Online Players (2026) - Tested and Compared">Best Free M3U8 Online Players (2026) - Tested and Compared</a></li>
+          <li><a href="/blog/dash-vs-hls/" data-zh="DASH 与 HLS 怎么选？流媒体协议全方位对比" data-en="DASH vs HLS: Which Streaming Protocol Should You Use?">DASH vs HLS: Which Streaming Protocol Should You Use?</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/">
+            <img src="/assets/img/logo.svg" alt="" width="22" height="22" />
+            <span class="footer-logo-text">816800.xyz</span>
+          </a>
+          <p class="footer-tagline" data-zh="极简暗黑风技术工具箱，为开发者而做。" data-en="Minimal dark tech toolkit for developers.">Minimal dark tech toolkit for developers.</p>
+          <a class="footer-cta" href="/tools/" data-zh="全部工具" data-en="All tools">All tools</a>
+        </div>
+        <nav class="footer-col" aria-label="Tools">
+          <span class="footer-group-title" data-zh="工具" data-en="Tools">Tools</span>
+          <a href="/tools/case-converter/" data-zh="大小写转换" data-en="Case Converter">Case Converter</a>
+          <a href="/tools/camelcase-converter/" data-zh="camelCase 转换" data-en="camelCase Converter">camelCase Converter</a>
+          <a href="/tools/snake-case-converter/" data-zh="snake_case 转换" data-en="snake_case Converter">snake_case Converter</a>
+          <a href="/tools/kebab-case-converter/" data-zh="kebab-case 转换" data-en="kebab-case Converter">kebab-case Converter</a>
+          <a href="/tools/word-counter/" data-zh="字数统计" data-en="Word Counter">Word Counter</a>
+        </nav>
+        <nav class="footer-col" aria-label="Site">
+          <span class="footer-group-title" data-zh="站点" data-en="Site">Site</span>
+          <a href="/m3u8-player/" data-zh="M3U8 播放器" data-en="M3U8 Player">M3U8 Player</a>
+          <a href="/short-link/" data-zh="短网址" data-en="URL Shortener">URL Shortener</a>
+          <a href="/blog/" data-zh="博客" data-en="Blog">Blog</a>
+          <a href="/tools/" data-zh="工具总览" data-en="All tools">All tools</a>
+          <a href="/llms.txt" data-zh="llms.txt" data-en="llms.txt" title="AI-readable site index">llms.txt</a>
+        </nav>
+        <nav class="footer-col" aria-label="Legal">
+          <span class="footer-group-title" data-zh="条款" data-en="Legal">Legal</span>
+          <a href="/privacy/" data-zh="隐私政策" data-en="Privacy">Privacy</a>
+          <a href="/terms/" data-zh="服务条款" data-en="Terms">Terms</a>
+          <a href="/disclaimer/" data-zh="免责声明" data-en="Disclaimer">Disclaimer</a>
+          <a href="/changelog/" data-zh="更新日志" data-en="Changelog">Changelog</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 816800.xyz</span>
+        <span class="footer-mini" data-zh="无需注册 · 浏览器本地运行" data-en="No sign-up · Runs in your browser">No sign-up · Runs in your browser</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/i18n.js" defer></script>
+</body>
+</html>

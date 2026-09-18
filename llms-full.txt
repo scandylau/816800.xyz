@@ -14,15 +14,19 @@
 > Source: https://816800.xyz/
 
 Pure Front-End · Ad-Free · Instant
-A dark-themed toolkit with zero popups and zero tracking. Five free tools that run entirely in your browser: case converter, word counter, fancy text generator, M3U8 / HLS stream tester and URL shortener.
+A dark-themed toolkit with zero popups and zero tracking. Nine free tools that run entirely in your browser: M3U8 / HLS stream tester, URL shortener, case converter, camelCase / snake_case / kebab-case converters, word counter, reading time calculator and fancy text generator.
 [▶ Browse all tools](https://816800.xyz/tools/) [M3U8 Player](https://816800.xyz/m3u8-player/)
 ### Tool Grid
-5 live tools · no sign-up
+9 live tools · no sign-up
 - **M3U8 / HLS Player** — https://816800.xyz/m3u8-player/: Paste a .m3u8 or .mpd URL to play instantly; auto-diagnoses CORS issues and logs your test history.
 - **Short Link** — https://816800.xyz/short-link/: Paste a long URL to get a branded share link — no backend, no upload.
 - **Case Converter** — https://816800.xyz/tools/case-converter/: Switch between UPPERCASE, lowercase, Title Case, Sentence case and code styles like camelCase, snake_case and kebab-case.
 - **Word Counter** — https://816800.xyz/tools/word-counter/: Live word, character, sentence, paragraph and reading-time counts, plus a top 10 keyword density table.
 - **Fancy Text Generator** — https://816800.xyz/tools/font-changer/: Turn plain text into bold, italic, cursive and monospace Unicode styles ready to paste into any social platform.
+- **camelCase Converter** — https://816800.xyz/tools/camelcase-converter/: Convert any text to camelCase with optional acronym handling. Built for JavaScript, Java, Swift and JSON keys.
+- **snake_case Converter** — https://816800.xyz/tools/snake-case-converter/: Convert to snake_case or SCREAMING_SNAKE_CASE for constants. Built for Python, Ruby, Rust and SQL columns.
+- **kebab-case Converter** — https://816800.xyz/tools/kebab-case-converter/: Convert to kebab-case for URL slugs, CSS class names, HTML attributes and file names.
+- **Reading Time Calculator** — https://816800.xyz/tools/reading-time-calculator/: Reading time at five speeds plus a speaking-time estimate at conversational pace. Adjustable, live, private.
 ### What makes this different
 Most free tool sites are free the way a hotel shampoo bottle is free: you pay with your data, your attention, and a page that takes four seconds to become usable. This site is free in the boring sense — no account, no upload, and nothing standing between you and the tool.
 #### The differences that matter
@@ -134,6 +138,15 @@ Whether a stream needs a JavaScript engine at all depends on the client:
 That split explains the classic report: "it plays on my iPhone and shows a black box in Chrome". Nothing is broken — the desktop browser simply has no built-in HLS decoder.
 #### Why test M3U8 online?
 Before wiring a stream URL into your own player, app, or OBS push, it is critical to verify with a neutral third-party tool that "the URL is valid, the playlist parses, and the segments load continuously." The **M3U8 online test** on this page runs entirely in your browser — it collects and uploads nothing, making it the cleanest way to troubleshoot.
+#### How to test an HLS stream (step by step)
+If you are here to **test an m3u8 URL** rather than read about one, work through these six checks. Together they separate "the stream is broken" from "the browser is not allowed to read it", which are the two failures that look identical from the outside.
+1. **Paste the URL and press play.** If you get a picture, you are done. If not, read the diagnosis panel before touching anything else — it distinguishes an unreachable URL from a CORS block.
+1. **Check the manifest type.** A master playlist lists variants; a media playlist lists segments. This player shows the variant count, so you can tell whether your URL points at the top of the ladder or straight at one rung.
+1. **Note where it stalls.** A failure in the first two segments is almost always CORS, a wrong Content-Type or a 403. A stall further in is bandwidth, a segment gap in the playlist, or an expired signed URL.
+1. **Inspect the response headers.** Look for `Access-Control-Allow-Origin` on the manifest *and* on a segment. They are separate HTTP responses and can differ; one missing header is enough to stop playback.
+1. **Test a second engine.** Safari plays HLS natively while Chrome needs hls.js and Media Source Extensions. A stream that works in only one of them has an engine-specific cause, not a broken stream.
+1. **Re-test after every fix.** CDN header changes propagate gradually, so a change can look like it failed for several minutes.
+Prefer a desktop player for the first pass? [M3U8 player vs VLC](https://816800.xyz/blog/m3u8-player-vs-vlc/) explains what each tool can and cannot see, and why "it plays in VLC" is not evidence that your web page works.
 #### The most common error: blocked by CORS
 When you see an "online m3u8 playback error", a black screen, or `Cross-Origin Request Blocked` in the console, it is almost never a broken browser. The usual cause is that the **streaming server does not return an `Access-Control-Allow-Origin` header**. The browser's same-origin policy forbids web pages from reading cross-origin resources, so the player cannot fetch the segment data.
 When playback fails, this tool auto-diagnoses: it first probes reachability with `no-cors`, then verifies the CORS permission with a `cors` request. If the server is reachable but blocked by CORS, we show a precise message so you don't mistake it for a dead URL.
@@ -898,12 +911,16 @@ Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas
 Pure Front-End · No Upload · No Signup
 A small set of tools that just work: case converter, word counter with keyword density, fancy text generator, M3U8 stream tester and URL shortener. Everything runs locally in your browser, with no upload, no tracking and no signup.
 ### All tools
-5 live
+9 live
 - **Case Converter** — https://816800.xyz/tools/case-converter/: Switch between UPPERCASE, lowercase, Title Case, Sentence case and code styles like camelCase, snake_case and kebab-case.
 - **Word Counter** — https://816800.xyz/tools/word-counter/: Live word, character, sentence and reading-time counts, plus a top 10 keyword density table.
 - **Fancy Text Generator** — https://816800.xyz/tools/font-changer/: Turn plain text into bold, italic, cursive and monospace Unicode styles ready to paste into any social platform.
 - **M3U8 / HLS Player** — https://816800.xyz/m3u8-player/: Paste a .m3u8 or .mpd URL to play instantly, with automatic CORS diagnostics and test history.
 - **URL Shortener** — https://816800.xyz/short-link/: Turn long URLs into short branded links. Zero backend, zero upload, ideal for sharing long stream URLs.
+- **camelCase Converter** — https://816800.xyz/tools/camelcase-converter/: Convert any text to camelCase with optional acronym handling. Built for JavaScript, Java, Swift and JSON keys.
+- **snake_case Converter** — https://816800.xyz/tools/snake-case-converter/: Convert to snake_case or SCREAMING_SNAKE_CASE for constants. Built for Python PEP 8, Ruby, Rust and SQL columns.
+- **kebab-case Converter** — https://816800.xyz/tools/kebab-case-converter/: Convert to kebab-case for URL slugs, CSS class names, HTML attributes and file names.
+- **Reading Time Calculator** — https://816800.xyz/tools/reading-time-calculator/: Reading time at five speeds plus a speaking-time estimate at conversational pace. Adjustable, live, private.
 ### Why use these tools
 Every tool on this page runs entirely in your browser. There is no server round trip, which means conversion is instant and your text never leaves your device. Nothing is logged, nothing is stored, and no account is required.
 We keep each tool focused on doing one job properly rather than burying it in options. If you need a quick conversion, open a tool, paste, copy, and move on.
@@ -915,7 +932,11 @@ We keep each tool focused on doing one job properly rather than burying it in op
 | Fancy Text Generator | Short strings | In your browser | Social bios, display names, captions |
 | M3U8 / HLS Player | .m3u8 and .mpd URLs | In your browser via hls.js / dash.js | Verifying a stream plays, and CORS diagnosis |
 | URL Shortener | Any http(s) URL | In your browser | Branded sharing, QR codes, very long stream links |
-What each tool accepts, where the work happens, and who it is for [](https://816800.xyz/tools/case-converter/)[](https://816800.xyz/tools/word-counter/)[](https://816800.xyz/tools/font-changer/)[](https://816800.xyz/m3u8-player/)`[](https://816800.xyz/short-link/)``
+| camelCase Converter | Text or identifier lists | In your browser | JavaScript, Java, Swift and JSON key naming |
+| snake_case Converter | Text or identifier lists | In your browser | Python, Ruby, Rust and SQL column naming |
+| kebab-case Converter | Titles or identifier lists | In your browser | URL slugs, CSS classes, file names |
+| Reading Time Calculator | Articles, scripts, drafts | In your browser | Read-time badges, talk and video script length |
+What each tool accepts, where the work happens, and who it is for [](https://816800.xyz/tools/case-converter/)[](https://816800.xyz/tools/word-counter/)[](https://816800.xyz/tools/font-changer/)[](https://816800.xyz/m3u8-player/)`[](https://816800.xyz/short-link/)``[](https://816800.xyz/tools/camelcase-converter/)[](https://816800.xyz/tools/snake-case-converter/)[](https://816800.xyz/tools/kebab-case-converter/)[](https://816800.xyz/tools/reading-time-calculator/)
 #### Choosing between them
 - **Working with video?** Start with the [M3U8 player](https://816800.xyz/m3u8-player/). It tells you whether a stream fails because the URL is dead or because CORS is blocking it — the two look identical in a black rectangle.
 - **Working with text?** The [word counter](https://816800.xyz/tools/word-counter/) handles length, reading time and keyword density in one pass; the [case converter](https://816800.xyz/tools/case-converter/) handles the rewrite afterwards.
@@ -960,6 +981,15 @@ Case is not just decoration. The convention you pick changes how readable a head
 - Rename a batch of variables to match your project linting rules.
 - Normalize user-submitted tags so duplicates collapse into one value.
 Tip: converting to **lowercase** first and then into the target style usually gives the cleanest result, because it removes stray capitals hidden inside words.
+#### Single-convention converters
+This page switches between every convention in one place. If you always convert into the same one, a page pre-set to that convention is faster, and each of these also documents the naming rules of the ecosystem it belongs to:
+| If you are writing… | Use | Example |
+| --- | --- | --- |
+| JavaScript, TypeScript, Java, Swift or JSON keys | camelCase converter | getUserById |
+| Python (PEP 8), Ruby, Rust or SQL columns | snake_case converter | get_user_by_id |
+| URL slugs, CSS classes, HTML attributes | kebab-case converter | get-user-by-id |
+| Anything else, or you are not sure yet | This page | every convention |
+[](https://816800.xyz/tools/camelcase-converter/)``[](https://816800.xyz/tools/snake-case-converter/)``[](https://816800.xyz/tools/kebab-case-converter/)``
 #### Frequently asked questions
 ##### What does a case converter do?
 A case converter rewrites your text into a different letter-case convention, from simple upper and lower case through to programming styles such as camelCase, snake_case and kebab-case.
@@ -1049,7 +1079,21 @@ Be careful with usernames and anything people need to type back. If a follower c
 - **Fullwidth** and **circled** styles are wide, so keep them short to avoid wrapping in a narrow bio.
 - Always preview on the actual device before you commit to it.
 If a character shows as an empty box, that platform has no glyph for it. Switching to bold or monospace almost always fixes the problem.
+#### Unicode bold text you can copy and paste
+If you only need one short line styled, you do not have to type anything into the generator. Select and copy any row below. These are real Unicode characters from the Mathematical Alphanumeric Symbols block, not bold markup, so they paste straight into Instagram bios, TikTok display names, X handles, LinkedIn headlines and Discord nicknames exactly as you see them.
+| Style | Copy this | Best for |
+| --- | --- | --- |
+| Bold | 𝐇𝐞𝐥𝐥𝐨 𝐖𝐨𝐫𝐥𝐝 | Names and short headers; the most widely supported |
+| Sans bold | 𝗛𝗲𝗹𝗹𝗼 𝗪𝗼𝗿𝗹𝗱 | Bios and headlines where serif bold looks out of place |
+| Italic | 𝐻𝑒𝑙𝑙𝑜 𝑊𝑜𝑟𝑙𝑑 | Book or song titles, quotes |
+| Bold italic | 𝑯𝒆𝒍𝒍𝒐 𝑾𝒐𝒓𝒍𝒅 | Emphasis; slightly weaker support on older phones |
+| Monospace | 𝙷𝚎𝚕𝚕𝚘 𝚆𝚘𝚛𝚕𝚍 | Code-like or technical profiles |
+Two practical notes. First, the characters above are fixed strings — type your own text into the box at the top of this page to convert any other phrase. Second, a stylised line is decoration, not content: screen readers and search engines may not read these letters as ordinary words, so keep anything functional in normal characters.
 #### Frequently asked questions
+##### How do I get bold text on Instagram or TikTok?
+Either copy one of the ready-made rows in this section, or type your own phrase into the generator above and copy the bold result. Both paste in as plain Unicode text.
+##### Can I use Unicode bold in a URL or an email address?
+No. URLs, email addresses and usernames that must be typed back should stay in normal characters, or people will not be able to reach you.
 ##### How does a fancy text generator work?
 It does not change the font. It swaps each letter for a different Unicode character that looks like a styled version of that letter, so the result stays plain text you can paste almost anywhere.
 ##### Can I use these fonts in Instagram and TikTok bios?

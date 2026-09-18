@@ -189,7 +189,7 @@
                 <span class="dd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
                 <span class="dd-text">
                   <span class="dd-name" data-zh="全部工具" data-en="All tools">All tools</span>
-                  <span class="dd-desc" data-zh="浏览全部 5 个工具" data-en="Browse all 5 tools">Browse all 5 tools</span>
+                  <span class="dd-desc" data-zh="浏览全部 9 个工具" data-en="Browse all 9 tools">Browse all 9 tools</span>
                 </span>
               </a>
               <div class="divider"></div>
@@ -287,6 +287,9 @@
 
           <h3>为什么要在线上测试 M3U8？</h3>
           <p>在把流地址接入自己的播放器、App 或 OBS 推流之前，先用一个中立的第三方工具验证「地址是否有效、清单能否解析、分片能否连续加载」非常关键。本页提供的 <strong>M3U8 在线测试</strong> 完全在浏览器端完成，不收集、不上传你的任何链接，是排查问题最干净的方式。</p>
+
+          <h3>如何一步步测试一条 HLS 流</h3>
+          <p>如果你只是想<strong>测试一个 m3u8 地址</strong>，按这六步走即可：粘贴地址播放 → 看诊断面板区分「地址失效」与「CORS 被拦」 → 确认清单是主清单还是媒体清单 → 记录卡在第几个分片（前两片多半是 CORS 或 403，后面多半是带宽或签名过期）→ 检查清单与分片各自的 <code>Access-Control-Allow-Origin</code> → 换 Safari 与 Chrome 各测一遍。更完整的取舍见<a href="/blog/m3u8-player-vs-vlc/">在线播放器 vs VLC</a>。</p>
 
           <h3>最常见的报错：CORS 跨域被拦截</h3>
           <p>当你看到「在线播放 m3u8 报错」、黑屏或控制台出现 <code>Cross-Origin Request Blocked</code>，绝大多数情况不是浏览器坏了，而是<strong>流媒体服务器没有返回 <code>Access-Control-Allow-Origin</code> 响应头</strong>。浏览器的同源策略禁止网页读取跨域资源，于是播放器拿不到分片数据。</p>
@@ -438,6 +441,18 @@
 
           <h3>Why test M3U8 online?</h3>
           <p>Before wiring a stream URL into your own player, app, or OBS push, it is critical to verify with a neutral third-party tool that "the URL is valid, the playlist parses, and the segments load continuously." The <strong>M3U8 online test</strong> on this page runs entirely in your browser — it collects and uploads nothing, making it the cleanest way to troubleshoot.</p>
+
+          <h3>How to test an HLS stream (step by step)</h3>
+          <p>If you are here to <strong>test an m3u8 URL</strong> rather than read about one, work through these six checks. Together they separate "the stream is broken" from "the browser is not allowed to read it", which are the two failures that look identical from the outside.</p>
+          <ol>
+            <li><strong>Paste the URL and press play.</strong> If you get a picture, you are done. If not, read the diagnosis panel before touching anything else — it distinguishes an unreachable URL from a CORS block.</li>
+            <li><strong>Check the manifest type.</strong> A master playlist lists variants; a media playlist lists segments. This player shows the variant count, so you can tell whether your URL points at the top of the ladder or straight at one rung.</li>
+            <li><strong>Note where it stalls.</strong> A failure in the first two segments is almost always CORS, a wrong Content-Type or a 403. A stall further in is bandwidth, a segment gap in the playlist, or an expired signed URL.</li>
+            <li><strong>Inspect the response headers.</strong> Look for <code>Access-Control-Allow-Origin</code> on the manifest <em>and</em> on a segment. They are separate HTTP responses and can differ; one missing header is enough to stop playback.</li>
+            <li><strong>Test a second engine.</strong> Safari plays HLS natively while Chrome needs hls.js and Media Source Extensions. A stream that works in only one of them has an engine-specific cause, not a broken stream.</li>
+            <li><strong>Re-test after every fix.</strong> CDN header changes propagate gradually, so a change can look like it failed for several minutes.</li>
+          </ol>
+          <p>Prefer a desktop player for the first pass? <a href="/blog/m3u8-player-vs-vlc/">M3U8 player vs VLC</a> explains what each tool can and cannot see, and why "it plays in VLC" is not evidence that your web page works.</p>
 
           <h3>The most common error: blocked by CORS</h3>
           <p>When you see an "online m3u8 playback error", a black screen, or <code>Cross-Origin Request Blocked</code> in the console, it is almost never a broken browser. The usual cause is that the <strong>streaming server does not return an <code>Access-Control-Allow-Origin</code> header</strong>. The browser's same-origin policy forbids web pages from reading cross-origin resources, so the player cannot fetch the segment data.</p>
