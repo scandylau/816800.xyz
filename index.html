@@ -242,7 +242,7 @@
 
           <h3>How to use it</h3>
           <ol>
-            <li>Pick a tool from the grid above — the five live ones carry the ONLINE badge.</li>
+            <li>Pick a tool from the grid above — the nine live ones carry the ONLINE badge.</li>
             <li>Paste, drop or type your input. Results update as you type, computed on your own device.</li>
             <li>Copy the result. There is no export button to unlock and nothing to download.</li>
           </ol>
@@ -269,7 +269,47 @@
           <p>Us, usually within a few days of hearing about it. Send the tool name, your input and your browser through the <a href="/contact/">contact page</a> — a reproducible report is the fastest route to a fix.</p>
         </div>
         <div class="zh">
-          <p>（本区块完整内容见英文版：与典型工具站的对照表、使用步骤与常见问题。）</p>
+          <p>多数免费工具站是那种"免费用数据付账"的类型：注册才能导出、输入要上传到服务器、一堆追踪脚本把页面拖到四五秒才可用。本站是字面意义上的免费——不注册、不上传，你和工具之间没有任何东西隔着。</p>
+
+          <h3>和典型工具站的差别</h3>
+          <div class="table-scroll">
+            <table>
+              <caption>本站与典型广告型工具站的对照</caption>
+              <thead>
+                <tr><th></th><th>816800.xyz</th><th>典型工具站</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>导出是否需要注册</td><td>从不需要</td><td>常需注册</td></tr>
+                <tr><td>你的输入去了哪</td><td>留在浏览器里</td><td>上传到服务器</td></tr>
+                <tr><td>追踪</td><td>仅聚合统计</td><td>广告追踪与像素</td></tr>
+                <tr><td>广告</td><td>手工放置，保持克制</td><td>自动插入，导致页面跳动</td></tr>
+                <tr><td>页面体积</td><td>无框架、无打包器</td><td>庞大的 JavaScript 包</td></tr>
+                <tr><td>首次加载后的文本工具</td><td>断网也能用</td><td>很少能做到</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>怎么用</h3>
+          <ol>
+            <li>从上方网格里挑一个工具——已上线的九个都带 ONLINE 徽标。</li>
+            <li>粘贴、拖入或直接输入，结果在你自己的设备上实时算出。</li>
+            <li>复制结果即可。没有需要解锁的导出按钮，也没有东西要下载。</li>
+          </ol>
+          <p>流媒体排查从 <a href="/m3u8-player/">M3U8 播放器</a>开始。贴入 <code>.m3u8</code> 或 <code>.mpd</code> 地址，它会告诉你播放失败究竟是链接失效还是缺少 CORS 头——这两种失败在屏幕上长得一模一样，但修法完全相反。</p>
+
+          <h3>常见问题</h3>
+          <h4>工具真的免费吗？</h4>
+          <p>是真的。没有次数上限、没有水印、没有试用期。站点可能展示广告以覆盖托管成本，但没有任何功能躲在付费或登录之后。</p>
+          <h4>我输入的内容会离开设备吗？</h4>
+          <p>不会。文本转换、字数统计和字形映射都在浏览器标签页里完成。播放流媒体时需要直接从源站拉取分片，这一步无法避免——但没有任何数据经过我们。</p>
+          <h4>需要安装什么吗？</h4>
+          <p>不需要。浏览器能打开这个页面就能运行这里的每一个工具。较新版本的 Chrome、Edge、Firefox 或 Safari 效果最好，尤其是 HLS 与 DASH 播放。</p>
+          <h4>该先试哪个工具？</h4>
+          <p>做视频相关工作选 M3U8 播放器，这是本站唯一你在别处很难找到的工具。做文本工作选字数统计，一次给出长度、阅读时长和关键词密度。</p>
+          <h4>多久新增一个工具？</h4>
+          <p>大约每一到两个月。只有当我们真的踩过某个问题、它能完全在客户端运行、并且做得比现有方案更好时，工具才会上线——这也是网格增长缓慢的原因。</p>
+          <h4>出问题了谁修？</h4>
+          <p>我们修，通常在收到反馈后几天内。请把工具名称、你的输入和浏览器信息通过<a href="/contact/">联系页</a>发来——能复现的报告是修复最快的方式。</p>
         </div>
       </article>
     </div>
