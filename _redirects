@@ -1,2 +1,8 @@
+# Cloudflare Pages strips .html from any root-level path with a 307/308, so
+# /llms.html would be reported as "redirect, no file" by AI file scanners.
+# A 200 rewrite is matched before static asset routing, and it serves this URL
+# in place: no redirect, address bar unchanged. Keep it above all other rules.
+/llms.html /llms 200
+
 # Compatibility variant of llms.txt (ADF-002): llm.txt must 301 to llms.txt
 /llm.txt /llms.txt 301
