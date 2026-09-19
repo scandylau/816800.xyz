@@ -1105,6 +1105,30 @@ figure.shot figcaption {
   line-height: 1.5;
 }
 
+/* Skip to content (WCAG 2.4.1 bypass blocks) */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 999;
+  padding: 10px 16px;
+  background: var(--bg-pure);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-250%);
+  transition: transform 0.15s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Conformance badge (AI Discovery Files) */
 .conformance-badge {
   display: flex;
