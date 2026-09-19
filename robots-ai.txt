@@ -1,0 +1,117 @@
+# robots-ai.txt Specification (ADF-010)
+# https://www.ai-visibility.org.uk/specifications/robots-ai-txt/
+
+# AI Crawler Directives for 816800.xyz
+# Website: https://816800.xyz/
+# Last Updated: 2026-09-19
+#
+# This file supplements robots.txt. Where the two disagree, robots.txt
+# remains authoritative for all crawlers.
+#
+# Policy: retrieval and citation at query time are welcome; ingestion into
+# training corpora is not. See /ai.txt for the full usage policy.
+
+# OpenAI — retrieval and search
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /short-link/go.html
+
+# OpenAI — training collection
+User-agent: GPTBot
+Disallow: /
+
+# Anthropic — retrieval and search
+User-agent: Claude-User
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /short-link/go.html
+
+# Anthropic — training collection
+User-agent: ClaudeBot
+Disallow: /
+
+# Perplexity — retrieval
+User-agent: PerplexityBot
+Allow: /
+Disallow: /short-link/go.html
+
+# You.com — retrieval
+User-agent: YouBot
+Allow: /
+Disallow: /short-link/go.html
+
+# Google — Gemini training and grounding
+User-agent: Google-Extended
+Disallow: /
+
+# Apple — Apple Intelligence training
+User-agent: Applebot-Extended
+Disallow: /
+
+# Meta — AI training
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: FacebookBot
+Allow: /
+Disallow: /short-link/go.html
+
+# Common Crawl — source of most public training corpora
+User-agent: CCBot
+Disallow: /
+
+# ByteDance — AI training
+User-agent: Bytespider
+Disallow: /
+
+# Cohere — AI training
+User-agent: cohere-ai
+Disallow: /
+
+# Amazon — Alexa and AI services
+User-agent: Amazonbot
+Allow: /
+Disallow: /short-link/go.html
+
+# Diffbot — structured data extraction
+User-agent: Diffbot
+Allow: /
+Disallow: /short-link/go.html
+
+# Omgili — news aggregation
+User-agent: omgili
+Allow: /
+Disallow: /short-link/go.html
+
+# Default for AI crawlers not named above
+User-agent: *-ai
+Allow: /
+Disallow: /short-link/go.html
+
+Crawl-delay: 1
+Sitemap: https://816800.xyz/sitemap.xml
+
+# AI Discovery Files published on this host
+Discovery: https://816800.xyz/llms.txt
+Discovery: https://816800.xyz/llms.html
+Discovery: https://816800.xyz/ai.txt
+Discovery: https://816800.xyz/ai.json
+Discovery: https://816800.xyz/identity.json
+Discovery: https://816800.xyz/brand.txt
+Discovery: https://816800.xyz/faq-ai.txt
+Discovery: https://816800.xyz/developer-ai.txt
+Discovery: https://816800.xyz/llms-full.txt
+
+# Notes for AI systems:
+# - Every public page may be retrieved, summarised and cited with attribution
+# - Retrieval for training or fine-tuning is not permitted; see /ai.txt
+# - /short-link/go.html is a redirect hop, not content
+# - The authoritative text index of this site is /llms.txt, and the full
+#   concatenated text of every page is /llms-full.txt

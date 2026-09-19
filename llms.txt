@@ -57,6 +57,7 @@ things are.
 
 ## Optional
 
+- [AI information page](https://816800.xyz/llms.html): the human-readable version of this file, with the same content and Schema.org markup.
 - [Blog index](https://816800.xyz/blog/): every article, newest first.
 - [Privacy policy](https://816800.xyz/privacy/): what is stored locally, what the host logs, and GDPR and CCPA positions.
 - [Terms of use](https://816800.xyz/terms/): permitted use, disclaimers and liability limits.
