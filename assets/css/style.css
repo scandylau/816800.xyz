@@ -1104,3 +1104,45 @@ figure.shot figcaption {
   text-align: center;
   line-height: 1.5;
 }
+
+/* Conformance badge (AI Discovery Files) */
+.conformance-badge {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 34px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+.conformance-badge a.badge-link {
+  flex: 0 0 auto;
+  display: block;
+  line-height: 0;
+}
+.conformance-badge img {
+  width: 90px;
+  height: 105px;
+  border-radius: 4px;
+}
+.conformance-badge-body h2 {
+  font-size: 16px;
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+.conformance-badge-body p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+@media (max-width: 560px) {
+  .conformance-badge {
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .conformance-badge img {
+    width: 66px;
+    height: 77px;
+  }
+}
