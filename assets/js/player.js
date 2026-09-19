@@ -130,6 +130,27 @@
     });
   }
 
+  /* ---------- dash.js 按需加载 ----------
+     775 KB 的 DASH 内核对 HLS 用户毫无用处，因此不在页面初始加载，
+     只在地址确实是 .mpd 清单时才注入。首次加载后缓存 Promise，避免重复请求。 */
+  var dashPromise = null;
+  function loadDash() {
+    if (window.dashjs) return Promise.resolve(window.dashjs);
+    if (dashPromise) return dashPromise;
+    dashPromise = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = "/assets/vendor/dash.all.min.js";
+      s.async = true;
+      s.onload = function () {
+        if (window.dashjs) resolve(window.dashjs);
+        else reject(new Error("dash.js loaded but window.dashjs is undefined"));
+      };
+      s.onerror = function () { reject(new Error("dash.js request failed")); };
+      document.head.appendChild(s);
+    });
+    return dashPromise;
+  }
+
   /* ---------- 清理上一次流 ---------- */
   function clearStream() {
     try { if (hls) { hls.destroy(); hls = null; } } catch (e) {}
@@ -223,18 +244,22 @@
           setStatus("error", t("当前浏览器不支持 HLS 播放，请更换 Chrome / Edge / Firefox 等现代浏览器。", "Your browser does not support HLS. Please use a modern browser such as Chrome, Edge or Firefox."));
         }
       } else if (lower.endsWith(".mpd")) {
-        if (window.dashjs) {
-          dash = window.dashjs.MediaPlayer().create();
+        setStatus("loading", t("正在加载 DASH 播放内核…", "Loading the DASH playback engine…"));
+        loadDash().then(function (dashjs) {
+          dash = dashjs.MediaPlayer().create();
           dash.initialize(video, url, true);
           dash.on("error", function () { onFatal(url); });
           dash.on("streamInitialized", function () {
             clearTimeout(diagTimer);
             setStatus("ok", t("DASH 流初始化成功，开始播放。", "DASH stream initialized, starting playback."));
           });
-        } else {
+        }).catch(function () {
           clearTimeout(diagTimer);
-          setStatus("error", t("DASH 播放内核（dash.js）加载失败，请刷新页面重试。", "DASH player (dash.js) failed to load. Please refresh and retry."));
-        }
+          setStatus("error", t(
+            "DASH 播放内核（dash.js）加载失败，请检查网络连接后重试。",
+            "DASH player (dash.js) failed to load. Check your connection and retry."
+          ));
+        });
       } else {
         video.src = url;
         video.addEventListener("loadedmetadata", function () {
