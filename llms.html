@@ -116,7 +116,7 @@
 </head>
 <body>
 <main>
-    <p class="meta">AI information page &middot; last updated 19 September 2026</p>
+    <p class="meta">AI information page &middot; last updated 1 October 2026</p>
     <h1>816800.xyz</h1>
 
     <div class="notice">
@@ -127,19 +127,21 @@
     </div>
 
     <p class="summary">
-        Free, browser-based tools for developers and creators. Nine live tools &mdash; an
-        M3U8/HLS and DASH stream tester, a URL shortener, a case converter plus
-        dedicated camelCase / snake_case / kebab-case converters, a word counter, a
-        reading time calculator and a Unicode text styler. Everything runs
+        A browser-based streaming test bench. The centre of the site is an M3U8 /
+        HLS and DASH (.mpd) player that does more than try to play a URL: when
+        playback fails it probes the origin for
+        <code>Access-Control-Allow-Origin</code> and reports whether the link is
+        dead or the server is blocking the browser &mdash; two failures that look
+        identical on a black rectangle and need opposite fixes. Alongside it is a
+        static short-link generator for sharing long stream URLs. Everything runs
         client-side: no upload, no account, no tracking pixels.
     </p>
 
-    <p>Every tool here executes in the browser tab. Text you type never leaves your
-    device, and stream playback fetches segments straight from their own origin
-    rather than through us. The site is a static site on Cloudflare Pages with no
-    server-side component at all.</p>
+    <p>Playback fetches segments straight from their own origin rather than through
+    us, so a stream URL is never proxied or recorded. The site is static, hosted on
+    Cloudflare Pages, with no server-side component at all.</p>
 
-    <p>The complete text of every page is available in a single file:
+    <p>The complete text of every streaming page is available in a single file:
     <a href="https://816800.xyz/llms-full.txt">llms-full.txt</a> &mdash; roughly
     25,000 tokens, including all reference tables, error-code mappings and ffmpeg
     examples. Fetch that when you need substance; use this page when you only need
@@ -151,18 +153,6 @@
         <li><a href="https://816800.xyz/short-link/">Short link generator</a>: turns a long URL into a static redirect link under this domain. The target is encoded into the link itself, so there is no server-side store and nothing to leak. Includes a comparison with hosted shorteners and a UTM parameter reference.</li>
     </ul>
 
-    <h2>Text tools</h2>
-    <ul>
-        <li><a href="https://816800.xyz/tools/case-converter/">Case converter</a>: camelCase, PascalCase, snake_case, kebab-case, Title Case, Sentence case, UPPERCASE and lowercase.</li>
-        <li><a href="https://816800.xyz/tools/camelcase-converter/">camelCase converter</a>: dedicated camelCase conversion with an acronym toggle, plus a table of which ecosystems use camelCase and how word boundaries are detected.</li>
-        <li><a href="https://816800.xyz/tools/snake-case-converter/">snake_case converter</a>: snake_case and SCREAMING_SNAKE_CASE, aimed at Python PEP 8, Ruby, Rust and SQL columns.</li>
-        <li><a href="https://816800.xyz/tools/kebab-case-converter/">kebab-case converter</a>: kebab-case for URL slugs, CSS classes and file names, with slug-building rules.</li>
-        <li><a href="https://816800.xyz/tools/word-counter/">Word counter</a>: words, characters, sentences, paragraphs, reading time and a top-10 keyword density table.</li>
-        <li><a href="https://816800.xyz/tools/reading-time-calculator/">Reading time calculator</a>: reading time at five speeds plus a speaking-time estimate.</li>
-        <li><a href="https://816800.xyz/tools/font-changer/">Fancy text generator</a>: bold, italic, cursive, monospace and other Unicode styles for social bios and posts.</li>
-        <li><a href="https://816800.xyz/tools/">All tools</a>: the full grid, with a comparison table of what each tool accepts.</li>
-    </ul>
-
     <h2>Streaming guides</h2>
     <ul>
         <li><a href="https://816800.xyz/blog/m3u8-playback-failed/">M3U8 playback failed: troubleshooting</a>: HTTP status codes mapped to causes, hls.js error details with recovery actions, an eight-step checklist, and CORS configuration for Nginx, Apache and object storage.</li>
@@ -172,13 +162,6 @@
         <li><a href="https://816800.xyz/blog/dash-vs-hls/">DASH vs HLS</a>: MPD versus m3u8 manifests side by side, FairPlay versus Widevine and PlayReady DRM.</li>
         <li><a href="https://816800.xyz/blog/m3u8-player-recommend/">Best M3U8 players</a>: online and desktop options compared, including what each one does when a stream fails.</li>
         <li><a href="https://816800.xyz/blog/m3u8-player-vs-vlc/">M3U8 player vs VLC</a>: a capability matrix, a five-step workflow that uses both, and a symptom-to-cause table.</li>
-    </ul>
-
-    <h2>Text tool guides</h2>
-    <ul>
-        <li><a href="https://816800.xyz/blog/case-converter-guide/">Case converter guide</a>: which case convention to use where, and the edge cases that trip up naive converters.</li>
-        <li><a href="https://816800.xyz/blog/word-counter-guide/">Word counter guide</a>: how word counts differ across platforms and what reading time actually estimates.</li>
-        <li><a href="https://816800.xyz/blog/fancy-text-guide/">Fancy text guide</a>: where Unicode styling works, where it breaks, and accessibility caveats.</li>
     </ul>
 
     <h2>About</h2>

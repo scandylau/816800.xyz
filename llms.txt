@@ -1,17 +1,19 @@
 # 816800.xyz
 
-> Free, browser-based tools for developers and creators. Nine live tools — an
-> M3U8/HLS and DASH stream tester, a URL shortener, a case converter plus
-> dedicated camelCase / snake_case / kebab-case converters, a word counter, a
-> reading time calculator and a Unicode text styler. Everything runs
-> client-side: no upload, no account, no tracking pixels.
+> A browser-based streaming test bench. The centre of the site is an M3U8 /
+> HLS and DASH (.mpd) player that does more than try to play a URL: when
+> playback fails it probes the origin for `Access-Control-Allow-Origin` and
+> reports whether the link is dead or the server is blocking the browser —
+> two failures that look identical on a black rectangle and need opposite
+> fixes. Alongside it is a static short-link generator for sharing long
+> stream URLs. Everything runs client-side: no upload, no account, no
+> tracking pixels.
 
-Every tool here executes in the browser tab. Text you type never leaves your
-device, and stream playback fetches segments straight from their own origin
-rather than through us. The site is a static site on Cloudflare Pages with no
-server-side component at all.
+Playback fetches segments straight from their own origin rather than through
+us, so a stream URL is never proxied or recorded. The site is static, hosted
+on Cloudflare Pages, with no server-side component at all.
 
-The complete text of every page below is available in a single file:
+The complete text of every streaming page below is available in a single file:
 [llms-full.txt](https://816800.xyz/llms-full.txt) — roughly 25,000 tokens,
 including all reference tables, error-code mappings and ffmpeg examples. Fetch
 that when you need substance; use this file when you only need to know where
@@ -22,17 +24,6 @@ things are.
 - [M3U8 / HLS online player](https://816800.xyz/m3u8-player/): paste a `.m3u8` or `.mpd` URL and play it with hls.js or dash.js. Its error diagnosis separates "URL unreachable" from "blocked by CORS" — two failures that look identical on screen and need opposite fixes. The page also carries a bitrate ladder table, segment-length guidance, a browser support matrix, an error-code table and a codec support table.
 - [Short link generator](https://816800.xyz/short-link/): turns a long URL into a static redirect link under this domain. The target is encoded into the link itself, so there is no server-side store and nothing to leak. Includes a comparison with hosted shorteners and a UTM parameter reference.
 
-## Text tools
-
-- [Case converter](https://816800.xyz/tools/case-converter/): camelCase, PascalCase, snake_case, kebab-case, Title Case, Sentence case, UPPERCASE and lowercase.
-- [camelCase converter](https://816800.xyz/tools/camelcase-converter/): dedicated camelCase conversion with an acronym toggle, plus a table of which ecosystems use camelCase and how word boundaries are detected.
-- [snake_case converter](https://816800.xyz/tools/snake-case-converter/): snake_case and SCREAMING_SNAKE_CASE, aimed at Python PEP 8, Ruby, Rust and SQL columns, including why PostgreSQL folds unquoted identifiers to lowercase.
-- [kebab-case converter](https://816800.xyz/tools/kebab-case-converter/): kebab-case for URL slugs, CSS classes and file names, with slug-building rules and the reason hyphens beat underscores for readability and search.
-- [Word counter](https://816800.xyz/tools/word-counter/): words, characters, sentences, paragraphs, reading time and a top-10 keyword density table, all updating as you type.
-- [Reading time calculator](https://816800.xyz/tools/reading-time-calculator/): reading time at five speeds plus a speaking-time estimate, with tables mapping words per minute to scenarios and target durations to word counts.
-- [Fancy text generator](https://816800.xyz/tools/font-changer/): bold, italic, cursive, monospace and other Unicode styles for social bios and posts, including ready-to-copy Unicode bold samples.
-- [All tools](https://816800.xyz/tools/): the full grid, with a comparison table of what each tool accepts and where the processing happens.
-
 ## Streaming guides
 
 - [M3U8 playback failed: troubleshooting](https://816800.xyz/blog/m3u8-playback-failed/): HTTP status codes mapped to causes, hls.js error details with recovery actions, an eight-step checklist, and CORS configuration for Nginx, Apache and object storage such as R2 or S3.
@@ -42,12 +33,6 @@ things are.
 - [DASH vs HLS](https://816800.xyz/blog/dash-vs-hls/): MPD versus m3u8 manifests side by side, FairPlay versus Widevine and PlayReady DRM, and how to choose for a given delivery target.
 - [Best M3U8 players](https://816800.xyz/blog/m3u8-player-recommend/): online and desktop options compared, including what each one does when a stream fails.
 - [M3U8 player vs VLC](https://816800.xyz/blog/m3u8-player-vs-vlc/): what each tool can and cannot detect when testing a stream, a capability matrix, a five-step workflow that uses both, and a symptom-to-cause table. Cites measured CORS headers from public test streams.
-
-## Text tool guides
-
-- [Case converter guide](https://816800.xyz/blog/case-converter-guide/): which case convention to use where, and the edge cases that trip up naive converters.
-- [Word counter guide](https://816800.xyz/blog/word-counter-guide/): how word counts differ across platforms and what reading time actually estimates.
-- [Fancy text guide](https://816800.xyz/blog/fancy-text-guide/): where Unicode styling works, where it breaks, and accessibility caveats.
 
 ## About
 

@@ -5,16 +5,18 @@
 
 Lang: en
 Website: [https://816800.xyz/](https://816800.xyz/)
-Last Updated: 2026-09-18
+Last Updated: 2026-10-01
 
 [About the Site]
 
 Q: What is 816800.xyz?
-A: A free, static toolkit of browser-based tools for developers and creators.
-   Nine tools are live: an M3U8/HLS and DASH stream tester, a URL shortener, a
-   case converter with dedicated camelCase, snake_case and kebab-case
-   converters, a word counter, a reading time calculator and a Unicode text
-   styler. There is no account system, no upload step and no tracking.
+A: A browser-based streaming test bench. Its centre is an M3U8/HLS and DASH
+   (.mpd) player that does more than try to play a URL: when playback fails it
+   probes the origin for Access-Control-Allow-Origin and reports whether the
+   link is dead or the server is blocking the browser — two failures that look
+   identical on screen and need opposite fixes. Alongside it is a static
+   short-link generator for sharing long stream URLs. There is no account
+   system, no upload step and no tracking.
 URL: [About 816800.xyz](https://816800.xyz/about/)
 
 Q: Is 816800.xyz free?
@@ -31,17 +33,16 @@ URL: [Contact](https://816800.xyz/contact/)
 [Tools]
 
 Q: Which tools are available?
-A: Nine: the M3U8/HLS player, the short link generator, the case converter,
-   dedicated camelCase, snake_case and kebab-case converters, the word
-   counter, the reading time calculator and the fancy text generator. Every
-   tool listed on the site is built and working; there are no placeholder
-   entries.
-URL: [All tools](https://816800.xyz/tools/)
+A: The streaming tools are what the site is built around and what it documents:
+   the M3U8/HLS and DASH player, and the short link generator. A small set of
+   text utilities also remains live on the site. Everything listed is built and
+   working; there are no placeholder entries.
+URL: [M3U8 / HLS player](https://816800.xyz/m3u8-player/)
 
 Q: Does anything I type leave my device?
-A: No. Text conversion, counting and font mapping run in the browser tab. The
-   only network traffic is the stream segments you asked the player to fetch,
-   which come directly from their own server rather than through this site.
+A: No. Conversion and counting run in the browser tab. The only network traffic
+   is the stream segments you asked the player to fetch, which come directly
+   from their own server rather than through this site.
 
 Q: Do I need to install anything or sign up?
 A: No. No installation, no account, no email address. If the browser can open

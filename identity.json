@@ -8,7 +8,7 @@
     ],
     "url": "https://816800.xyz/",
     "type": "Organization",
-    "description": "A free, static toolkit of browser-based utilities for developers and creators. Every tool runs client-side with no upload, no account and no tracking. The flagship tool is an M3U8/HLS and DASH stream tester built on hls.js and dash.js; the rest are text utilities and a static URL shortener.",
+    "description": "A free, static streaming test bench that runs entirely in the browser. Its centre is an M3U8/HLS and DASH stream tester built on hls.js and dash.js that diagnoses why playback failed, separating an unreachable URL from a missing Access-Control-Allow-Origin header; alongside it is a static URL shortener for long stream links. No upload, no account, no tracking.",
     "foundingDate": "2026-08",
     "areaServed": [
         {
@@ -31,17 +31,16 @@
         "CORS and cross-origin media playback",
         "Adaptive bitrate streaming",
         "Video codec support in browsers",
-        "Text case conversion conventions",
-        "Unicode text styling"
+        "Cross-origin resource sharing (CORS)",
+        "Stream failure diagnosis and troubleshooting"
     ],
     "keywords": [
         "m3u8 player",
         "hls player online",
         "dash player",
+        "mpd player",
         "m3u8 test",
-        "case converter",
-        "word counter",
-        "fancy text generator",
+        "cors stream test",
         "url shortener"
     ],
     "technical": {

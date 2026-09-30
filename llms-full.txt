@@ -1,13 +1,19 @@
 # 816800.xyz — Complete Content (llms-full.txt)
 
-> Full text of 816800.xyz, a free, browser-based toolkit for developers and
-> creators. This file is the complete-content companion to /llms.txt: read
-> /llms.txt first for a curated map, then use this file when you need the
-> actual substance — parameters, error codes, bitrate ladders, comparisons.
+> Full text of the streaming side of 816800.xyz: an M3U8 / HLS and DASH
+> (.mpd) player with built-in CORS diagnosis, plus the reference guides behind
+> it. This file is the complete-content companion to /llms.txt: read /llms.txt
+> first for a curated map, then use this file when you need the actual
+> substance — parameters, error codes, bitrate ladders, comparisons.
 >
 > - Everything runs client-side. No uploads, no accounts, no tracking.
-> - Content last generated: 2026-09-15
+> - Content last generated: 2026-10-01
 > - Canonical: https://816800.xyz/
+>
+> Text utilities that used to sit alongside these tools are still reachable on
+> the site but are deliberately left out of this file. The site is presented as
+> one thing — diagnosing and playing HLS and DASH streams — and this file
+> follows that.
 
 ## 816800.xyz — Free Online Tools for Developers & Creators
 
@@ -15,19 +21,12 @@
 
 Pure Front-End · Ad-Free · Instant
 Last updated: September 19, 2026
-A dark-themed toolkit with zero popups and zero tracking. Nine free tools that run entirely in your browser: M3U8 / HLS stream tester, URL shortener, case converter, camelCase / snake_case / kebab-case converters, word counter, reading time calculator and fancy text generator.
+A dark-themed streaming test bench with zero popups and zero tracking. Paste a `.m3u8` or `.mpd` URL and it plays in the browser — and when playback fails it says whether the link is dead or the origin is missing an `Access-Control-Allow-Origin` header, which covers most of what "plays in VLC but not in a browser" turns out to be.
 [▶ Browse all tools](https://816800.xyz/tools/) [M3U8 Player](https://816800.xyz/m3u8-player/)
 ### Tool Grid
-9 live tools · no sign-up
+Streaming tools · no sign-up
 - **M3U8 / HLS Player** — https://816800.xyz/m3u8-player/: Paste a .m3u8 or .mpd URL to play instantly; auto-diagnoses CORS issues and logs your test history.
 - **Short Link** — https://816800.xyz/short-link/: Paste a long URL to get a branded share link — no backend, no upload.
-- **Case Converter** — https://816800.xyz/tools/case-converter/: Switch between UPPERCASE, lowercase, Title Case, Sentence case and code styles like camelCase, snake_case and kebab-case.
-- **Word Counter** — https://816800.xyz/tools/word-counter/: Live word, character, sentence, paragraph and reading-time counts, plus a top 10 keyword density table.
-- **Fancy Text Generator** — https://816800.xyz/tools/font-changer/: Turn plain text into bold, italic, cursive and monospace Unicode styles ready to paste into any social platform.
-- **camelCase Converter** — https://816800.xyz/tools/camelcase-converter/: Convert any text to camelCase with optional acronym handling. Built for JavaScript, Java, Swift and JSON keys.
-- **snake_case Converter** — https://816800.xyz/tools/snake-case-converter/: Convert to snake_case or SCREAMING_SNAKE_CASE for constants. Built for Python, Ruby, Rust and SQL columns.
-- **kebab-case Converter** — https://816800.xyz/tools/kebab-case-converter/: Convert to kebab-case for URL slugs, CSS class names, HTML attributes and file names.
-- **Reading Time Calculator** — https://816800.xyz/tools/reading-time-calculator/: Reading time at five speeds plus a speaking-time estimate at conversational pace. Adjustable, live, private.
 ### What makes this different
 Most free tool sites are free the way a hotel shampoo bottle is free: you pay with your data, your attention, and a page that takes four seconds to become usable. This site is free in the boring sense — no account, no upload, and nothing standing between you and the tool.
 #### The differences that matter
@@ -41,7 +40,7 @@ Most free tool sites are free the way a hotel shampoo bottle is free: you pay wi
 | Text tools after first load | Work without a network | Rarely |
 This site compared with a typical ad-supported tool site
 #### How to use it
-1. Pick a tool from the grid above — the five live ones carry the ONLINE badge.
+1. Pick a tool from the grid above.
 1. Paste, drop or type your input. Results update as you type, computed on your own device.
 1. Copy the result. There is no export button to unlock and nothing to download.
 Streaming work starts with the [M3U8 player](https://816800.xyz/m3u8-player/). Paste a `.m3u8` or `.mpd` URL and it tells you whether the stream fails because the link is dead or because a CORS header is missing — two failures that look identical on screen and need opposite fixes.
@@ -53,7 +52,7 @@ No. Text conversion, counting and font mapping run in the browser tab. Stream pl
 #### Do I need to install anything?
 No. If your browser can open this page it can run every tool here. An up-to-date Chrome, Edge, Firefox or Safari gives the best results, particularly for HLS and DASH playback.
 #### Which tool should I try first?
-If you work with video, the [M3U8 player](https://816800.xyz/m3u8-player/) — it is the one tool here you cannot easily get elsewhere. If you work with text, the [word counter](https://816800.xyz/tools/word-counter/) gives length, reading time and keyword density in a single pass.
+The [M3U8 player](https://816800.xyz/m3u8-player/) — it is the one tool here you cannot easily get elsewhere. Paste a stream URL and you get a verdict on why it failed, not just a black rectangle.
 #### How often are new tools added?
 Roughly one every one to two months. A tool only ships if it solves a problem we have actually hit, runs entirely client-side, and beats what already ranks for it — which is why the grid grows slowly.
 #### Something is broken. Who fixes it?
@@ -340,9 +339,6 @@ Wen Lau · Maintainer and technical writer
 Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
 [About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social media](https://816800.xyz/tools/font-changer/)
 - [Browse all tools →](https://816800.xyz/tools/)
 #### Related articles
 - [What Is HLS? Why Browsers Can't Play M3U8 Natively](https://816800.xyz/blog/what-is-hls/)
@@ -443,9 +439,6 @@ Wen Lau · Maintainer and technical writer
 Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
 [About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social media](https://816800.xyz/tools/font-changer/)
 - [Browse all tools →](https://816800.xyz/tools/)
 #### Related articles
 - [M3U8 vs MP4: What Is the Difference?](https://816800.xyz/blog/m3u8-vs-mp4/)
@@ -534,9 +527,6 @@ Wen Lau · Maintainer and technical writer
 Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
 [About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social media](https://816800.xyz/tools/font-changer/)
 - [Browse all tools →](https://816800.xyz/tools/)
 #### Related articles
 - [What Is HLS? Why Browsers Can't Play M3U8 Natively](https://816800.xyz/blog/what-is-hls/)
@@ -622,9 +612,6 @@ Wen Lau · Maintainer and technical writer
 Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
 [About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social media](https://816800.xyz/tools/font-changer/)
 - [Browse all tools →](https://816800.xyz/tools/)
 #### Related articles
 - [What Is HLS? Why Browsers Can't Play M3U8 Natively](https://816800.xyz/blog/what-is-hls/)
@@ -727,9 +714,6 @@ Wen Lau · Maintainer and technical writer
 Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
 [About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social media](https://816800.xyz/tools/font-changer/)
 - [Browse all tools →](https://816800.xyz/tools/)
 #### Related articles
 - [What Is HLS? Why Browsers Can't Play M3U8 Natively](https://816800.xyz/blog/what-is-hls/)
@@ -788,9 +772,6 @@ Wen Lau · Maintainer and technical writer
 Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
 [About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social media](https://816800.xyz/tools/font-changer/)
 - [Browse all tools →](https://816800.xyz/tools/)
 #### Related articles
 - [M3U8 Playback Failed? Fix CORS and Dead Links Step by Step](https://816800.xyz/blog/m3u8-playback-failed/)
@@ -912,417 +893,11 @@ Wen Lau · Maintainer and technical writer
 Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
 [About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
 #### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social media](https://816800.xyz/tools/font-changer/)
 - [Browse all tools →](https://816800.xyz/tools/)
 #### Related articles
 - [Best Free M3U8 Online Players (2026) - Tested and Compared](https://816800.xyz/blog/m3u8-player-recommend/)
 - [M3U8 vs MP4: What Is the Difference?](https://816800.xyz/blog/m3u8-vs-mp4/)
 - [HLS Live vs VOD: Two Ways to Use M3U8](https://816800.xyz/blog/hls-live-vod/)
-
----
-
-## All Tools
-
-> Source: https://816800.xyz/tools/
-
-Pure Front-End · No Upload · No Signup
-Last updated: September 19, 2026
-A small set of tools that just work: case converter, word counter with keyword density, fancy text generator, M3U8 stream tester and URL shortener. Everything runs locally in your browser, with no upload, no tracking and no signup.
-### All tools
-9 live
-- **Case Converter** — https://816800.xyz/tools/case-converter/: Switch between UPPERCASE, lowercase, Title Case, Sentence case and code styles like camelCase, snake_case and kebab-case.
-- **Word Counter** — https://816800.xyz/tools/word-counter/: Live word, character, sentence and reading-time counts, plus a top 10 keyword density table.
-- **Fancy Text Generator** — https://816800.xyz/tools/font-changer/: Turn plain text into bold, italic, cursive and monospace Unicode styles ready to paste into any social platform.
-- **M3U8 / HLS Player** — https://816800.xyz/m3u8-player/: Paste a .m3u8 or .mpd URL to play instantly, with automatic CORS diagnostics and test history.
-- **URL Shortener** — https://816800.xyz/short-link/: Turn long URLs into short branded links. Zero backend, zero upload, ideal for sharing long stream URLs.
-- **camelCase Converter** — https://816800.xyz/tools/camelcase-converter/: Convert any text to camelCase with optional acronym handling. Built for JavaScript, Java, Swift and JSON keys.
-- **snake_case Converter** — https://816800.xyz/tools/snake-case-converter/: Convert to snake_case or SCREAMING_SNAKE_CASE for constants. Built for Python PEP 8, Ruby, Rust and SQL columns.
-- **kebab-case Converter** — https://816800.xyz/tools/kebab-case-converter/: Convert to kebab-case for URL slugs, CSS class names, HTML attributes and file names.
-- **Reading Time Calculator** — https://816800.xyz/tools/reading-time-calculator/: Reading time at five speeds plus a speaking-time estimate at conversational pace. Adjustable, live, private.
-### Why use these tools
-Every tool on this page runs entirely in your browser. There is no server round trip, which means conversion is instant and your text never leaves your device. Nothing is logged, nothing is stored, and no account is required.
-We keep each tool focused on doing one job properly rather than burying it in options. If you need a quick conversion, open a tool, paste, copy, and move on.
-#### Which tool does what
-| Tool | Accepts | Processed | Best for |
-| --- | --- | --- | --- |
-| Case Converter | Text up to a few hundred KB | In your browser | Variable naming, headlines, bulk rewrites |
-| Word Counter | Text of any length | In your browser | Submission limits, SEO density, reading time |
-| Fancy Text Generator | Short strings | In your browser | Social bios, display names, captions |
-| M3U8 / HLS Player | .m3u8 and .mpd URLs | In your browser via hls.js / dash.js | Verifying a stream plays, and CORS diagnosis |
-| URL Shortener | Any http(s) URL | In your browser | Branded sharing, QR codes, very long stream links |
-| camelCase Converter | Text or identifier lists | In your browser | JavaScript, Java, Swift and JSON key naming |
-| snake_case Converter | Text or identifier lists | In your browser | Python, Ruby, Rust and SQL column naming |
-| kebab-case Converter | Titles or identifier lists | In your browser | URL slugs, CSS classes, file names |
-| Reading Time Calculator | Articles, scripts, drafts | In your browser | Read-time badges, talk and video script length |
-What each tool accepts, where the work happens, and who it is for [](https://816800.xyz/tools/case-converter/)[](https://816800.xyz/tools/word-counter/)[](https://816800.xyz/tools/font-changer/)[](https://816800.xyz/m3u8-player/)`[](https://816800.xyz/short-link/)``[](https://816800.xyz/tools/camelcase-converter/)[](https://816800.xyz/tools/snake-case-converter/)[](https://816800.xyz/tools/kebab-case-converter/)[](https://816800.xyz/tools/reading-time-calculator/)
-#### Choosing between them
-- **Working with video?** Start with the [M3U8 player](https://816800.xyz/m3u8-player/). It tells you whether a stream fails because the URL is dead or because CORS is blocking it — the two look identical in a black rectangle.
-- **Working with text?** The [word counter](https://816800.xyz/tools/word-counter/) handles length, reading time and keyword density in one pass; the [case converter](https://816800.xyz/tools/case-converter/) handles the rewrite afterwards.
-- **Not sure which?** The [blog guides](https://816800.xyz/blog/) explain the underlying formats, which usually makes the right tool obvious.
-#### Frequently asked questions
-#### Do I need to install or register anything?
-No. There is no sign-up, no extension and no download. If your browser can open this page, every tool on it works.
-#### Is there a size limit on what I paste?
-No enforced limit, but the browser is doing the work. A few hundred kilobytes of text is instant; a multi-megabyte paste will make the tab think about it. Nothing is uploaded either way.
-#### Are the tools really free?
-Yes — no caps, no watermarks, no trial. The site may display advertising to cover hosting costs, but no feature is behind a payment or a login.
-#### Can I use the results commercially?
-Yes. Converted text, statistics and generated links are yours, including for client and commercial work. We claim no rights over what you process.
-#### My stream will not play. What should I check first?
-Paste it into the [M3U8 player](https://816800.xyz/m3u8-player/) and read the diagnosis. Nine times out of ten it is either a missing `Access-Control-Allow-Origin` header on the stream server, or a URL that expired — the [troubleshooting guide](https://816800.xyz/blog/m3u8-playback-failed/) walks through both.
-Want the background behind streaming formats? The [blog](https://816800.xyz/blog/) covers M3U8, HLS, DASH and CORS troubleshooting in detail.
-
----
-
-## Case Converter
-
-> Source: https://816800.xyz/tools/case-converter/
-
-Pure Front-End · Instant · No Upload
-Last updated: September 19, 2026
-Switch any text between UPPERCASE, lowercase, Title Case, Sentence case and developer styles like camelCase, snake_case and kebab-case. Everything runs in your browser, so your text never leaves your device.
-### How to Change Text Case (and When It Matters)
-Case is not just decoration. The convention you pick changes how readable a headline feels, how professional an email looks, and whether your code passes a linter. This converter handles the common conventions in one click, entirely in your browser.
-#### The everyday writing styles
-**Sentence case** capitalizes only the first letter of each sentence. It is the default for body copy, UI microcopy and most button labels, because it reads like natural language.
-**lowercase** removes every capital letter. Designers use it for a calm, modern look in logos and navigation, and it is handy for normalizing messy data before comparison.
-**UPPERCASE** is loud. Use it sparingly for short labels, warnings or legal clauses. Long passages in all caps are measurably harder to read, so avoid it for paragraphs.
-**Title Case** capitalizes the main words of a headline. Most style guides keep short words such as *a*, *an*, *the*, *of*, *in* and *to* in lowercase unless they start or end the title.
-#### The developer naming styles
-**camelCase** joins words with no separator and capitalizes every word after the first. It is the JavaScript convention for variables and functions.
-**PascalCase** is camelCase with a leading capital, used for class names, React components and types.
-**snake_case** separates words with underscores and is common in Python, Ruby and database column names.
-**kebab-case** uses hyphens and is the standard for CSS classes, HTML attributes and URL slugs. Search engines treat hyphens as word separators, which makes kebab-case the safest choice for readable URLs.
-**CONSTANT_CASE** combines uppercase with underscores for constants and environment variables.
-#### Practical uses
-- Clean up a list of names or product titles before importing into a spreadsheet.
-- Convert a design headline into a URL slug you can paste straight into a CMS.
-- Rename a batch of variables to match your project linting rules.
-- Normalize user-submitted tags so duplicates collapse into one value.
-Tip: converting to **lowercase** first and then into the target style usually gives the cleanest result, because it removes stray capitals hidden inside words.
-#### Single-convention converters
-This page switches between every convention in one place. If you always convert into the same one, a page pre-set to that convention is faster, and each of these also documents the naming rules of the ecosystem it belongs to:
-| If you are writing… | Use | Example |
-| --- | --- | --- |
-| JavaScript, TypeScript, Java, Swift or JSON keys | camelCase converter | getUserById |
-| Python (PEP 8), Ruby, Rust or SQL columns | snake_case converter | get_user_by_id |
-| URL slugs, CSS classes, HTML attributes | kebab-case converter | get-user-by-id |
-| Anything else, or you are not sure yet | This page | every convention |
-[](https://816800.xyz/tools/camelcase-converter/)``[](https://816800.xyz/tools/snake-case-converter/)``[](https://816800.xyz/tools/kebab-case-converter/)``
-#### Frequently asked questions
-##### What does a case converter do?
-A case converter rewrites your text into a different letter-case convention, from simple upper and lower case through to programming styles such as camelCase, snake_case and kebab-case.
-##### Is my text uploaded to a server?
-No. This converter is pure client-side JavaScript. Everything happens inside your browser tab and your text never leaves your device.
-##### What is the difference between Title Case and Sentence case?
-Title Case capitalizes the first letter of every significant word and suits headlines. Sentence case capitalizes only the first letter of each sentence and reads more naturally in body copy.
-##### When should I use camelCase, snake_case or kebab-case?
-camelCase is standard for JavaScript variables, snake_case is common in Python and Ruby, and kebab-case is typical for CSS classes, HTML attributes and URL slugs.
-##### Can I convert a large block of text at once?
-Yes. Paste as much text as you need. Conversion runs instantly in your browser, so even long documents are handled without any upload delay.
-Prefer to measure your text instead? Try the [Word Counter](https://816800.xyz/tools/word-counter/), or browse every utility on the [Tools](https://816800.xyz/tools/) page.
-
----
-
-## Word Counter
-
-> Source: https://816800.xyz/tools/word-counter/
-
-Live Count · Keyword Density · No Upload
-Last updated: September 19, 2026
-Get live word count, character count, sentences, paragraphs and estimated reading time, plus a ranked keyword density table. Everything runs in your browser, so nothing is uploaded.
-Words
-0
-Characters
-0
-Chars (no spaces)
-0
-Sentences
-0
-Paragraphs
-0
-Reading time
-0s
-Speaking time
-0s
-Unique words
-0
-### Top 10 Keyword Density
-Start typing and the numbers update live.
-### Why Word Count and Keyword Density Still Matter
-Word count shapes how long a reader stays, and keyword density hints at what a page is about. Neither is a ranking factor on its own, but both help you ship clearer writing. This tool measures both instantly, in your browser.
-#### Reading time, explained
-The reading estimate uses 200 words per minute, a common benchmark for silent reading in English. Speaking time uses about 130 words per minute, close to a natural pace for presentations. Real readers vary, so treat these as planning numbers rather than promises.
-Limits you can check at a glance: a Google meta description truncates around 155 characters, a tweet allows 280 characters, and a single SMS segment holds 160 characters. This tool shows character counts both with and without spaces, so you can match whichever limit applies.
-#### How to read keyword density
-Density answers a simple question: how much of this text is about a given word? If a word appears 10 times in a 500 word article, that is 2 percent. The top list below is computed after removing common stop words, so the words that remain usually reflect the actual subject.
-**There is no perfect percentage.** Search engines now model synonyms and context, so repeating a phrase to hit a target number does more harm than good. A natural spread between roughly 0.5 and 2 percent usually reads well and still signals the topic clearly.
-#### A practical workflow
-- Draft the piece for the reader first, then check the numbers.
-- Look at the top list: if your intended topic word is missing, the text probably drifted.
-- If one word dominates far above the rest, rewrite a few sentences with a synonym.
-- Compare against similar pages rather than against an abstract ideal.
-The stop word filter removes common English function words such as *the*, *of*, *and* and *to*. Turn it off when you need raw counts, for example when matching a strict editorial requirement.
-#### Frequently asked questions
-##### How is reading time calculated?
-Reading time is estimated at 200 words per minute and speaking time at about 130 words per minute. These are widely used averages, so treat them as estimates.
-##### What is keyword density?
-It is the percentage of total words that a given word represents. A word appearing 10 times in a 500 word article has a density of 2 percent.
-##### What is a good keyword density for SEO?
-There is no official ideal figure. Write naturally for readers first; roughly 0.5 to 2 percent usually signals relevance without hurting readability.
-##### Does this tool count characters with and without spaces?
-Yes, both figures are shown so you can check limits such as meta descriptions, tweets or SMS messages.
-##### Is my text stored or uploaded anywhere?
-No. All counting happens locally in your browser with JavaScript, and nothing is saved after you close the tab.
-Need to reshape the wording instead? Open the [Case Converter](https://816800.xyz/tools/case-converter/), or see every utility on the [Tools](https://816800.xyz/tools/) page.
-
----
-
-## Font Changer
-
-> Source: https://816800.xyz/tools/font-changer/
-
-Unicode Fonts · One-Click Copy · No Upload
-Last updated: September 19, 2026
-Turn plain English into bold, italic, cursive, bubble, fraktur and monospace Unicode styles you can paste straight into Instagram, TikTok, X and LinkedIn names, bios and captions. Everything runs in your browser.
-Start typing and the styles below will generate live.
-### How Fancy Text Works (and Where to Use It Safely)
-These are not real fonts. Each style replaces your letters with different Unicode characters that happen to look bold, cursive or outlined. Because the output is still plain text, it pastes into places that would never accept a custom font.
-Technically these are the Mathematical Alphanumeric Symbols block, code points U+1D400 to U+1D7FF, which [the Unicode Consortium publishes as a standardised code chart](https://www.unicode.org/charts/PDF/U1D400.pdf). That is why the letters survive copy and paste: they are ordinary characters with assigned code points, not font styling layered on top.
-#### Where it shines
-Social profiles are the main use case. Instagram bios, TikTok display names, X handles, LinkedIn headlines and Discord nicknames all accept Unicode, so a stylised line is an easy way to make a profile stand out.
-It is also handy for drawing attention inside plain-text environments that offer no formatting at all, such as chat messages, commit messages or plain-text emails.
-#### Where to avoid it
-**Do not use fancy text for anything you need indexed or read aloud.** Search engines and screen readers may not recognise the substituted characters as ordinary letters, which means the text can become invisible to both. Keep headings, body copy, URLs and accessibility labels in normal characters, and reserve stylised text for decoration.
-Be careful with usernames and anything people need to type back. If a follower cannot reproduce a character on a normal keyboard, they cannot tag or search for you.
-#### Choosing a style that renders everywhere
-- **Bold** and **monospace** are the safest options and work on nearly every platform.
-- **Script**, **fraktur** and **double-struck** look distinctive but are the most likely to fail on older devices.
-- **Fullwidth** and **circled** styles are wide, so keep them short to avoid wrapping in a narrow bio.
-- Always preview on the actual device before you commit to it.
-If a character shows as an empty box, that platform has no glyph for it. Switching to bold or monospace almost always fixes the problem.
-#### Unicode bold text you can copy and paste
-If you only need one short line styled, you do not have to type anything into the generator. Select and copy any row below. These are real Unicode characters from the Mathematical Alphanumeric Symbols block, not bold markup, so they paste straight into Instagram bios, TikTok display names, X handles, LinkedIn headlines and Discord nicknames exactly as you see them.
-| Style | Copy this | Best for |
-| --- | --- | --- |
-| Bold | 𝐇𝐞𝐥𝐥𝐨 𝐖𝐨𝐫𝐥𝐝 | Names and short headers; the most widely supported |
-| Sans bold | 𝗛𝗲𝗹𝗹𝗼 𝗪𝗼𝗿𝗹𝗱 | Bios and headlines where serif bold looks out of place |
-| Italic | 𝐻𝑒𝑙𝑙𝑜 𝑊𝑜𝑟𝑙𝑑 | Book or song titles, quotes |
-| Bold italic | 𝑯𝒆𝒍𝒍𝒐 𝑾𝒐𝒓𝒍𝒅 | Emphasis; slightly weaker support on older phones |
-| Monospace | 𝙷𝚎𝚕𝚕𝚘 𝚆𝚘𝚛𝚕𝚍 | Code-like or technical profiles |
-Two practical notes. First, the characters above are fixed strings — type your own text into the box at the top of this page to convert any other phrase. Second, a stylised line is decoration, not content: screen readers and search engines may not read these letters as ordinary words, so keep anything functional in normal characters.
-#### Frequently asked questions
-##### How do I get bold text on Instagram or TikTok?
-Either copy one of the ready-made rows in this section, or type your own phrase into the generator above and copy the bold result. Both paste in as plain Unicode text.
-##### Can I use Unicode bold in a URL or an email address?
-No. URLs, email addresses and usernames that must be typed back should stay in normal characters, or people will not be able to reach you.
-##### How does a fancy text generator work?
-It does not change the font. It swaps each letter for a different Unicode character that looks like a styled version of that letter, so the result stays plain text you can paste almost anywhere.
-##### Can I use these fonts in Instagram and TikTok bios?
-Yes. Most social apps accept Unicode in names, bios, captions and comments. If a style fails to render, choose a simpler one such as bold or monospace.
-##### Will fancy text hurt my SEO or accessibility?
-It can. Screen readers and search engines may not read stylised Unicode letters as normal words, so avoid them for headings, body copy or anything you need indexed.
-##### Why do some characters show as boxes?
-A box means the device or app has no glyph for that character. Script, fraktur and double-struck styles fail most often on older systems.
-##### Is my text uploaded anywhere?
-No. The generator is pure client-side JavaScript, so your text is converted inside your browser and never leaves your device.
-Want to change letter case instead? Try the [Case Converter](https://816800.xyz/tools/case-converter/), or browse every utility on the [Tools](https://816800.xyz/tools/) page.
-
----
-
-## Case Converter Guide
-
-> Source: https://816800.xyz/blog/case-converter-guide/
-
-Last updated: September 19, 2026
-2026-09-01 · 5 min read
-### 1. Why you need a case converter
-Letter casing looks trivial, but it matters everywhere in coding, writing and data work: variables want `camelCase`, database columns want `snake_case`, paper titles want "Capitalized Major Words", SQL keywords are conventionally UPPER, and social copy often goes ALL CAPS for emphasis. Doing it by hand on hundreds of characters is slow and error-prone — a **case converter** turns those rules into one click.
-### 2. Common conversion modes
-- **UPPERCASE**: `hello world` → `HELLO WORLD` — good for SQL, constants, emphasis.
-- **lowercase**: the clean baseline form, least error-prone.
-- **Title Case**: first letter of each word capitalized — titles, nav, button labels.
-- **Sentence case**: only the first word capitalized — body sentences.
-- **camelCase**: first word lowercase, later words capitalized — JS/Java variables.
-- **PascalCase**: every word capitalized — class and component names.
-- **snake_case**: words joined by underscores — Python/Ruby vars, DB columns.
-- **kebab-case**: words joined by hyphens — URLs, CSS class names.
-### 3. Where each convention actually comes from
-The conventions are not arbitrary — each exists because of a technical constraint somewhere in the stack:
-| Convention | Used in | Why it exists |
-| --- | --- | --- |
-| camelCase | JavaScript, Java variables | Spaces are illegal in identifiers; capitals mark word boundaries |
-| PascalCase | Class names, React components | Signals "constructable thing" — a convention many linters enforce |
-| snake_case | Python, Ruby, SQL columns | Underscores survive case-insensitive collations better than capitals |
-| kebab-case | URLs, CSS classes, hostnames | Hyphens are URL-safe; underscores are not word separators for search engines |
-| UPPERCASE | SQL keywords, constants | Visual separation of "fixed" tokens from variable ones |
-| Title Case | Headings, document titles | Editorial convention; style guides differ on minor words |
-Casing conventions and the reason behind them
-One detail that bites people converting to kebab-case for URLs: hyphens are word separators as far as Google is concerned, while underscores glue words together — `blue-shoes` ranks for "blue shoes", `blue_shoes` is treated as one token. That is why the kebab button, not snake, is the right choice for slugs.
-### 4. Typical use cases
-- **Code & variables**: turn "user order" from docs into `userOrder` / `user_order` in bulk.
-- **Papers & titles**: normalize a draft title to Title Case without editing word by word.
-- **CSV / data cleanup**: unify headers to snake_case before import.
-- **Social copy**: ALL CAPS grabs attention (in moderation).
-### 5. How to use this site's case converter
-1. Open the [case converter](https://816800.xyz/tools/case-converter/).
-1. Paste or type any text into the box.
-1. Click the matching button (UPPER / lower / Title / Sentence / camel / Pascal / snake / kebab).
-1. The result appears instantly — copy it with one click.
-For multi-word identifiers, make sure the input is separated by spaces or hyphens first — "userOrder" pasted as one token has no word boundaries for the tool to detect. Convert from the raw phrase ("user order"), not from another convention's output.
-### 6. Why convert locally in the browser is safer
-This tool runs **entirely in your browser**. Your text is never uploaded to any server and never written remotely. Drafts, code and unpublished data stay on your own device — important when handling sensitive copy.
-### Frequently asked questions
-#### What's the difference between camelCase and PascalCase?
-Only the first word: `camelCase` starts lowercase, `PascalCase` starts uppercase. In practice the distinction matters because many style guides and frameworks key behavior off it — React treats lowercase tags as HTML and PascalCase tags as components.
-#### Which case should URLs use?
-Kebab-case, all lowercase. URLs are case-sensitive after the domain, so mixed casing invites broken links; hyphens keep words distinct for both users and search engines.
-#### Does Title Case capitalize "the" or "of"?
-Style guides disagree: Chicago lowercases short prepositions and articles mid-title; AP capitalizes words of four letters or more. This tool's Title Case applies a common rule set — check the result against the style guide your publisher expects.
-#### Can I convert a whole CSV header row?
-Yes — paste the entire row. The snake_case and kebab-case conversions treat spaces and existing separators as word boundaries, so a row of mixed headers usually comes out clean. Spot-check abbreviations like "ID" or "URL" afterwards.
-### Related tools
-To count words and characters after editing, use the [word counter](https://816800.xyz/tools/word-counter/); for eye-catching **fancy / styled text**, see the [fancy text generator](https://816800.xyz/tools/font-changer/); more notes in the [blog](https://816800.xyz/blog/).
-Wen Lau · Maintainer and technical writer
-Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
-[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
-#### Related tools
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Word Counter — word count, characters, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social](https://816800.xyz/tools/font-changer/)
-- [Browse all tools →](https://816800.xyz/tools/)
-#### Related articles
-- [Word Counter & Keyword Density Guide](https://816800.xyz/blog/word-counter-guide/)
-- [Fancy Text Generator Guide](https://816800.xyz/blog/fancy-text-guide/)
-- [All articles](https://816800.xyz/blog/)
-
----
-
-## Word Counter Guide
-
-> Source: https://816800.xyz/blog/word-counter-guide/
-
-Last updated: September 19, 2026
-2026-09-01 · 5 min read
-### 1. What a word counter tells you
-Many think word counting is just "how many words" — but it also gives **word count, character count (with/without spaces), paragraphs and sentences**, plus the two that matter most: **reading time** and **keyword density**. Those numbers help with essays, SEO copy and social posts alike.
-### 2. How words and characters are counted
-- **Words**: the number of space/punctuation-delimited tokens — the metric English writing cares about most.
-- **Characters**: counted per character, usually split into "with spaces" and "without"; handy when a tweet or résumé has a hard limit.
-- **Paragraphs / sentences**: a quick read on whether structure is too bloated or too fragmented.
-### 3. Keyword density & SEO
-Keyword density = (keyword occurrences) ÷ (total words). It's a classic SEO signal: too low can look "off-topic", too high looks like stuffing (which search engines penalize). Keeping a primary term around **1%–2%** reads naturally; relevance and fluency matter more than the exact number.
-### 4. Estimating reading time
-Rule of thumb: adults read about **200–250 words per minute**. Divide total words by 220 to estimate minutes. This site shows "X min read" directly, so you can label posts and set reader expectations.
-The 220 wpm figure is a midpoint, not a law. Skimmers move faster, dense technical text slows readers down, and non-native audiences often read 30–40% slower. When precision matters — course material, legal copy, subtitles — time a real reader once and calibrate your own divisor.
-### 5. Limits you should know before you rely on one
-Every platform counts differently, and the differences are big enough to cause rejected submissions. The table lists the cases people hit most often:
-| Context | Typical rule | Watch out for |
-| --- | --- | --- |
-| University essays | Words, excluding citations and sometimes headings | Footnotes may or may not count — check the handbook |
-| News / magazine pitches | Words including headlines | Editors usually expect within ±10% of the ask |
-| Social posts (X, LinkedIn) | Characters, not words | Links and emoji count toward the limit |
-| Meta descriptions | ~155 characters before truncation | Titles truncate around 60 characters |
-| Ad copy | Characters per line | Leading/trailing spaces can still count |
-Where counting rules diverge
-Practical takeaway: use the live counter while drafting, then verify against the target platform's own counter before submitting. Where the two disagree, the platform wins.
-### 6. How to use this site's word counter
-1. Open the [word counter](https://816800.xyz/tools/word-counter/).
-1. Paste or type text; stats update live.
-1. Check word count, characters, reading time and keyword density.
-1. To normalize casing, use the [case converter](https://816800.xyz/tools/case-converter/) alongside it.
-### 7. Privacy note
-This counter runs **entirely in your browser**; text is never uploaded. Unpublished drafts and client documents are safe to paste.
-### Frequently asked questions
-#### What counts as a "word"?
-Any run of characters separated by spaces or punctuation. "State-of-the-art" is one word; "2026" is one word. Different tools may disagree by a few percent on hyphenated or numeric text — again, the receiving platform's counter is the authority.
-#### Is keyword density still an SEO ranking factor?
-Not directly. Modern search engines judge topic coverage and quality, not keyword ratios. Density is still useful as a *sanity check*: if a term crosses roughly 3% the page usually reads as stuffed, and if your target phrase never appears the page may struggle to rank for it.
-#### How long should a blog post be?
-Long enough to cover the topic and no longer. As anchors: a focused how-to lands around 800–1,200 words, a comparison piece 1,200–2,000. Reading time is the better label for readers; word count is the better budget for you.
-#### Does the counter work with languages other than English?
-Character and paragraph counts work for any text. Word counting is most accurate for space-delimited languages such as English; for unspaced scripts the character count is the meaningful number.
-### Related tools
-To normalize titles or variables to one casing, use the [case converter](https://816800.xyz/tools/case-converter/); for eye-catching **fancy / styled text**, see the [fancy text generator](https://816800.xyz/tools/font-changer/); more notes in the [blog](https://816800.xyz/blog/).
-Wen Lau · Maintainer and technical writer
-Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
-[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
-#### Related tools
-- [Word Counter — word count, characters, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Fancy Text Generator — bold, italic and cursive styles for social](https://816800.xyz/tools/font-changer/)
-- [Browse all tools →](https://816800.xyz/tools/)
-#### Related articles
-- [Case Converter: Convert Text Case Online](https://816800.xyz/blog/case-converter-guide/)
-- [Fancy Text Generator Guide](https://816800.xyz/blog/fancy-text-guide/)
-- [All articles](https://816800.xyz/blog/)
-
----
-
-## Fancy Text Guide
-
-> Source: https://816800.xyz/blog/fancy-text-guide/
-
-Last updated: September 19, 2026
-2026-09-01 · 5 min read
-### 1. What "fancy text" is
-"Fancy text" isn't a different font file — it maps each ordinary letter to **another glyph in Unicode**. For example `A` becomes mathematical bold `𝐀`, Fraktur `𝔄`, or circled `Ⓐ`. Because these are standard Unicode code points, they display anywhere that supports them — no font install needed on the reader's side.
-### 2. Why it shows up on social
-Instagram, Twitter/X, TikTok, WeChat and others render the Unicode basic and many supplementary planes. The styled text this site produces is just a "legal character sequence", so it displays normally in bios, display names and comments. Note: text baked into an image (e.g. an avatar) won't change — that's pixels, not characters.
-### 3. Common styles
-- **Bold / Italic**: mathematical alphanumeric symbols (𝐀𝐚, 𝐴𝑎) — the most universal emphasis.
-- **Script / Cursive**: 𝒜𝒶 and similar — great for names and signatures.
-- **Small caps / Fullwidth**: light decoration or alignment.
-- **Circled / Squared**: Ⓐ ⓐ — username accents.
-- **Spaced text**: inserting space characters between letters for a "wide" look.
-Each family lives in a different Unicode block, and that determines where it will and won't render:
-| Family | Unicode block | Code points | Reliability on social platforms |
-| --- | --- | --- | --- |
-| Math bold / italic | Mathematical Alphanumeric Symbols | U+1D400–U+1D7FF | Highest — renders on all major apps |
-| Script / Fraktur | Mathematical Alphanumeric Symbols | U+1D400–U+1D7FF | High, but some fonts lack double-struck glyphs |
-| Circled / squared | Enclosed Alphanumerics | U+2460–U+24FF and U+1F130– | Good for single letters, weaker for long runs |
-| Fullwidth | Halfwidth and Fullwidth Forms | U+FF01–U+FF5E | Excellent (designed for CJK text) |
-| Zalgo / combining marks | Combining Diacritical Marks | U+0300–U+036F | Unpredictable — can break layouts and screen readers |
-Style families and where they render reliably
-### 4. Use cases
-- **Social bio / display name**: stand out in the feed.
-- **Post titles**: bold or script to grab attention.
-- **Game ID / signature**: personalize your tag.
-- **Chat / comment accent**: lightweight decoration.
-### 5. How to use this site's fancy text generator
-1. Open the [fancy text generator](https://816800.xyz/tools/font-changer/).
-1. Type or paste plain text.
-1. Each style previews live; one click copies it.
-1. Paste the result wherever you want.
-The conversion is a fixed character map — the same input always produces the same output, on your device, with nothing uploaded. That also means it works offline once the page has loaded.
-### 6. Caveats
-Some older systems or fonts don't render certain supplementary-plane characters and show a box. Search engines generally **don't index** decorative glyphs, so don't use them on keywords you need to rank for. Also, always use plain text for passwords and verification codes to avoid copy errors.
-Three more boundaries worth respecting. Accessibility: screen readers may spell styled characters out letter-by-letter or skip them, so never set essential information (prices, dates, warnings) in fancy text. Findability: users cannot type styled glyphs into a search box, so keep your searchable name in plain text and use the styled version as a display decoration. Stability: platforms periodically tighten username rules — a styled name that passes today may be reset to plain text after an update, so don't build your identity on it.
-### Frequently asked questions
-#### Is fancy text a font?
-No. A font changes how glyphs look; fancy text swaps in different characters entirely. That's why it survives copy-paste between apps without installing anything — and why search engines treat it as gibberish.
-#### Why does my styled text show boxes on some devices?
-The device's system font lacks glyphs for those supplementary-plane code points. There is no sender-side fix; choose a more conservative style (bold, fullwidth) for audiences on older devices.
-#### Can fancy text be used for passwords?
-Absolutely not. Password fields expect exact plain characters, and a styled 𝐀 is a different code point from A. Use styled text only where the characters are display-only.
-#### Does it affect character limits?
-Yes — most platforms count Unicode code points (or even UTF-16 code units), so a styled letter can cost more than one "character". Check your final text with the [word counter](https://816800.xyz/tools/word-counter/) before posting close to a limit.
-### Related tools
-To count words/characters of your copy, use the [word counter](https://816800.xyz/tools/word-counter/); to normalize a title to one casing, see the [case converter](https://816800.xyz/tools/case-converter/); more notes in the [blog](https://816800.xyz/blog/).
-Wen Lau · Maintainer and technical writer
-Builds and maintains the tools on 816800.xyz and wrote this guide. Working areas: HTTP adaptive streaming (HLS and DASH), browser media APIs, and front-end tooling that runs without a server. Every number quoted here was measured against a real request, not copied from a spec.
-[About the author](https://816800.xyz/about/#author) · [Report an error in this page](https://816800.xyz/contact/)
-#### Related tools
-- [Fancy Text Generator — bold, italic and cursive styles for social](https://816800.xyz/tools/font-changer/)
-- [Word Counter — word count, characters, reading time and keyword density](https://816800.xyz/tools/word-counter/)
-- [Case Converter — switch between UPPERCASE, Title Case, camelCase and more](https://816800.xyz/tools/case-converter/)
-- [Browse all tools →](https://816800.xyz/tools/)
-#### Related articles
-- [Case Converter: Convert Text Case Online](https://816800.xyz/blog/case-converter-guide/)
-- [Word Counter & Keyword Density Guide](https://816800.xyz/blog/word-counter-guide/)
-- [All articles](https://816800.xyz/blog/)
 
 ---
 
@@ -1354,8 +929,8 @@ How data is handled on 816800.xyz ``[](https://816800.xyz/m3u8-player/)
 You can wipe everything the site has saved by clearing site data in your browser. The full legal version lives in our [privacy policy](https://816800.xyz/privacy/).
 ### Who these tools are for
 - **Streaming engineers and QA testers** who need to confirm that an HLS or DASH manifest actually plays before shipping it.
-- **Developers** who want a fast case converter or word counter without hitting a signup wall.
-- **Writers, students and marketers** checking reading time, keyword density and platform character limits.
+- **Developers** who want to confirm a manifest or a stream URL without standing up a player, installing ffmpeg or writing a test page.
+- **Site owners and CDN operators** checking whether a stream's `Access-Control-Allow-Origin` headers actually allow browser playback.
 - **Anyone on a locked-down machine** where installing software is not an option — a browser is all you need.
 ### How we decide what to build next
 A tool only gets added if it passes three tests: it solves a recurring problem we have personally hit, it can run entirely client-side, and it is meaningfully better than the ten results already ranking on page one. That last test is why the site grows slowly — roughly one new tool every one to two months rather than a batch of thin clones.
@@ -1377,7 +952,7 @@ What that name is actually responsible for:
 | --- | --- |
 | Streaming tools | Maintains the M3U8/HLS and MPD/DASH player, its CORS diagnostics and the test source list. Public test streams are re-checked periodically and replaced when they stop responding |
 | Written documentation | Writes and revises every guide here. Wherever a guide quotes a number — latency, bitrate, response time, error codes — it came from a request run against a real endpoint, not from summarising a specification |
-| Text tooling | Implements the case converter, word counter and fancy text generator so they run entirely client-side, with no network call |
+| Stream diagnosis | Implements the CORS probe, error mapping and test-source checks in the player so a failure is attributed to a specific cause rather than a blank screen |
 | Corrections | Owns factual errors in this content. If something here is wrong, report it and the page gets fixed with an updated revision date |
 Working areas beyond this site: HTTP adaptive streaming (HLS, LL-HLS, MPEG-DASH), browser media APIs including Media Source Extensions, and front-end tooling that runs without a backend. Every measurement published on 816800.xyz is dated and describes the conditions it was taken under, because a number without conditions is not evidence.
 ### How we test and publish
