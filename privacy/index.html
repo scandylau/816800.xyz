@@ -139,7 +139,7 @@
           <p>托管方（Cloudflare Pages）可能记录标准访问日志（如 IP、User-Agent、访问时间）用于安全防护与流量统计。这些数据由托管方按行业惯例处理，我们不以此识别个人身份。</p>
 
           <h2>4. Cookie 与追踪</h2>
-          <p>本站自身<strong>不设置追踪 Cookie</strong>。首次访问会出现同意横幅，提供「接受」与「拒绝」两个并列选项：<strong>在你作出选择之前，不加载任何统计脚本、不写入 Cookie、不发送请求</strong>；选择「拒绝」则永久不加载。选择结果记录在浏览器本地，清除本站数据即可撤回。</p>
+          <p>本站自身<strong>不设置追踪 Cookie</strong>。首次访问会出现同意横幅，提供「接受」与「拒绝」两个并列选项：<strong>在你作出选择之前，不加载任何基于 Cookie 的统计脚本、不写入 Cookie、不发送请求</strong>；选择「拒绝」则永久不加载。选择结果记录在浏览器本地，清除本站数据即可撤回。</p>
           <p>Google Analytics 4（衡量 ID：<code>G-JEMKSVKD32</code>）<strong>仅在你点击「接受」后</strong>才加载，用于统计访问量与页面使用情况。若未来启用广告（如 Google AdSense），第三方厂商可能使用 Cookie 投放广告；我们将仅以手动方式在指定位置放置广告单元，并尽最大努力保护你的浏览体验。</p>
 
           <h2>5. 第三方内容</h2>
@@ -186,13 +186,13 @@
           <p>No cookie consent is required for this storage because it is strictly necessary to deliver a feature you explicitly used, and it never leaves your device.</p>
 
           <h2>4. Logs &amp; analytics</h2>
-          <p>Our host (Cloudflare Pages) keeps standard access logs — IP address, user agent, requested path and timestamp — for security, abuse prevention and traffic statistics. We also measure aggregate usage with Google Analytics 4, which relies on cookies and may process your IP address in truncated form. Analytics tell us which pages are worth improving; they are not used to build individual profiles or to make automated decisions about you.</p>
+          <p>Our host (Cloudflare Pages) keeps standard access logs — IP address, user agent, requested path and timestamp — for security, abuse prevention and traffic statistics. We also measure aggregate usage with Google Analytics 4, which relies on cookies and may process your IP address in truncated form, and with Cloudflare Web Analytics, which is cookieless. Analytics tell us which pages are worth improving; they are not used to build individual profiles or to make automated decisions about you.</p>
 
           <h2>5. Cookies, advertising and opting out</h2>
           <p>The Site sets no tracking cookies of its own. Third parties that appear on the Site may set their own:</p>
 
           <h3>Your choice comes first</h3>
-          <p>On your first visit, a consent banner gives you two equally prominent options — <strong>Accept</strong> or <strong>Reject</strong>. Until you choose, nothing is measured: no analytics script is loaded, no cookie is written and no request is sent.</p>
+          <p>On your first visit, a consent banner gives you two equally prominent options — <strong>Accept</strong> or <strong>Reject</strong>. Until you choose, no cookie-based analytics script is loaded, no cookie is written and no request is sent.</p>
           <div class="table-scroll">
             <table>
               <caption>What happens for each choice</caption>
@@ -200,9 +200,9 @@
                 <tr><th>Your choice</th><th>What loads</th><th>What is stored</th></tr>
               </thead>
               <tbody>
-                <tr><td><strong>Accept</strong></td><td>Google Analytics 4 loads, and advertising cookies may load once ads are live</td><td>Analytics cookies, plus your consent choice</td></tr>
-                <tr><td><strong>Reject</strong></td><td>No analytics, no advertising cookies</td><td>Only a single local record of your refusal, so the banner does not reappear</td></tr>
-                <tr><td><strong>No choice yet</strong></td><td>Nothing measurement-related</td><td>Nothing</td></tr>
+                <tr><td><strong>Accept</strong></td><td>Google Analytics 4 and Cloudflare Web Analytics; advertising cookies may load once ads are live</td><td>Analytics cookies, plus your consent choice</td></tr>
+                <tr><td><strong>Reject</strong></td><td>Cloudflare Web Analytics only — no cookies</td><td>Only a single local record of your refusal, so the banner does not reappear</td></tr>
+                <tr><td><strong>No choice yet</strong></td><td>Cloudflare Web Analytics only — no cookies</td><td>Nothing</td></tr>
               </tbody>
             </table>
           </div>
@@ -332,5 +332,6 @@
   </footer>
 
   <script src="/assets/js/i18n.js" defer></script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "42f35b95e79c4acea317d5a79a87e06c"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
