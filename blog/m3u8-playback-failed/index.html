@@ -34,7 +34,7 @@
       "headline": "M3U8 Playback Failed? Fix CORS and Dead Links Step by Step",
       "description": "Diagnose the two root causes of M3U8 playback failure, expired URLs and blocked cross-origin requests, with actionable fixes.",
       "datePublished": "2026-08-19",
-      "dateModified": "2026-09-17",
+      "dateModified": "2026-10-30",
       "inLanguage": "zh-CN",
 "author": {
         "@type": "Person",
@@ -155,7 +155,7 @@
           <span class="zh">m3u8 播放失败/黑屏？一步步排查 CORS 与地址失效</span>
           <span class="en">M3U8 Playback Failed or Black Screen? Troubleshoot CORS &amp; Dead URLs</span>
         </h1>
-        <p class="updated"><span data-zh="最后更新：" data-en="Last updated: ">Last updated: </span><time datetime="2026-09-19" data-zh="2026 年 9 月 19 日" data-en="September 19, 2026">September 19, 2026</time></p>
+        <p class="updated"><span data-zh="最后更新：" data-en="Last updated: ">Last updated: </span><time datetime="2026-10-30" data-zh="2026 年 10 月 30 日" data-en="October 30, 2026">October 30, 2026</time></p>
         <p data-zh="2026-08-19 · 约 6 分钟阅读" data-en="2026-08-19 · 6 min read">2026-08-19 · 6 min read</p>
       </div>
 
@@ -309,6 +309,86 @@
   "ExposeHeaders": ["Content-Length", "Content-Range"]
 }]</code></pre>
           <p>Two details people miss: the <code>Range</code> header must be allowed, because players request byte ranges, and <code>Content-Length</code> must be exposed, because MSE needs it to manage the buffer.</p>
+
+          <p>Verify it the way a browser sees it, not the way curl sees it. A server that only emits the header when an <code>Origin</code> is present will look perfectly healthy to a bare <code>curl -I</code>:</p>
+<pre><code>curl -sI -H "Origin: https://example.com" https://cdn.example.com/live/index.m3u8 \
+  | grep -i "access-control"</code></pre>
+          <p>No output means no CORS headers, whatever the status line says.</p>
+
+          <h2>11. Six ways a CORS failure actually happens</h2>
+          <p>All six produce the same black screen. They need different fixes, so read the console message before touching anything.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Console message → what the server actually sent → what to change</caption>
+              <thead>
+                <tr><th>Console message</th><th>What is wrong</th><th>Fix</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>No <code>'Access-Control-Allow-Origin'</code> header is present on the requested resource</td>
+                  <td>No CORS header at all. By far the most common case.</td>
+                  <td>Add the header to the manifest <em>and</em> every segment.</td>
+                </tr>
+                <tr>
+                  <td>The <code>'Access-Control-Allow-Origin'</code> header contains multiple values, but only one is allowed</td>
+                  <td>Two layers both add it — CDN and origin, or two <code>add_header</code> lines.</td>
+                  <td>Remove one. Never let both echo.</td>
+                </tr>
+                <tr>
+                  <td>The value of the <code>'Access-Control-Allow-Origin'</code> header must not be the wildcard <code>'*'</code> when the request's credentials mode is <code>'include'</code></td>
+                  <td>The player sends cookies; the server answers <code>*</code>. A wildcard is illegal with credentials.</td>
+                  <td>Echo the exact <code>Origin</code> back and add <code>Access-Control-Allow-Credentials: true</code>.</td>
+                </tr>
+                <tr>
+                  <td>Response to preflight request doesn't pass access control check</td>
+                  <td><code>OPTIONS</code> returns 404 or 405, or omits <code>Allow-Methods</code>. Fires when the player sends custom headers.</td>
+                  <td>Answer <code>OPTIONS</code> with 204 plus <code>Allow-Methods</code> and <code>Allow-Headers</code>.</td>
+                </tr>
+                <tr>
+                  <td>Mixed Content: the page was loaded over HTTPS, but requested an insecure resource</td>
+                  <td>The manifest URL is <code>http://</code>. Not a CORS problem at all, but it looks like one.</td>
+                  <td>Serve over HTTPS, or proxy the stream through your own origin.</td>
+                </tr>
+                <tr>
+                  <td>blocked by CORS policy: permission denied for private network access</td>
+                  <td>A public page calling a <code>192.168.x.x</code> or <code>10.x.x.x</code> stream.</td>
+                  <td>Add <code>Access-Control-Allow-Private-Network: true</code>, or open the page from inside the same network.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>12. Configs for the four hosts people actually deploy on</h2>
+
+          <h3>Cloudflare, when you cannot touch the origin</h3>
+          <p>Rules → Transform Rules → Modify Response Header → Set static, adding <code>Access-Control-Allow-Origin: *</code>, filtered on <code>ends_with(http.request.uri.path, ".m3u8")</code>. Duplicate the rule for <code>.ts</code> and <code>.m4s</code>. One exception: an R2 bucket ignores Transform Rules and uses its own CORS policy in the bucket settings.</p>
+
+          <h3>AWS CloudFront</h3>
+          <p>CloudFront drops headers it was not told to forward. Attach a response headers policy that sets <code>Access-Control-Allow-Origin</code>, and make sure the origin request policy forwards <code>Origin</code> — otherwise the origin cannot echo it. If the header appears twice in the browser, the origin and the policy are both adding it; drop one.</p>
+
+          <h3>Express</h3>
+<pre><code>app.use((req, res, next) =&gt; {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Expose-Headers", "Content-Length, Content-Range");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});</code></pre>
+
+          <h3>Vercel</h3>
+<pre><code>{
+  "headers": [{
+    "source": "/(.*).(m3u8|ts|m4s)",
+    "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+  }]
+}</code></pre>
+
+          <h3>Netlify</h3>
+<pre><code>[[headers]]
+  for = "/*.m3u8"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"</code></pre>
+
+          <p>One warning that saves an afternoon: <strong>covering the manifest is not enough.</strong> The player fetches the manifest, then requests every segment as a separate cross-origin request. If only the manifest carries the header, playback starts and dies two or three seconds in — which reads as a buffering bug, not a CORS bug. Apply the rule to <code>.m3u8</code>, <code>.ts</code>, <code>.m4s</code>, and <code>.mp4</code> alike.</p>
 
           <h2>Frequently asked questions</h2>
 
