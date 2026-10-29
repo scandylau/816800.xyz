@@ -1,5 +1,95 @@
+# robots.txt for 816800.xyz
+#
+# Policy (authoritative — mirrors /robots-ai.txt and /ai.txt):
+#   Search indexing ......... allowed
+#   AI retrieval & citation .. allowed (answers may quote this site with attribution)
+#   AI training / fine-tuning  not allowed
+#
+# NOTE: Cloudflare's "Block AI bots" managed robots.txt used to be injected
+# ahead of this file and denied every listed crawler — including search bots
+# such as Baiduspider — which contradicted /robots-ai.txt. That toggle must
+# stay OFF, otherwise this file is silently overridden at the edge.
+
+# ---------------------------------------------------------------- search
 User-agent: *
 Allow: /
 Disallow: /short-link/go.html
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ------------------------------------------------- AI retrieval (allowed)
+# These fetch pages in order to answer a question and cite the source.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: Claude-User
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: YouBot
+Allow: /
+Disallow: /short-link/go.html
+
+User-agent: Applebot
+Allow: /
+Disallow: /short-link/go.html
+
+# ------------------------------------------------ AI training (disallowed)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+# Content signals (Cloudflare / IETF aipref draft)
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 Sitemap: https://816800.xyz/sitemap.xml
